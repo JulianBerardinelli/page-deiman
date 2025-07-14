@@ -264,13 +264,19 @@ export interface Faqs extends Omit<Headline, 'classes'>, Widget {
 export interface Steps extends Omit<Headline, 'classes'>, Widget {
   items?: Array<Item>;
   callToAction?: string | CallToAction;
-  image?: string | Image;
+  image?: string | Image | ImageMetadata;
   isReversed?: boolean;
 }
 
+export type MediaType = {
+  video?: string; // Si es un video, será la URL del archivo .mp4
+  src?: string; // Si es una imagen, será la URL del archivo
+  alt?: string; // Descripción de la imagen
+};
+
 export interface Content extends Omit<Headline, 'classes'>, Widget {
   content?: string;
-  image?: string | unknown;
+  media?: MediaType;
   items?: Array<Item>;
   columns?: number;
   isReversed?: boolean;

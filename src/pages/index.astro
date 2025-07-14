@@ -1,137 +1,165 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 
-import Hero from '~/components/widgets/Hero.astro';
-import Note from '~/components/widgets/Note.astro';
-import Features from '~/components/widgets/Features.astro';
-import Features2 from '~/components/widgets/Features2.astro';
-import Steps from '~/components/widgets/Steps.astro';
+import Header from '~/components/widgets/Header.astro';
 import Content from '~/components/widgets/Content.astro';
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
-import FAQs from '~/components/widgets/FAQs.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import escenciasImage from '../assets/images/escencias.png';
+
+import { headerData } from '~/navigation';
+import Features2 from '~/components/widgets/Features2.astro';
+import ContentCarousel from '~/components/ui/ContentCarouselIndex.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import FlavorFeature from '~/components/widgets/FlavorFeature.astro';
 
 const metadata = {
-  title: 'AstroWind — Free template for creating websites with Astro + Tailwind CSS',
-  ignoreTitleTemplate: true,
+  title: 'Inicio - DEIMAN',
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Widget ******************* -->
+  <Fragment slot="header">
+    <Header
+      {...headerData}
+      actions={[
+        {
+          variant: 'primary',
+          text: 'Contacto',
+          href: '/contact',
+        },
+      ]}
+      isSticky
+    />
+  </Fragment>
 
-  <Hero
+  <!-- Hero2 Widget ******************* -->
+
+  <ContentCarousel />
+
+  <!-- <Hero2
+    tagline="La más rica a toda hora 🎶"
     actions={[
-      {
-        variant: 'primary',
-        text: 'Get template',
-        href: 'https://github.com/onwidget/astrowind',
-        target: '_blank',
-        icon: 'tabler:download',
-      },
-      { text: 'Learn more', href: '#features' },
+      { variant: 'primary', target: '_blank', text: 'Contacto', href: '/contact' },
+      { text: 'Conocenos!', href: '/about' },
     ]}
-    image={{ src: '~/assets/images/hero-image.png', alt: 'AstroWind Hero Image' }}
+    image={{
+      src: Item1,
+      alt: 'AstroWind Hero Image',
+    }}
   >
+    <div class="relative">
+      
+      <img
+        class="absolute top-0 left-1/2 transform -translate-x-1/2 w-48 drop-shadow-lg animate-float"
+        src={nenaPng.src}
+        alt="Chica sobrepuesta"
+      />
+    </div>
+
     <Fragment slot="title">
-      Free template for <span class="hidden xl:inline">creating websites with</span>
-      <span class="text-accent dark:text-white"> Astro 5.0</span> + Tailwind CSS
+      Bienvenidos al Nuevo sitio web oficial de <br />
+      <span class="text-accent dark:text-white highlight inline-flex items-center">
+        Galletitas
+        <img class="w-40 ml-2" src={celosasLogo.src} alt="logo Galletitas Celosas" />
+      </span>
     </Fragment>
 
     <Fragment slot="subtitle">
-      <span class="hidden sm:inline">
-        <span class="font-semibold">AstroWind</span> is a free, customizable and production-ready template for Astro 5.0
-        + Tailwind CSS.</span
-      >
-      <span class="block mb-1 sm:hidden font-bold text-blue-600">AstroWind: Production-ready.</span>
-      Suitable for Startups, Small Business, SaaS websites, Professional Portfolios, Marketing websites, Landing Pages &
-      Blogs.
+      <span class="hidden sm:inline"> Por <span class="font-semibold">Montenievas SRL</span></span>
     </Fragment>
-  </Hero>
+  </Hero2> -->
 
-  <!-- Note Widget ******************* -->
+  <!-- sabores wid  **************** -->
+  <FlavorFeature
+  id="familias"
+  tagline="Descubrí nuestras"
+  title="Líneas de Sabores"
+  subtitle="Creamos Sabores Únicos para todo tipo de productos alimenticios, desarrollados con ingredientes naturales seleccionados, un riguroso proceso de control de calidad y el respaldo de tecnología avanzada en formulación."
+  items={[
+    {
+      title: 'DULCES',
+      image: '/images/sabores/dulces.png',
+      href: '/sabores/dulces',
+    },
+    {
+      title: 'SALADOS',
+      image: '/images/sabores/salados.png',
+      href: '/sabores/salados',
+    },
+    {
+      title: 'PANIFICADOS',
+      image: '/images/sabores/panificados.png',
+      href: '/sabores/panificados',
+    },
+    {
+      title: 'CÍTRICAS',
+      image: '/images/sabores/citricos.png',
+      href: '/sabores/citricas',
+    },
+  ]}
+/>
 
-  <Note title="Philosophy:" description="Simplicity, Best Practices and High Performance" />
 
-  <!-- Features Widget *************** -->
-
-  <Features
-    id="features"
-    tagline="Features"
-    title="What you get with AstroWind"
-    subtitle="One of the most professional and comprehensive templates currently on the market. Most starred & forked Astro theme in 2022, 2023 and 2024."
+  <!-- Steps Widget **************** -->
+  <Steps
+    title="¿Cómo trabajamos en DEIMAN?"
     items={[
       {
-        title: 'Astro + Tailwind CSS Integration',
-        description:
-          'A seamless integration between two great frameworks that offer high productivity, performance and versatility.',
-        icon: 'tabler:brand-tailwind',
+        title: 'Paso 1: <span class="font-medium">Escuchamos tu necesidad</span>',
+        description: 'Comenzamos con una conversación para comprender el perfil de tu producto...',
+        icon: 'lucide:ear',
       },
       {
-        title: 'Ready-to-use Components',
-        description:
-          'Widgets made with Tailwind CSS ready to be used in Marketing Websites, SaaS, Blogs, Personal Profiles, Small Business...',
-        icon: 'tabler:components',
+        title: 'Paso 2: <span class="font-medium">Diseño del sabor ideal</span>',
+        description: 'A partir del análisis inicial, proponemos soluciones creativas...',
+        icon: 'lucide:flask-conical',
       },
       {
-        title: 'Best Practices',
-        description:
-          'Creating secure, efficient, and user-friendly websites that deliver exceptional experiences and lasting value.',
-        icon: 'tabler:list-check',
+        title: 'Paso 3: <span class="font-medium">Envío de muestras</span>',
+        description: 'Te enviamos muestras personalizadas para que puedas evaluar...',
+        icon: 'lucide:package',
       },
       {
-        title: 'Excellent Page Speed',
-        description:
-          'Having a good page speed impacts organic search ranking, improves user experience (UI/UX) and increase conversion rates.',
-        icon: 'tabler:rocket',
-      },
-      {
-        title: 'Search Engine Optimization (SEO)',
-        description:
-          "SEO lies in its ability to enhance a website's visibility, driving organic traffic and enabling it to reach a wider audience.",
-        icon: 'tabler:arrows-right-left',
-      },
-      {
-        title: 'Open to new ideas and contributions',
-        description:
-          'Embracing a culture that is open to new ideas and contributions is integral fostering innovation, collaboration, and a dynamic user experience.',
-        icon: 'tabler:bulb',
+        title: 'Paso 4: <span class="font-medium">Producción y acompañamiento</span>',
+        description: 'Una vez aprobado el desarrollo, iniciamos la producción...',
+        icon: 'lucide:factory',
       },
     ]}
+      image={{
+        src: escenciasImage,
+        alt: 'Imagen ilustrativa de esencia de la fábrica' // <- obligatorio
+      }}
+    
   />
 
-  <!-- Content Widget **************** -->
 
+
+
+  <!-- Features Widget **************** -->
   <Content
+    title="Innovación y tradición en cada Galletita"
+    subtitle="​En Celosas combinamos calidad, innovación y pasión por el sabor. Desde la selección de ingredientes hasta el empaquetado, cada galletita pasa por estrictos controles para garantizar frescura y excelencia. Descubrí el proceso que asegura la mejor experiencia en cada bocado."
     isReversed
-    tagline="Inside template"
-    title="AstroWind's Blueprint: Fun Meets Functionality!"
     items={[
       {
-        title: 'Built on top of Astro 5.0',
+        title: 'Compromiso con la excelencia',
         description:
-          'Benefiting from the performance and developer-friendly features of this modern static site generator.',
+          'Cada detalle de nuestra producción está pensado para garantizar un producto de calidad superior. La combinación de tecnología de vanguardia con procesos perfeccionados a lo largo del tiempo nos permite ofrecer galletitas con el sabor y la textura que nos caracteriza.',
       },
       {
-        title: 'Styled using Tailwind CSS',
-        description:
-          'Facilitating rapid design and consistent styling with this highly popular utility-first CSS framework.',
-      },
-      {
-        title: 'Cross-browser compatibility',
-        description:
-          'Ensure your website looks and functions consistently across various web browsers, delivering a seamless experience to all users.',
+        title: 'La precisión como estándar',
+        description: `Nuestro proceso de elaboración es el resultado de una sinergia perfecta entre innovación y cuidado artesanal. <br /> Desde la selección de ingredientes hasta el control de cada etapa, nos aseguramos de mantener un equilibrio ideal entre tradición y modernidad. <br /> Un producto pensado para los paladares más exigentes.`,
       },
     ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Colorful Image',
+    media={{
+      video: '/videos/video1.mp4',
+      alt: 'video Produccion 1',
     }}
   >
     <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Building on modern foundations</h3>
-      Gain a competitive advantage by incorporating industry leading practices
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        Un estándar de calidad <br /><span class="text-2xl">que se refleja en cada paso</span>
+      </h3>
     </Fragment>
 
     <Fragment slot="bg">
@@ -142,34 +170,27 @@ const metadata = {
   <!-- Content Widget **************** -->
 
   <Content
-    isAfterContent
+    isAfterContent={true}
     items={[
       {
-        title: 'High level of customization',
-        description: `Tailor the template effortlessly to match your brand's identity and requirements, making your website distinct and saving you time.`,
+        title: 'Ingredientes seleccionados',
+        description: `Elaboramos nuestras galletitas con materias primas de la más alta calidad, asegurando un equilibrio perfecto de sabor y textura. <br /> Cada etapa de la producción es supervisada para garantizar la consistencia que nos distingue.`,
       },
       {
-        title: 'Multiple layout possibilities',
-        description:
-          'Explore various layout options to find the structure that best presents your content, enhancing user engagement and navigation.',
-      },
-      {
-        title: 'Fully responsive design',
-        description:
-          "Ensure your website's optimal performance on various devices and screen sizes, providing a consistent and enjoyable user experience.",
-      },
-      {
-        title: 'Integration of media',
-        description:
-          'Seamlessly incorporate images, videos, and multimedia elements that enhance your content and engage visitors effectively.',
+        title: 'Tecnología y pasión',
+        description: `Nuestra planta de producción combina maquinaria avanzada con el toque distintivo que nos hace únicos. <br /> Un proceso donde cada detalle está optimizado para brindarte un producto irresistible, con la garantía de calidad Celosas.`,
       },
     ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2194&q=80',
-      alt: 'Blueprint Image',
+    media={{
+      video: '/videos/video2.mp4',
+      alt: 'Video Producción 2',
     }}
   >
-    <Fragment slot="content">Ensure your online presence truly represents you.</Fragment>
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        La calidad se ve <br /><span class="text-2xl">y se disfruta en cada bocado</span>
+      </h3>
+    </Fragment>
 
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
@@ -180,220 +201,85 @@ const metadata = {
 
   <Content
     isReversed
-    isAfterContent
+    isAfterContent={true}
     items={[
       {
-        title: 'Enhanced user engagement',
-        description:
-          'Captivate your audience with interactive elements, intuitive navigation, and visually appealing layouts, encouraging longer visits.',
+        title: 'Garantía de frescura',
+        description: `Nuestro sistema de envasado está diseñado para conservar la textura y el sabor inigualable de nuestras galletitas. <br /> Un proceso automatizado que asegura la higiene y la integridad de cada producto hasta llegar a vos.`,
       },
       {
-        title: 'Continuous improvement',
-        description:
-          'Ensure your website stays aligned with the latest trends and technologies through regular updates and enhancements.',
-      },
-      {
-        title: 'Time and resource efficiency',
-        description:
-          'Skip the time-consuming process of building a website from scratch and launch your online presence sooner with AstroWind.',
-      },
-      {
-        title: 'Community support',
-        description: `Join the growing AstroWind community for insights, resources, and assistance, ensuring you're never alone on your web development journey.`,
+        title: 'Compromiso con la confianza',
+        description: `Cada paquete de Celosas es el reflejo de nuestro compromiso con la calidad y la seguridad. <br /> Supervisamos cada lote con estrictos controles para que disfrutes de un producto confiable, con la frescura y el sabor que nos caracterizan.`,
       },
     ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1611462985358-60d3498e0364?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Astronauts Image',
+    media={{
+      video: '/videos/video3.mov',
+      alt: 'video producción 3',
     }}
   >
-    <Fragment slot="content">Designed to foster growth and success.</Fragment>
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        Calidad y confianza <br /><span class="text-2xl">en cada paquete</span>
+      </h3>
+    </Fragment>
 
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
-  <!-- Steps Widget ****************** -->
+  <section class="py-10 px-4 max-w-6xl mx-auto text-center">
+    <h2 class="text-3xl font-bold mb-2">¿Dónde estamos?</h2>
+    <p class="text-lg mb-6 text-gray-600">Guatambú 1364, Parque Industrial de Burzaco, Buenos Aires - Argentina</p>
 
-  <Steps
-    title="Get your dream website up and running in no time with AstroWind."
-    items={[
-      {
-        title: 'Step 1: <span class="font-medium">Download</span>',
-        description:
-          "Kickstart with GitHub! Either fork the AstroWind template or simply click 'Use this template'. Your canvas awaits, ready for your digital masterpiece. In just a few clicks, you've already set the foundation.",
-        icon: 'tabler:package',
-      },
-      {
-        title: 'Step 2: <span class="font-medium">Add content</span>',
-        description:
-          "Pour your vision into it. Add images, text, and all that jazz to breathe life into your digital space. Remember, it's the content that tells your story, so make it captivating.",
-        icon: 'tabler:letter-case',
-      },
-      {
-        title: 'Step 3: <span class="font-medium">Customize styles</span>',
-        description:
-          'Give it your personal touch. Tailor colors, fonts, and layouts until it feels just right. Your unique flair, amplified by AstroWind! Precision in design ensures a seamless user experience.',
-        icon: 'tabler:paint',
-      },
-      {
-        title: 'Ready!',
-        icon: 'tabler:check',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1616198814651-e71f960c3180?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
-      alt: 'Steps image',
-    }}
-  />
-
-  <!-- Features2 Widget ************** -->
+    <div class="w-full h-[400px] rounded-xl overflow-hidden shadow-lg border">
+      <iframe
+        title="Ubicación en Google Maps"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        style={{ border: 0 }}
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13116.233183995716!2d-58.383746599999996!3d-34.82089605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc45c8b6b4e4d%3A0x8f4c82b42327b661!2sGuatamb%C3%BA%201364%2C%20Burzaco%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1711202058907!5m2!1ses!2sar"
+      ></iframe>
+    </div>
+  </section>
 
   <Features2
-    title="Most used widgets"
-    subtitle="Provides frequently used components for building websites using Tailwind CSS"
-    tagline="Components"
+    title="¡Estamos para ayudarte!"
     items={[
       {
-        title: 'Headers',
-        description: "Ever tried driving without GPS? Boom! That's why websites need headers for direction.",
-        icon: 'flat-color-icons:template',
-      },
-      {
-        title: 'Heros',
+        title: 'Atención general',
         description:
-          "Picture a superhero landing – epic, right? That's the job of a Hero section, making grand entrances!",
-        icon: 'flat-color-icons:gallery',
+          'Consultanos sobre gestión de cuentas, navegación del sitio, problemas de pago, acceso a productos o cualquier otra duda general sobre nuestro servicio.',
       },
       {
-        title: 'Features',
+        title: 'Consultas de ventas',
         description:
-          'Where websites strut their stuff and show off superpowers. No holding back on the bragging rights here!',
-        icon: 'flat-color-icons:approval',
+          'Estamos disponibles para consultas sobre compras, opciones de personalización, licencias comerciales o cualquier pregunta relacionada con nuestros productos.',
       },
       {
-        title: 'Content',
+        title: 'Soporte técnico',
         description:
-          "Dive into the meat and potatoes of a site; without it, you'd just be window shopping. Content is king.",
-        icon: 'flat-color-icons:document',
+          'Si tenés problemas con la instalación de plantillas, edición, compatibilidad o descargas, nuestro equipo técnico está listo para ayudarte.',
       },
       {
-        title: 'Call-to-Action',
-        description:
-          'That enthusiastic friend who\'s always urging, "Do it! Do it!"? Yeah, that\'s this button nudging you towards adventure.',
-        icon: 'flat-color-icons:advertising',
+        title: 'Teléfono',
+        description: '+54 (11) 1234-5678',
+        icon: 'tabler:headset',
       },
       {
-        title: 'Pricing',
-        description: 'Behold the dessert menu of the website world. Tempting choices await, can you resist?',
-        icon: 'flat-color-icons:currency-exchange',
+        title: 'Correo electrónico',
+        description: 'info@montenievas.com',
+        icon: 'tabler:mail',
       },
       {
-        title: 'Testimonial',
-        description: 'Step into the gossip corner! Here, other visitors spill the beans and share the juicy details.',
-        icon: 'flat-color-icons:voice-presentation',
-      },
-      {
-        title: 'Contact',
-        description:
-          'Like a digital mailbox, but faster! Drop a line, ask a question, or send a virtual high-five. Ding! Message in.',
-        icon: 'flat-color-icons:business-contact',
-      },
-      {
-        title: 'Footers',
-        description: "The footer's like the credits of a movie but sprinkled with easter eggs. Time to hunt!",
-        icon: 'flat-color-icons:database',
-      },
-    ]}
-  >
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Features2>
-
-  <!-- HighlightedPosts Widget ******* -->
-
-  <BlogLatestPosts
-    title="Find out more content in our Blog"
-    information={`The blog is used to display AstroWind documentation.
-                        Each new article will be an important step that you will need to know to be an expert in creating a website using Astro + Tailwind CSS.
-                        Astro is a very interesting technology. Thanks.
-                `}
-  />
-
-  <!-- FAQs Widget ******************* -->
-
-  <FAQs
-    title="Frequently Asked Questions"
-    subtitle="Dive into the following questions to gain insights into the powerful features that AstroWind offers and how it can elevate your web development journey."
-    tagline="FAQs"
-    classes={{ container: 'max-w-6xl' }}
-    items={[
-      {
-        title: 'Why AstroWind?',
-        description:
-          "Michael Knight a young loner on a crusade to champion the cause of the innocent. The helpless. The powerless in a world of criminals who operate above the law. Here he comes Here comes Speed Racer. He's a demon on wheels.",
-      },
-      {
-        title: 'What do I need to start?',
-        description:
-          'Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds. Many say exploration is part of our destiny, but it’s actually our duty to future generations.',
-      },
-      {
-        title: 'How to install the Astro + Tailwind CSS template?',
-        description:
-          "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows.",
-      },
-      {
-        title: "What's something that you don't understand?",
-        description:
-          "A flower in my garden, a mystery in my panties. Heart attack never stopped old Big Bear. I didn't even know we were calling him Big Bear.",
-      },
-      {
-        title: 'What is something that you would like to try again?',
-        description:
-          "A business big enough that it could be listed on the NASDAQ goes belly up. Disappears! It ceases to exist without me. No, you clearly don't know who you're talking to, so let me clue you in.",
-      },
-      {
-        title: 'If you could only ask one question to each person you meet, what would that question be?',
-        description:
-          "This is not about revenge. This is about justice. A lot of things can change in twelve years, Admiral. Well, that's certainly good to know. About four years. I got tired of hearing how young I looked.",
+        title: 'Ubicación',
+        description: 'Buenos Aires, Argentina',
+        icon: 'tabler:map-pin',
       },
     ]}
   />
-
-  <!-- Stats Widget ****************** -->
-
-  <Stats
-    stats={[
-      { title: 'Downloads', amount: '132K' },
-      { title: 'Stars', amount: '24.8K' },
-      { title: 'Forks', amount: '10.3K' },
-      { title: 'Users', amount: '48.4K' },
-    ]}
-  />
-
-  <!-- CallToAction Widget *********** -->
-
-  <CallToAction
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Get template',
-        href: 'https://github.com/onwidget/astrowind',
-        target: '_blank',
-        icon: 'tabler:download',
-      },
-    ]}
-  >
-    <Fragment slot="title">
-      Astro&nbsp;+&nbsp;<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">Tailwind CSS</span>
-    </Fragment>
-
-    <Fragment slot="subtitle">
-      Be very surprised by these huge fake numbers you are seeing on this page. <br class="hidden md:inline" />Don't
-      waste more time! :P
-    </Fragment>
-  </CallToAction>
 </Layout>

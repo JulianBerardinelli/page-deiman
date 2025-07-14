@@ -1,6 +1,6 @@
 site:
-  name: AstroWind
-  site: 'https://astrowind.vercel.app'
+  name: Deiman
+  site: 'https://deiman.com.ar'
   base: '/'
   trailingSlash: false
 
@@ -9,26 +9,26 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: AstroWind
-    template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+    default: Deiman
+    template: '%s — DEIMAN'
+  description: "Fábrica argentina de sabores para la industria alimentaria. Calidad, innovación y compromiso con cada producto."
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: AstroWind
+    site_name: Deiman
     images:
-      - url: '~/assets/images/default.png'
+      - url: '~/assets/images/deiman-og.png'
         width: 1200
         height: 628
     type: website
   twitter:
-    handle: '@onwidget'
-    site: '@onwidget'
+    handle: '@deimanarg'
+    site: '@deimanarg'
     cardType: summary_large_image
 
 i18n:
-  language: en
+  language: es
   textDirection: ltr
 
 apps:

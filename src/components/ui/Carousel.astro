@@ -1,0 +1,161 @@
+---
+// Carousel.astro
+---
+<style is:inline>
+  .carousel-container {
+    position: relative;
+    overflow: hidden;
+    height: 65vh;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .carousel-slide {
+    min-width: 100%;
+    height: 65vh;
+    position: relative;
+  }
+
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: black;
+    border-radius: 9999px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-arrow:hover {
+    background-color: white;
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  .carousel-arrow-left {
+    left: 1rem;
+  }
+
+  .carousel-arrow-right {
+    right: 1rem;
+  }
+
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+
+  .carousel-dot {
+    width: 1.5rem;
+    height: 0.25rem;
+    border-radius: 9999px;
+    background-color: #ccc;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+  }
+
+  .carousel-dot:hover {
+    transform: scale(1.1);
+  }
+
+  .carousel-dot.active {
+    background-color: #0081bc;
+  }
+</style>
+
+<div class="carousel-container" id="carousel-container">
+  <div class="carousel-track" id="carousel-track">
+    <slot />
+  </div>
+
+  <button id="prevBtn" class="carousel-arrow carousel-arrow-left">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="lucide lucide-chevron-left-icon lucide-chevron-left">
+      <path d="m15 18-6-6 6-6"/>
+    </svg>
+  </button>
+
+  <button id="nextBtn" class="carousel-arrow carousel-arrow-right">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="lucide lucide-chevron-right-icon lucide-chevron-right">
+      <path d="m9 18 6-6-6-6"/>
+    </svg>
+  </button>
+
+  <div id="carousel-indicators" class="carousel-indicators"></div>
+</div>
+
+<script is:client>
+  let index = 0;
+  let paused = false;
+
+  const track = document.getElementById("carousel-track");
+  const slides = track?.querySelectorAll(".carousel-slide") || [];
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const container = document.getElementById("carousel-container");
+  const indicatorsContainer = document.getElementById("carousel-indicators");
+  const dots = [];
+
+  function showSlide(i) {
+    if (track) track.style.transform = `translateX(-${i * 100}%)`;
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle("active", idx === i);
+    });
+  }
+
+  function nextSlide() {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+  }
+
+  if (container) {
+    container.addEventListener("mouseenter", () => (paused = true));
+    container.addEventListener("mouseleave", () => (paused = false));
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", nextSlide);
+  }
+
+  // Crear indicadores (dots)
+  slides.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.className = "carousel-dot";
+    dot.addEventListener("click", () => {
+      index = i;
+      showSlide(index);
+    });
+    indicatorsContainer.appendChild(dot);
+    dots.push(dot);
+  });
+
+  showSlide(index);
+
+  setInterval(() => {
+    if (!paused) nextSlide();
+  }, 5000);
+</script>

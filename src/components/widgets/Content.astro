@@ -1,10 +1,10 @@
 ---
-import type { Content as Props } from '~/types';
-import Headline from '~/components/ui/Headline.astro';
-import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import type { Content as Props, MediaType } from '~/types';
+import Headline from '../ui/Headline.astro';
+import WidgetWrapper from '../ui/WidgetWrapper.astro';
 import Image from '~/components/common/Image.astro';
 import Button from '~/components/ui/Button.astro';
-import ItemGrid from '~/components/ui/ItemGrid.astro';
+import ItemGrid from '../ui/ItemGrid.astro';
 
 const {
   title = await Astro.slots.render('title'),
@@ -14,8 +14,8 @@ const {
   callToAction,
   items = [],
   columns,
-  image = await Astro.slots.render('image'),
-  isReversed = false,
+  media = {} as MediaType,
+  isReversed = false, 
   isAfterContent = false,
 
   id,
@@ -70,10 +70,13 @@ const {
       </div>
       <div aria-hidden="true" class="mt-10 md:mt-0 md:basis-1/2">
         {
-          image && (
+          media && (
             <div class="relative m-auto max-w-4xl">
-              {typeof image === 'string' ? (
-                <Fragment set:html={image} />
+              {'video' in media ? ( // ✅ Detecta si `media` tiene un video
+                <video class="mx-auto w-full rounded-lg shadow-lg" autoplay loop muted playsinline>
+                  <source src={media.video} type="video/mp4" />
+                  Tu navegador no soporta el formato de video.
+                </video>
               ) : (
                 <Image
                   class="mx-auto w-full rounded-lg bg-gray-500 shadow-lg"
@@ -82,7 +85,7 @@ const {
                   widths={[400, 768]}
                   sizes="(max-width: 768px) 100vw, 432px"
                   layout="responsive"
-                  {...image}
+                  {...media}
                 />
               )}
             </div>
