@@ -25,6 +25,10 @@ export const headerData = {
           text: 'Citricos',
           href: getPermalink('/sabores/citricos'),
         },
+        {
+          text: 'Laboratorio',
+          href: getPermalink('/'),
+        },
       ],
     },
     {
