@@ -8,7 +8,7 @@ import escenciasImage from '../assets/images/escencias.png';
 
 import { headerData } from '~/navigation';
 import Features2 from '~/components/widgets/Features2.astro';
-import ContentCarousel from '~/components/widgets/carousels/ContentCarouselFlavor.astro';
+import ContentCarousel from '~/components/widgets/carousels/ContentCarouselDulces.astro';
 import Steps from '~/components/widgets/Steps.astro';
 import FlavorFeature from '~/components/widgets/FlavorFeature.astro';
 
@@ -38,37 +38,26 @@ const metadata = {
   <FlavorFeature
   id="sabores"
   items={[
-      {
-        title: 'DULCES',
-        image: '/images/sabores/dulces.png',
-        href: '/sabores/dulces',
-        buttonText: 'Ver sabores',
-      },
-      {
-        title: 'SALADOS',
-        image: '/images/sabores/salados.png',
-        href: '/sabores/salados',
-        buttonText: 'Ver sabores',
-      },
-      {
-        title: 'PANIFICADOS',
-        image: '/images/sabores/panificados.png',
-        href: '/sabores/panificados',
-        buttonText: 'Ver sabores',
-      },
-      {
-        title: 'CÍTRICAS',
-        image: '/images/sabores/citricos.png',
-        href: '/sabores/citricas',
-        buttonText: 'Ver sabores',
-      },
-      {
-        title: 'LABORATORIO',
-        image: '/images/sabores/laboratory.png',
-        href: '/laboratorio',
-        buttonText: 'Descubrí nuestros desarrollos',
-        description: 'Desarrollamos sabores y notas personalizadas, adaptándonos a las necesidades de cada cliente.',
-      },
+    {
+      title: 'DULCES',
+      image: '/images/sabores/dulces.png',
+      href: '/sabores/dulces',
+    },
+    {
+      title: 'SALADOS',
+      image: '/images/sabores/salados.png',
+      href: '/sabores/salados',
+    },
+    {
+      title: 'PANIFICADOS',
+      image: '/images/sabores/panificados.png',
+      href: '/sabores/panificados',
+    },
+    {
+      title: 'CÍTRICAS',
+      image: '/images/sabores/citricos.png',
+      href: '/sabores/citricas',
+    },
   ]}
 />
 

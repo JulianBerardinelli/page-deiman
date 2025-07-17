@@ -22,12 +22,22 @@ export default {
 
       animation: {
         fade: 'fadeInUp 1s both',
+        rainbow: 'rainbow 5s linear infinite',
       },
 
       keyframes: {
         fadeInUp: {
           '0%': { opacity: 0, transform: 'translateY(2rem)' },
           '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
+        rainbow: {
+          '0%': { color: '#ff0000' },
+          '16%': { color: '#ff9900' },
+          '32%': { color: '#ffff00' },
+          '48%': { color: '#00ff00' },
+          '64%': { color: '#00ffff' },
+          '80%': { color: '#0000ff' },
+          '100%': { color: '#ff00ff' },
         },
       },
     },

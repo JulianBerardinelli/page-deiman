@@ -40,5 +40,19 @@
       color: #000000;
     }
   }
+
+  
+  @keyframes gradientText {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .animate-gradient-text {
+    background: linear-gradient(270deg, #ff0080, #7928ca, #2afadf);
+    background-size: 600% 600%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientText 6s ease infinite;
+  }
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">

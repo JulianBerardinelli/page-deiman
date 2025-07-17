@@ -1,0 +1,47 @@
+---
+// ContentCarousel.astro
+import Carousel from '../../ui/Carousel.astro';
+import Button from '../../ui/Button.astro';
+import DeimanWhite from '../../Icons/DeimanWhite.astro';
+---
+
+<Carousel>
+
+    <div class="carousel-slide relative">
+        <img
+          src="/images/carousel/car-dulces-1.png"
+          alt="Calidad y confianza en sabores Deiman"
+          class="absolute inset-0 w-full h-full object-cover -z-10"
+        />
+    
+        <div class="absolute inset-0 flex items-center justify-start text-white px-10 md:px-20">
+          <div class="max-w-md text-left" style="text-shadow: 1px 1px 1px rgba(0,0,0,0.2);">
+            <h2 class="text-4xl md:text-5xl font-pastel mb-4 drop-shadow-lg">
+                ¡Conocé nuestros sabores <span class="text-cyan-200 drop-shadow-md italic">dulces</span>!
+              </h2>  
+            <hr class="my-4 border-t border-white/30" />
+                 <p class="text-lg md:text-xl">
+                Nuestra línea dulce incluye <span class="text-cyan-200 font-semibold">vainillas intensas y cremosas</span>, <span class="text-cyan-200 font-semibold">chocolates profundos</span> y perfiles como <span class="text-cyan-200 font-semibold">marroc, frutos rojos y caramelo</span>, ideales para aplicaciones en repostería, lácteos y panificados.  
+                </p>
+          </div>
+        </div>
+      </div>
+
+  <div class="carousel-slide relative">
+    <img src="/images/carousel/car-2.jpg" alt="Sabores de repostería" class="absolute inset-0 w-full h-full object-cover -z-10" />
+
+    <div class="absolute inset-0 flex items-center justify-end text-white px-10 md:px-20">
+      <div class="max-w-md text-right text-shadow: 1px 1px 1px rgba(0,0,0,0.2);">
+        <h2 class="text-4xl md:text-5xl font-pastel mb-4 drop-shadow-lg">
+            Sabores <span class="text-pink-400 drop-shadow-md italic">dulces</span> para deleitar tu paladar
+        </h2>        
+        <p class="text-lg md:text-xl mb-6 drop-shadow">
+            Formulamos cada sabor con <span class="font-semibold text-white">ingredientes naturales seleccionados</span> y tecnología de precisión, garantizando <span class="text-pink-400">consistencia, estabilidad térmica y autenticidad sensorial</span> en el producto final.
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+
+</Carousel>

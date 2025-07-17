@@ -11,19 +11,19 @@ export const headerData = {
         },
         {
           text: 'Dulces',
-          href: getPermalink('/products/tradicionales'),
+          href: getPermalink('/sabores/dulces'),
         },
         {
           text: 'Salados',
-          href: getPermalink('/products/polvorones'),
+          href: getPermalink('/sabores/salados'),
         },
         {
           text: 'Panificados',
-          href: getPermalink('/products/corazoncitos'),
+          href: getPermalink('/sabores/panificados'),
         },
         {
           text: 'Citricos',
-          href: getPermalink('/products/corazoncitos'),
+          href: getPermalink('/sabores/citricos'),
         },
       ],
     },

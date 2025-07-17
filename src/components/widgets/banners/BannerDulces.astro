@@ -1,11 +1,9 @@
 ---
-// ContentCarouselIndex.astro
-import Carousel from './Carousel.astro';
-import Button from './Button.astro';
-import DeimanWhite from '../Icons/DeimanWhite.astro';
+import Button from "~/components/ui/Button.astro";
+
+
 ---
 
-<Carousel>
   <!-- Slide 1: Imagen de fondo con texto -->
   <div class="carousel-slide relative">
     <img src="/images/carousel/car-1.jpg" alt="Bienvenidos a Deiman" class="absolute inset-0 w-full h-full object-cover -z-10" />
@@ -15,7 +13,6 @@ import DeimanWhite from '../Icons/DeimanWhite.astro';
         <!-- Título alineado con logo -->
         <div class="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4">
           <h2 class="text-3xl font-bold">BIENVENIDOS A</h2>
-          <DeimanWhite class="w-32 h-auto sm:w-40" />
         </div>
         <p class="text-lg mt-2 sm:mt-4">Sabores y fragancias para transformar tus ideas.</p>
       </div>
@@ -63,4 +60,3 @@ import DeimanWhite from '../Icons/DeimanWhite.astro';
       <p class="text-lg">Certificaciones internacionales y desarrollo sustentable.</p>
     </div>
   </div>
-</Carousel>

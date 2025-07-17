@@ -71,38 +71,48 @@ const metadata = {
 
   <!-- sabores wid  **************** -->
   <FlavorFeature
-  id="familias"
-  tagline="Descubrí nuestras"
-  title="Líneas de Sabores"
-  subtitle="Creamos Sabores Únicos para todo tipo de productos alimenticios, desarrollados con ingredientes naturales seleccionados, un riguroso proceso de control de calidad y el respaldo de tecnología avanzada en formulación."
-  items={[
-    {
-      title: 'DULCES',
-      image: '/images/sabores/dulces.png',
-      href: '/sabores/dulces',
-    },
-    {
-      title: 'SALADOS',
-      image: '/images/sabores/salados.png',
-      href: '/sabores/salados',
-    },
-    {
-      title: 'PANIFICADOS',
-      image: '/images/sabores/panificados.png',
-      href: '/sabores/panificados',
-    },
-    {
-      title: 'CÍTRICAS',
-      image: '/images/sabores/citricos.png',
-      href: '/sabores/citricas',
-    },
-  ]}
-/>
-
+    id="familias"
+    tagline="Descubrí nuestras"
+    title='Líneas de <span class="animate-gradient-text">Sabores</span>'
+    subtitle="Creamos Sabores Únicos para todo tipo de productos alimenticios, desarrollados con ingredientes naturales seleccionados, un riguroso proceso de control de calidad y el respaldo de tecnología avanzada en formulación."
+    items={[
+      {
+        title: 'DULCES',
+        image: '/images/sabores/dulces.png',
+        href: '/sabores/dulces',
+        buttonText: 'Ver sabores',
+      },
+      {
+        title: 'SALADOS',
+        image: '/images/sabores/salados.png',
+        href: '/sabores/salados',
+        buttonText: 'Ver sabores',
+      },
+      {
+        title: 'PANIFICADOS',
+        image: '/images/sabores/panificados.png',
+        href: '/sabores/panificados',
+        buttonText: 'Ver sabores',
+      },
+      {
+        title: 'CÍTRICAS',
+        image: '/images/sabores/citricos.png',
+        href: '/sabores/citricas',
+        buttonText: 'Ver sabores',
+      },
+      {
+        title: 'LABORATORIO',
+        image: '/images/sabores/laboratory.png',
+        href: '/laboratorio',
+        buttonText: 'Descubrí nuestros desarrollos',
+        description: 'Desarrollamos sabores y notas personalizadas, adaptándonos a las necesidades de cada cliente.',
+      },
+    ]}
+  />
 
   <!-- Steps Widget **************** -->
   <Steps
-    title="¿Cómo trabajamos en DEIMAN?"
+    title='¿Cómo trabajamos en <span class="text-primary">DEIMAN</span>?'
     items={[
       {
         title: 'Paso 1: <span class="font-medium">Escuchamos tu necesidad</span>',
@@ -111,54 +121,50 @@ const metadata = {
       },
       {
         title: 'Paso 2: <span class="font-medium">Diseño del sabor ideal</span>',
-        description: 'A partir del análisis inicial, proponemos soluciones creativas...',
+        description: 'A partir del primer acercamiento, ofrecemos nuestro amplio catálogo o desarrollamos de manera creativa tu idea de sabor.',
         icon: 'lucide:flask-conical',
       },
       {
         title: 'Paso 3: <span class="font-medium">Envío de muestras</span>',
-        description: 'Te enviamos muestras personalizadas para que puedas evaluar...',
+        description: 'Te enviamos muestras personalizadas para que las pruebes en tu producto. Si el resultado te convence, avanzamos. Si no, ajustamos en el laboratorio hasta lograr lo que buscás.',
         icon: 'lucide:package',
       },
       {
         title: 'Paso 4: <span class="font-medium">Producción y acompañamiento</span>',
-        description: 'Una vez aprobado el desarrollo, iniciamos la producción...',
+        description: 'Una vez aprobado el desarrollo, iniciamos la producción, acompañando y brindando seguimiento a todas las necesidades del cliente',
         icon: 'lucide:factory',
       },
     ]}
-      image={{
-        src: escenciasImage,
-        alt: 'Imagen ilustrativa de esencia de la fábrica' // <- obligatorio
-      }}
-    
+    image={{
+      src: escenciasImage,
+      alt: 'Imagen ilustrativa de esencia de la fábrica',
+    }}
   />
-
-
-
 
   <!-- Features Widget **************** -->
   <Content
-    title="Innovación y tradición en cada Galletita"
-    subtitle="​En Celosas combinamos calidad, innovación y pasión por el sabor. Desde la selección de ingredientes hasta el empaquetado, cada galletita pasa por estrictos controles para garantizar frescura y excelencia. Descubrí el proceso que asegura la mejor experiencia en cada bocado."
+    title='Sabores <span class="animate-gradient-text">diseñados a medida</span> <br> con precisión y creatividad'
+    subtitle='En <span class="font-bold">Deiman</span>, combinamos ciencia, experiencia y pasión para crear esencias y sabores que elevan cada producto alimenticio. Nuestra filosofía se basa en <span class="font-bold">escuchar, diseñar y acompañar</span> , garantizando soluciones únicas para cada necesidad industrial.'
     isReversed
     items={[
       {
-        title: 'Compromiso con la excelencia',
+        title: 'Desarrollo a la medida',
         description:
-          'Cada detalle de nuestra producción está pensado para garantizar un producto de calidad superior. La combinación de tecnología de vanguardia con procesos perfeccionados a lo largo del tiempo nos permite ofrecer galletitas con el sabor y la textura que nos caracteriza.',
+          'Creamos perfiles de sabor únicos, adaptados a las preferencias del consumidor final y al perfil técnico del producto. Acompañamos a nuestros clientes desde la idea inicial hasta la formulación final, con ensayos y muestras personalizadas.',
       },
       {
-        title: 'La precisión como estándar',
-        description: `Nuestro proceso de elaboración es el resultado de una sinergia perfecta entre innovación y cuidado artesanal. <br /> Desde la selección de ingredientes hasta el control de cada etapa, nos aseguramos de mantener un equilibrio ideal entre tradición y modernidad. <br /> Un producto pensado para los paladares más exigentes.`,
+        title: 'Tecnología aplicada con sentido',
+        description: `Trabajamos con tecnología de punta en formulación, sin dejar de lado el respeto por los ingredientes naturales. <br /> Cada desarrollo está respaldado por rigurosos procesos de análisis sensorial, estabilidad y compatibilidad para garantizar resultados excepcionales.`,
       },
     ]}
     media={{
-      video: '/videos/video1.mp4',
-      alt: 'video Produccion 1',
+      video: '/videos/desarrollo-sabor.mp4',
+      alt: 'Video desarrollo de sabor',
     }}
   >
     <Fragment slot="content">
       <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        Un estándar de calidad <br /><span class="text-2xl">que se refleja en cada paso</span>
+        Sabores funcionales, <br /><span class="text-2xl">con identidad propia</span>
       </h3>
     </Fragment>
 
@@ -173,22 +179,22 @@ const metadata = {
     isAfterContent={true}
     items={[
       {
-        title: 'Ingredientes seleccionados',
-        description: `Elaboramos nuestras galletitas con materias primas de la más alta calidad, asegurando un equilibrio perfecto de sabor y textura. <br /> Cada etapa de la producción es supervisada para garantizar la consistencia que nos distingue.`,
+        title: 'Ingredientes naturales seleccionados',
+        description: `Utilizamos materias primas de origen natural, cuidadosamente evaluadas para cumplir con los más altos estándares de pureza, seguridad y rendimiento sensorial. <br /> Todos nuestros sabores son elaborados bajo normas internacionales de calidad.`,
       },
       {
-        title: 'Tecnología y pasión',
-        description: `Nuestra planta de producción combina maquinaria avanzada con el toque distintivo que nos hace únicos. <br /> Un proceso donde cada detalle está optimizado para brindarte un producto irresistible, con la garantía de calidad Celosas.`,
+        title: 'Control de calidad y trazabilidad',
+        description: `Cada lote se somete a controles de calidad físico-químicos y microbiológicos, garantizando seguridad en cada etapa del proceso. <br /> Nuestra trazabilidad total permite asegurar transparencia y confianza en cada muestra que entregamos.`,
       },
     ]}
     media={{
-      video: '/videos/video2.mp4',
-      alt: 'Video Producción 2',
+      video: '/videos/ingredientes.mp4',
+      alt: 'Video ingredientes y seguridad',
     }}
   >
     <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        La calidad se ve <br /><span class="text-2xl">y se disfruta en cada bocado</span>
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2 mt-5">
+        Confianza en cada muestra <br /><span class="text-2xl">desde el origen hasta el resultado</span>
       </h3>
     </Fragment>
 
@@ -196,30 +202,28 @@ const metadata = {
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
   </Content>
-
-  <!-- Content Widget **************** -->
 
   <Content
     isReversed
     isAfterContent={true}
     items={[
       {
-        title: 'Garantía de frescura',
-        description: `Nuestro sistema de envasado está diseñado para conservar la textura y el sabor inigualable de nuestras galletitas. <br /> Un proceso automatizado que asegura la higiene y la integridad de cada producto hasta llegar a vos.`,
+        title: 'Procesos eficientes y flexibles',
+        description: `Nuestra planta de producción está pensada para escalar desarrollos personalizados, manteniendo la eficiencia sin comprometer la calidad. <br /> Nos adaptamos a requerimientos técnicos exigentes, tiempos de entrega ajustados y volúmenes variables.`,
       },
       {
-        title: 'Compromiso con la confianza',
-        description: `Cada paquete de Celosas es el reflejo de nuestro compromiso con la calidad y la seguridad. <br /> Supervisamos cada lote con estrictos controles para que disfrutes de un producto confiable, con la frescura y el sabor que nos caracterizan.`,
+        title: 'Compromiso con la sostenibilidad',
+        description: `Más allá del sabor, cuidamos el impacto ambiental. <br /> Utilizamos envases reciclables, minimizamos residuos en el proceso de producción y trabajamos con proveedores certificados. Un enfoque consciente que acompaña la calidad de nuestros productos.`,
       },
     ]}
     media={{
-      video: '/videos/video3.mov',
-      alt: 'video producción 3',
+      video: '/videos/produccion.mp4',
+      alt: 'Video planta de producción de sabores',
     }}
   >
     <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        Calidad y confianza <br /><span class="text-2xl">en cada paquete</span>
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2 mt-5">
+        Producción responsable <br /><span class="text-2xl">para un futuro con más sabor</span>
       </h3>
     </Fragment>
 
