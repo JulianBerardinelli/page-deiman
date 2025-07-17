@@ -47,11 +47,14 @@ export const headerData = {
 export const footerData = {
   links: [
     {
-      title: 'Productos',
+      title: 'Sabores',
       links: [
-        { text: 'Tradicionales', href: '/products/tradicionales' },
-        { text: 'Polvorones', href: '/products/polvorones' },
-        { text: 'Corazoncitos', href: '/products/corazoncitos' },
+        { text: 'Todos los sabores', href: '/sabores' },
+        { text: 'Dulces', href: '/sabores/dulces' },
+        { text: 'Salados', href: '/sabores/salados' },
+        { text: 'Panificados', href: '/sabores/panificados' },
+        { text: 'Cítricos', href: '/sabores/citricos' },
+        { text: 'Desarrallo Personalizado', href: '/' },
       ],
     },
     {
@@ -59,7 +62,7 @@ export const footerData = {
       links: [{ text: 'Contacto', href: '/contact' }],
     },
     {
-      title: 'Montenievas',
+      title: 'Deiman Argentina',
       links: [{ text: 'Sobre Nosotros', href: '/about' }],
     },
   ],
@@ -71,13 +74,7 @@ export const footerData = {
     {
       ariaLabel: 'Instagram',
       icon: 'tabler:brand-instagram',
-      href: 'https://www.instagram.com/celosasgalletitas/?hl=es',
-      target: '_blank',
-    },
-    {
-      ariaLabel: 'Facebook',
-      icon: 'tabler:brand-facebook',
-      href: 'https://www.facebook.com/CelosasGalletitas',
+      href: 'https://www.instagram.com/deiman.arg',
       target: '_blank',
     },
   ],

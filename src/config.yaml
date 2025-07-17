@@ -16,15 +16,15 @@ metadata:
     index: true
     follow: true
   openGraph:
-    site_name: Deiman
+    site_name: Deiman Argentina
     images:
       - url: '~/assets/images/deiman-og.png'
         width: 1200
         height: 628
     type: website
   twitter:
-    handle: '@deimanarg'
-    site: '@deimanarg'
+    handle: '@deiman.arg'
+    site: '@deiman.arg'
     cardType: summary_large_image
 
 i18n:
