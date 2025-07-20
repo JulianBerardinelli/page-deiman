@@ -27,7 +27,7 @@ export const headerData = {
         },
         {
           text: 'Laboratorio',
-          href: getPermalink('/'),
+          href: getPermalink('/laboratorio'),
         },
       ],
     },

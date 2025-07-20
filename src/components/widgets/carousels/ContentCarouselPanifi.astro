@@ -1,0 +1,41 @@
+---
+// ContentCarousel.astro
+import Carousel from '../../ui/Carousel.astro';
+---
+
+<Carousel>
+
+<div class="carousel-slide relative">
+    <picture>
+      <source srcset="/images/carousel/car-pan-phone-1.png" media="(max-width: 768px)" />
+      <img
+        src="/images/carousel/car-pan-1.png"
+        alt="Esencias panificadas Deiman"
+        class="absolute inset-0 w-full h-full object-cover -z-10"
+      />
+    </picture>
+  
+        <!-- Overlay oscuro -->
+    <div class="absolute inset-0 bg-black/30 z-0"></div>
+    
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-6 sm:px-10">
+      <h2 class="text-4xl sm:text-5xl font-bold mb-3 drop-shadow-xl tracking-wide text-[#fff3e3]">
+        Sabores Panificados
+      </h2>
+  
+      <span class="text-sm sm:text-base bg-[#f5d37e] text-[#362b1f] px-4 py-1 rounded-full tracking-wider mb-5 shadow-md">
+        Sabores que evocan lo artesanal
+      </span>
+  
+      <p class="max-w-2xl text-base sm:text-lg md:text-xl drop-shadow-xl leading-relaxed text-white">
+        Cálidos y auténticos como <span class="text-[#ffe8b5] font-semibold">café</span>, 
+        <span class="text-[#ffe8b5] font-semibold">cereal</span>, <span class="text-[#ffe8b5] font-semibold">grasa</span>,
+        <span class="text-[#ffe8b5] font-semibold">leche condensada</span> y <span class="text-[#ffe8b5] font-semibold">manteca</span>.
+        Ideales para lograr un perfil sensorial <span class="italic">casero y delicioso</span> en panificación y bollería.
+      </p>
+    </div>
+  </div>
+  
+
+
+</Carousel>

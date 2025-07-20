@@ -1,0 +1,75 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Timeline from '~/components/ui/Timeline.astro';
+import Headline from '~/components/ui/Headline.astro';
+import Image from '~/components/common/Image.astro';
+import SinTacc from '~/components/Icons/SinTaccIcon.astro';
+import Button from '~/components/ui/Button.astro';
+import type { FlavorRange as Props } from '~/types';
+
+const {
+  title,
+  subtitle,
+  tagline,
+  id,
+  isDark = false,
+  classes = {},
+  items = [],
+  image,
+  callToAction,
+  isReversed = false,
+  bg,
+} = Astro.props;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-5xl ${classes?.container ?? ''}`} bg={bg}>
+  <div class:list={['flex flex-col gap-8 md:gap-12', { 'md:flex-row-reverse': isReversed }, { 'md:flex-row': image }]}>
+    
+    <!-- TEXTO IZQUIERDA -->
+    <div class:list={['md:py-4 md:self-center', { 'md:basis-1/2': image }, { 'w-full': !image }]}>
+      <Headline
+        title={title}
+        subtitle={subtitle}
+        tagline={tagline}
+        classes={{
+          container: 'text-left rtl:text-right',
+          title: 'text-3xl lg:text-4xl',
+          ...((classes?.headline as object) ?? {}),
+        }}
+      />
+
+      <Timeline items={items} classes={classes?.items as Record<string, never>} />
+
+      <div class="mt-8 flex items-center gap-4">
+        <SinTacc class="w-20 h-auto" />
+        <Button variant="primary" href="/contact">
+          {'Solicitar catálogo'}
+        </Button>
+      </div>
+    </div>
+
+    <!-- IMAGEN DERECHA -->
+    {image && (
+      <div class="relative md:basis-1/2">
+        {typeof image === 'string' ? (
+          <img
+            src={image}
+            alt="Imagen"
+            class="inset-0 object-cover object-top w-full rounded-md shadow-lg md:absolute md:h-full bg-gray-400 dark:bg-slate-700"
+          />
+        ) : (
+          <Image
+            class="inset-0 object-cover object-top w-full rounded-md shadow-lg md:absolute md:h-full bg-gray-400 dark:bg-slate-700"
+            widths={[400, 768]}
+            sizes="(max-width: 768px) 100vw, 432px"
+            width={image?.width ?? 432}
+            height={image?.height ?? 768}
+            layout="cover"
+            {...image}
+            inferSize
+          />
+        )}
+      </div>
+    )}
+  </div>
+</WidgetWrapper>

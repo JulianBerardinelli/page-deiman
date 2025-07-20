@@ -54,5 +54,23 @@
     animation: gradientText 6s ease infinite;
   }
 
+  @keyframes fadeToRed {
+    0% {
+      color: #ffffff;
+      filter: drop-shadow(0 0 0 rgb(255, 247, 234));
+    }
+    100% {
+      color: #FF3130; /* Tailwind red-500 */
+      filter: drop-shadow(0 0 2px rgb(255, 247, 234)));
+    }
+  }
+
+  .animate-fade-to-red {
+    animation: fadeToRed 1.2s ease-out forwards;
+    animation-delay: 0.5s; /* Espera 500ms antes de comenzar */
+  }
+
+
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">

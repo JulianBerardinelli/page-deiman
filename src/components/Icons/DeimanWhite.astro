@@ -1,15 +1,24 @@
-
-
 <svg 
-{...Astro.props}
-id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 389.59 124.07">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #fff;
-      }
-    </style>
-  </defs>
+  {...Astro.props}
+  id="Capa_1" data-name="Capa 1"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 389.59 124.07"
+  class={Astro.props.class}
+>
+  <style>
+    .cls-1 {
+      transition: fill 1.5s ease-in-out;
+      fill: currentColor;
+    }
+  </style>
+<defs>
+  <filter id="inner-glow" x="-50%" y="-50%" width="200%" height="200%">
+    <feFlood flood-color="#ef4444" result="flood" />
+    <feComposite in="flood" in2="SourceAlpha" operator="in" result="mask" />
+    <feGaussianBlur in="mask" stdDeviation="2.5" result="blurred" />
+    <feComposite in="SourceGraphic" in2="blurred" operator="arithmetic" k2="1" k3="1"/>
+  </filter>
+</defs>
   <path class="cls-1" d="M207.47,106.75v17.32H.47v-17.79c.34-.12.56.47.7.47h206.3Z"/>
   <polygon class="cls-1" points="242.67 81.93 227.65 81.93 227.17 51.97 211.94 76.35 204.72 76.24 190.1 52.43 190.1 81.93 175.08 81.93 175.08 23.87 187.99 23.87 208 56.35 209.1 57.11 229.29 23.87 241.96 23.87 242.67 24.57 242.67 81.93"/>
   <polygon class="cls-1" points="373.63 54.77 373.63 23.87 389.59 23.87 389.59 81.93 375.5 81.93 350.16 51.5 350.16 81.93 334.2 81.93 334.2 23.87 347.58 23.87 373.63 54.77"/>

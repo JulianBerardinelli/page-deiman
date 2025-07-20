@@ -6,61 +6,62 @@ import DeimanWhite from '../Icons/DeimanWhite.astro';
 ---
 
 <Carousel>
-  <!-- Slide 1: Imagen de fondo con texto -->
+
+<!-- Slide 1 -->
   <div class="carousel-slide relative">
-    <img src="/images/carousel/car-1.jpg" alt="Bienvenidos a Deiman" class="absolute inset-0 w-full h-full object-cover -z-10" />
+    <picture>
+      <source srcset="/images/carousel/car-1-phone.png" media="(max-width: 768px)" />
+      <img src="/images/carousel/car-1.png" alt="El sabor hace al producto" class="absolute inset-0 w-full h-full object-cover -z-10" />
+    </picture>
+
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4 drop-shadow-xl">
+      <DeimanWhite 
+      class="w-60 sm:w-56 md:w-72 mb-4 animate-fade-to-red" 
+    />
     
-    <div class="absolute inset-0 flex items-center justify-center text-white">
-      <div class="text-center px-4">
-        <!-- Título alineado con logo -->
-        <div class="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4">
-          <h2 class="text-3xl font-bold">BIENVENIDOS A</h2>
-          <DeimanWhite class="w-32 h-auto sm:w-40" />
-        </div>
-        <p class="text-lg mt-2 sm:mt-4">Sabores y fragancias para transformar tus ideas.</p>
-      </div>
+      <hr class="w-16 sm:w-24 md:w-32 border-t-2 border-white mb-6 mt-6" />
+      <p class="text-base sm:text-xl md:text-xl font-bold tracking-wide drop-shadow-xl uppercase "
+      style="text-shadow: 1px 1px 2px rgba(0,0,0,0.2);"
+      >
+        EL SABOR HACE AL PRODUCTO
+      </p>
     </div>
   </div>
 
-  <!-- Slide 2: Imagen con texto a la derecha -->
-  <div class="carousel-slide relative">
-    <img src="/images/carousel/car-2.jpg" alt="Sabores de repostería" class="absolute inset-0 w-full h-full object-cover -z-10" />
 
-    <div class="absolute inset-0 flex items-center justify-end text-white px-10 md:px-20">
+
+  <!-- Slide 2 -->
+  <div class="carousel-slide relative">
+    <picture>
+      <!-- <source srcset="/images/carousel/car-2-mobile.jpg" media="(max-width: 768px)" /> -->
+      <img src="/images/carousel/car-2.jpg" alt="Sabores de repostería" class="absolute inset-0 w-full h-full object-cover -z-10" />
+    </picture>
+
+    <div class="absolute inset-0 flex items-center justify-end text-white px-4 sm:px-10 md:px-20">
       <div class="max-w-md text-right">
-        <h2 class="text-4xl md:text-5xl font-pastel mb-4 drop-shadow-lg">
-          ¡Conocé nuestros sabores <span class="text-pink-200 drop-shadow-md italic">dulces</span>!
+        <h2 class="text-2xl sm:text-4xl md:text-5xl font-pastel mb-4 drop-shadow-lg">
+          ¡Conocé nuestros sabores <span class=" italic">dulces</span>!
         </h2>        
-        <p class="text-lg md:text-xl mb-6 drop-shadow">
+        <p class="text-sm sm:text-lg md:text-xl mb-6 drop-shadow-lg">
           Descubrí una amplia variedad de esencias como Chocolate, Vainilla, Marroc, Frutos del Bosque, y muchas más.
         </p>
-        <Button         
-        variant="primary"
-        href="/"
-        class="inline-block"
-        >
+        <Button variant="primary" href="/" class="inline-block">
           Ver más
         </Button>
       </div>
     </div>
   </div>
 
-
-  <!-- Slide 3: Imagen con CTA -->
+  <!-- Slide 3
   <div class="carousel-slide relative">
-    <img src="/images/slide2.jpg" alt="Slide 2" class="absolute inset-0 w-full h-full object-cover -z-10" />
-    <div class="absolute inset-0 flex items-center justify-center">
-      <a href="" class="bg-white text-black px-6 py-3 font-bold rounded shadow hover:bg-gray-100 transition">
+    <picture>
+      <source srcset="/images/slide2-mobile.jpg" media="(max-width: 768px)" />
+      <img src="/images/slide2.jpg" alt="Slide 2" class="absolute inset-0 w-full h-full object-cover -z-10" />
+    </picture>
+
+    <div class="absolute inset-0 flex items-center justify-center px-4">
+      <a href="/" class="bg-white text-black text-sm sm:text-base px-6 py-3 font-bold rounded shadow hover:bg-gray-100 transition">
         Conocé nuestros productos
       </a>
     </div>
-  </div>
-
-  <!-- Slide 4: Fondo plano + texto -->
-  <div class="carousel-slide bg-[#0081bc] text-white flex items-center justify-center h-[65vh]">
-    <div class="text-center px-4">
-      <h2 class="text-3xl font-bold mb-2">Comprometidos con la calidad</h2>
-      <p class="text-lg">Certificaciones internacionales y desarrollo sustentable.</p>
-    </div>
-  </div>
-</Carousel>
+  </div> -->

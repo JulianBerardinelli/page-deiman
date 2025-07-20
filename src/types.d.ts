@@ -125,6 +125,14 @@ interface Social {
   icon?: string;
   href?: string;
 }
+export interface FlavorRange extends Omit<Headline, 'classes'>, Widget {
+  items?: Array<Item>;
+  callToAction?: string | CallToAction;
+  image?: string | Image | ImageMetadata;
+  isReversed?: boolean;
+}
+
+
 
 export interface Stat {
   amount?: number | string;

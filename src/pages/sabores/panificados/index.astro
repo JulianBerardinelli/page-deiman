@@ -8,6 +8,9 @@ import Features2 from '~/components/widgets/Features2.astro';
 import ContentCarousel from '~/components/widgets/carousels/ContentCarouselFlavor.astro';
 
 import FlavorFeature from '~/components/widgets/FlavorFeature.astro';
+import ContentCarouselPanifi from '~/components/widgets/carousels/ContentCarouselPanifi.astro';
+import FlavorRange from '~/components/ui/FlavorRange.astro';
+import panificadosImage from '~/assets/images/panificados.png';
 
 const metadata = {
   title: 'Sabores - DEIMAN',
@@ -29,32 +32,68 @@ const metadata = {
     />
   </Fragment>
 
-  <ContentCarousel />
+  <ContentCarouselPanifi />
+
+  <FlavorRange
+  id="panificados"
+  title='Sabores <span class="text-primary">Panificados</span>'
+  subtitle="Cálidos, auténticos y deliciosos"
+  tagline="Para productos de panadería y bollería"
+  items={[
+    {
+      title: 'Sabores tradicionales que conectan con lo casero',
+      description:
+        'Desarrollamos perfiles cálidos como manteca, leche condensada, cereal y pan tostado que evocan lo artesanal y hogareño. Estas notas sensoriales transmiten una identidad reconocible y emocional en cada bocado.',
+    },
+    {
+      title: 'Versatilidad para todo tipo de matrices',
+      description:
+        'Ideales para galletitas, budines, bizcochuelos, premezclas y productos de pastelería en general. Se aplican con facilidad, son estables al horneado y realzan naturalmente el sabor sin necesidad de agregados artificiales.',
+    },
+  ]}
+  callToAction={{ href: '/contacto', text: 'Solicitar catálogo' }}
+  image={{
+    src: panificadosImage,
+    alt: 'Imagen de panificados',
+  }}
+/>
+
 
   <!-- sabores wid  **************** -->
   <FlavorFeature
   id="sabores"
   items={[
-    {
-      title: 'DULCES',
-      image: '/images/sabores/dulces.png',
-      href: '/sabores/dulces',
-    },
-    {
-      title: 'SALADOS',
-      image: '/images/sabores/salados.png',
-      href: '/sabores/salados',
-    },
-    {
-      title: 'PANIFICADOS',
-      image: '/images/sabores/panificados.png',
-      href: '/sabores/panificados',
-    },
-    {
-      title: 'CÍTRICAS',
-      image: '/images/sabores/citricos.png',
-      href: '/sabores/citricas',
-    },
+      {
+        title: 'DULCES',
+        image: '/images/sabores/dulces.png',
+        href: '/sabores/dulces',
+        buttonText: 'Ver sabores',
+      },
+      {
+        title: 'SALADOS',
+        image: '/images/sabores/salados.png',
+        href: '/sabores/salados',
+        buttonText: 'Ver sabores',
+      },
+      {
+        title: 'PANIFICADOS',
+        image: '/images/sabores/panificados.png',
+        href: '/sabores/panificados',
+        buttonText: 'Ver sabores',
+      },
+      {
+        title: 'CÍTRICAS',
+        image: '/images/sabores/citricos.png',
+        href: '/sabores/citricas',
+        buttonText: 'Ver sabores',
+      },
+      {
+        title: 'LABORATORIO',
+        image: '/images/sabores/laboratory.png',
+        href: '/laboratorio',
+        buttonText: 'Descubrí nuestros desarrollos',
+        description: 'Desarrollamos sabores y notas personalizadas, adaptándonos a las necesidades de cada cliente.',
+      },
   ]}
 />
 

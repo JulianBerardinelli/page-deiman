@@ -1,27 +1,30 @@
 ---
 // ContentCarousel.astro
 import Carousel from '../../ui/Carousel.astro';
-
 ---
 
 <Carousel>
-  <!-- Slide 1: Imagen de fondo con texto -->
-  <div class="carousel-slide relative">
-    <img
-      src="/images/carousel/car-flavor-1.png"
-      alt="Bienvenidos a Deiman"
-      class="absolute inset-0 w-full h-full object-cover -z-10"
-    />
 
-    <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
-      <h2 class="text-4xl sm:text-5xl font-bold mb-6 drop-shadow-md">
+  <!-- Slide 1 -->
+  <div class="carousel-slide relative">
+    <picture>
+      <source srcset="/images/carousel/car-flavor-phone-1.png" media="(max-width: 768px)" />
+      <img
+        src="/images/carousel/car-flavor-1.png"
+        alt="Bienvenidos a Deiman"
+        class="absolute inset-0 w-full h-full object-cover -z-10"
+      />
+    </picture>
+
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-white px-6 sm:px-10">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 drop-shadow-md text-center">
         Descubrí nuestras <br />
         <span class="text-yellow-300">Líneas de Sabores</span>
       </h2>
 
-      <hr class="w-24 border-t-2 border-yellow-200 mb-6" />
+      <hr class="w-20 sm:w-24 border-t-2 border-yellow-200 mb-6" />
 
-      <p class="max-w-2xl text-lg sm:text-xl leading-relaxed drop-shadow-md">
+      <p class="max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed drop-shadow-md text-center">
         Creamos <span class="font-semibold text-yellow-300">sabores únicos</span> para todo tipo de productos alimenticios,
         desarrollados con <span class="font-semibold text-yellow-300">ingredientes naturales seleccionados</span>, un
         riguroso proceso de <span class="italic">control de calidad</span>
@@ -30,23 +33,28 @@ import Carousel from '../../ui/Carousel.astro';
     </div>
   </div>
 
-  <!-- Slide 2: Imagen con texto a la derecha -->
+  <!-- Slide 2 -->
   <div class="carousel-slide relative">
-    <img
-      src="/images/carousel/car-flavor-2.png"
-      alt="Calidad y confianza en sabores Deiman"
-      class="absolute inset-0 w-full h-full object-cover -z-10"
-    />
+    <picture>
+      <source srcset="/images/carousel/car-flavor-phone-2.png" media="(max-width: 768px)" />
+      <img
+        src="/images/carousel/car-flavor-2.png"
+        alt="Calidad y confianza en sabores Deiman"
+        class="absolute inset-0 w-full h-full object-cover -z-10"
+      />
+    </picture>
 
-    <div class="absolute inset-0 flex items-center justify-end text-white px-10 md:px-20">
-      <div class="max-w-md text-right">
-        <h2 class="text-4xl md:text-5xl mb-4 drop-shadow-lg">
-            Sabores creados con <span class="text-yellow-300 drop-shadow-md italic">responsabilidad y excelencia</span>
+    <div class="absolute inset-0 flex items-center justify-end text-white px-6 sm:px-10 md:px-20">
+      <div class="max-w-md text-right text-center md:text-right">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl mb-4 drop-shadow-lg">
+          Sabores creados con <span class="text-yellow-300 drop-shadow-md italic">responsabilidad y excelencia</span>
         </h2>
         <hr class="my-4 border-t border-white/30" />
-        <p class="text-lg md:text-xl">
-          En Deiman trabajamos con <span class="font-semibold text-white">ingredientes naturales y seguros</span>, seleccionados por profesionales altamente capacitados.  
-          Nuestros sabores están formulados bajo <span class="text-yellow-200">estrictos estándares de calidad</span> para garantizar una experiencia sensorial confiable y única.
+        <p class="text-base sm:text-lg md:text-xl drop-shadow">
+          En Deiman trabajamos con <span class="font-semibold text-white">ingredientes naturales y seguros</span>,
+          seleccionados por profesionales altamente capacitados.  
+          Nuestros sabores están formulados bajo <span class="text-yellow-200">estrictos estándares de calidad</span>
+          para garantizar una experiencia sensorial confiable y única.
         </p>
       </div>
     </div>

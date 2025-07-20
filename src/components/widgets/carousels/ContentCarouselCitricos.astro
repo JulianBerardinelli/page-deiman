@@ -1,0 +1,38 @@
+---
+// ContentCarousel.astro
+import Carousel from '../../ui/Carousel.astro';
+---
+
+<Carousel>
+
+    <div class="carousel-slide relative">
+        <picture>
+          <source srcset="/images/carousel/car-citricos-phone-1.png" media="(max-width: 768px)" />
+          <img
+            src="/images/carousel/car-citricos-1.png"
+            alt="Esencias cítricas Deiman"
+            class="absolute inset-0 w-full h-full object-cover -z-10"
+          />
+        </picture>
+      
+        <!-- Overlay oscuro -->
+        <div class="absolute inset-0 bg-black/30 z-0"></div>
+      
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-6 sm:px-10 z-10">
+          <h2 class="text-4xl sm:text-5xl font-bold mb-3 drop-shadow-xl tracking-wide text-[#fffbe6]">
+            Sabores Cítricos
+          </h2>
+      
+          <span class="text-sm sm:text-base bg-[#ffe380] text-[#362b1f] px-4 py-1 rounded-full tracking-wider mb-5 shadow-md">
+            Refrescantes, frutales y vibrantes
+          </span>
+      
+          <p class="max-w-2xl text-base sm:text-lg md:text-xl drop-shadow-xl leading-relaxed text-white">
+            Inspirados en frutas jugosas como <span class="text-[#fff1b5] font-semibold">limón</span>, <span class="text-[#fff1b5] font-semibold">mandarina</span>, <span class="text-[#fff1b5] font-semibold">pomelo rosado</span> y <span class="text-[#fff1b5] font-semibold">naranja</span>, estos sabores cítricos se destacan por su perfil fresco y natural. Perfectos para aportar notas vibrantes en bebidas, pastelería, golosinas y productos de verano.
+          </p>
+        </div>
+      </div>
+      
+
+
+</Carousel>

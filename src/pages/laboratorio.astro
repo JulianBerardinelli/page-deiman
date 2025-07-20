@@ -3,11 +3,10 @@ import Layout from '~/layouts/PageLayout.astro';
 import Header from '~/components/widgets/Header.astro';
 import { headerData } from '~/navigation';
 import Features2 from '~/components/widgets/Features2.astro';
-import ContentCarousel from '~/components/widgets/carousels/ContentCarouselFlavor.astro';
 import FlavorFeature from '~/components/widgets/FlavorFeature.astro';
-import ContentCarouselSalados from '~/components/widgets/carousels/ContentCarouselSalados.astro';
+import ContentCarouselLab from '~/components/widgets/carousels/ContentCarouselLab.astro';
 import FlavorRange from '~/components/ui/FlavorRange.astro';
-import saladosImage from '~/assets/images/salados.png';
+import labImage from '~/assets/images/laboratorio.png';
 
 const metadata = {
   title: 'Sabores - DEIMAN',
@@ -29,29 +28,31 @@ const metadata = {
     />
   </Fragment>
 
-  <ContentCarouselSalados />
+
+
+  <ContentCarouselLab />
 
   <FlavorRange
-  id="salados"
-  title='Sabores <span class="text-primary">Salados</span>'
-  subtitle="Intensos, auténticos y sabrosos"
-  tagline="Para productos con identidad y carácter"
+  id="laboratorio"
+  title='Laboratorio de <span class="text-primary">Desarrollo</span>'
+  subtitle="Precisión, creatividad y personalización"
+  tagline="Sabores a medida para cada necesidad"
   items={[
     {
-      title: 'Perfiles naturales y diferenciados',
+      title: 'Desarrollo técnico centrado en el cliente',
       description:
-        'Creamos esencias que reproducen de forma precisa sabores como ajo, cebolla, panceta, jamón, queso parmesano o barbacoa. Cada perfil está desarrollado con ingredientes seleccionados, respetando la naturalidad y profundidad sensorial del sabor real.',
+        'Creamos perfiles aromáticos exclusivos adaptados a los procesos y objetivos de cada cliente. Nuestra metodología combina selección de materias primas nobles, análisis sensorial y reformulación constante para garantizar identidad y performance.',
     },
     {
-      title: 'Funcionales y adaptables a diversas aplicaciones',
+      title: 'Aplicación transversal en múltiples industrias',
       description:
-        'Ideales para snacks, sopas, aderezos, rellenos, copetín o premezclas saladas. Nuestras esencias saladas son termoestables, de alta concentración y adecuadas para matrices grasas, líquidas o secas, manteniendo su perfil en cada uso.',
+        'Nuestros sabores se desarrollan considerando compatibilidad técnica con alimentos, bebidas, suplementos, cosmética y más. Acompañamos cada proyecto desde la idea hasta el producto final, asegurando estabilidad, seguridad y diferenciación.',
     },
   ]}
   callToAction={{ href: '/contacto', text: 'Solicitar catálogo' }}
   image={{
-    src: saladosImage,
-    alt: 'Imagen de esencias saladas',
+    src: labImage,
+    alt: 'Imagen de laboratorio de desarrollo',
   }}
 />
 
@@ -63,37 +64,26 @@ const metadata = {
   <FlavorFeature
   id="sabores"
   items={[
-      {
-        title: 'DULCES',
-        image: '/images/sabores/dulces.png',
-        href: '/sabores/dulces',
-        buttonText: 'Ver sabores',
-      },
-      {
-        title: 'SALADOS',
-        image: '/images/sabores/salados.png',
-        href: '/sabores/salados',
-        buttonText: 'Ver sabores',
-      },
-      {
-        title: 'PANIFICADOS',
-        image: '/images/sabores/panificados.png',
-        href: '/sabores/panificados',
-        buttonText: 'Ver sabores',
-      },
-      {
-        title: 'CÍTRICAS',
-        image: '/images/sabores/citricos.png',
-        href: '/sabores/citricas',
-        buttonText: 'Ver sabores',
-      },
-      {
-        title: 'LABORATORIO',
-        image: '/images/sabores/laboratory.png',
-        href: '/laboratorio',
-        buttonText: 'Descubrí nuestros desarrollos',
-        description: 'Desarrollamos sabores y notas personalizadas, adaptándonos a las necesidades de cada cliente.',
-      },
+    {
+      title: 'DULCES',
+      image: '/images/sabores/dulces.png',
+      href: '/sabores/dulces',
+    },
+    {
+      title: 'SALADOS',
+      image: '/images/sabores/salados.png',
+      href: '/sabores/salados',
+    },
+    {
+      title: 'PANIFICADOS',
+      image: '/images/sabores/panificados.png',
+      href: '/sabores/panificados',
+    },
+    {
+      title: 'CÍTRICAS',
+      image: '/images/sabores/citricos.png',
+      href: '/sabores/citricas',
+    },
   ]}
 />
 

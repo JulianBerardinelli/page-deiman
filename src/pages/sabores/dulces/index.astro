@@ -8,6 +8,9 @@ import Features2 from '~/components/widgets/Features2.astro';
 import ContentCarousel from '~/components/widgets/carousels/ContentCarouselDulces.astro';
 
 import FlavorFeature from '~/components/widgets/FlavorFeature.astro';
+import FlavorRange from '~/components/ui/FlavorRange.astro';
+
+import dulcesImage from '~/assets/images/dulces.png';
 
 const metadata = {
   title: 'Sabores - DEIMAN',
@@ -30,31 +33,66 @@ const metadata = {
   </Fragment>
 
   <ContentCarousel />
+  <FlavorRange
+  id="dulces"
+  title='Sabores <span class="text-primary">Dulces</span>'
+  subtitle="Aromas envolventes, tiernos y reconfortantes"
+  tagline="Para productos de repostería, lácteos y snacks"
+  items={[
+    {
+      title: 'Variedad irresistible de sabores indulgentes',
+      description:
+        'Nuestra gama dulce fusiona lo clásico con lo innovador: desde notas de vainilla, chocolate y caramelo, hasta propuestas modernas como mascarpone, frutos rojos y banana dulce. Cada esencia se elabora con precisión para capturar el perfil sensorial ideal del producto final.',
+    },
+    {
+      title: 'Naturalidad y versatilidad como premisa',
+      description:
+        'Trabajamos con esencias concentradas desarrolladas a partir de materias primas nobles, ideales para helados, galletitas, alfajores, yogures y más. Lográ perfiles dulces definidos con bajo dosaje y máxima fidelidad aromática.',
+    },
+  ]}
+  callToAction={{ href: '/contacto', text: 'Solicitar catálogo' }}
+  image={{
+    src: dulcesImage,
+    alt: 'Imagen de esencias dulces',
+  }}
+/>
+
 
   <!-- sabores wid  **************** -->
   <FlavorFeature
   id="sabores"
   items={[
-    {
-      title: 'DULCES',
-      image: '/images/sabores/dulces.png',
-      href: '/sabores/dulces',
-    },
-    {
-      title: 'SALADOS',
-      image: '/images/sabores/salados.png',
-      href: '/sabores/salados',
-    },
-    {
-      title: 'PANIFICADOS',
-      image: '/images/sabores/panificados.png',
-      href: '/sabores/panificados',
-    },
-    {
-      title: 'CÍTRICAS',
-      image: '/images/sabores/citricos.png',
-      href: '/sabores/citricas',
-    },
+      {
+        title: 'DULCES',
+        image: '/images/sabores/dulces.png',
+        href: '/sabores/dulces',
+        buttonText: 'Ver sabores',
+      },
+      {
+        title: 'SALADOS',
+        image: '/images/sabores/salados.png',
+        href: '/sabores/salados',
+        buttonText: 'Ver sabores',
+      },
+      {
+        title: 'PANIFICADOS',
+        image: '/images/sabores/panificados.png',
+        href: '/sabores/panificados',
+        buttonText: 'Ver sabores',
+      },
+      {
+        title: 'CÍTRICAS',
+        image: '/images/sabores/citricos.png',
+        href: '/sabores/citricas',
+        buttonText: 'Ver sabores',
+      },
+      {
+        title: 'LABORATORIO',
+        image: '/images/sabores/laboratory.png',
+        href: '/laboratorio',
+        buttonText: 'Descubrí nuestros desarrollos',
+        description: 'Desarrollamos sabores y notas personalizadas, adaptándonos a las necesidades de cada cliente.',
+      },
   ]}
 />
 <section class="py-10 px-4 max-w-6xl mx-auto text-center">
