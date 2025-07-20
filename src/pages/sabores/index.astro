@@ -5,6 +5,8 @@ import { headerData } from '~/navigation';
 import Features2 from '~/components/widgets/Features2.astro';
 import ContentCarousel from '~/components/widgets/carousels/ContentCarouselFlavor.astro';
 import FlavorFeature from '~/components/widgets/FlavorFeature.astro';
+import FlavorRange from '~/components/ui/FlavorRange.astro';
+import Features3 from '~/components/widgets/Features3.astro';
 
 const metadata = {
   title: 'Sabores - DEIMAN',
@@ -27,6 +29,28 @@ const metadata = {
   </Fragment>
 
   <ContentCarousel />
+
+  <FlavorRange
+  id="sabores"
+  title='Líneas de <span class="text-primary">Sabores</span>'
+  subtitle="Naturalidad, innovación y precisión sensorial"
+  tagline="Para productos alimenticios que buscan destacarse"
+  items={[
+    {
+      title: 'Desarrollos naturales, confiables y funcionales',
+      description:
+        'Nuestros sabores están formulados a partir de materias primas seleccionadas, con tecnología de vanguardia y un riguroso control de calidad. Cada perfil es diseñado para transmitir autenticidad, estabilidad y seguridad en su aplicación.',
+    },
+    {
+      title: 'Alta adaptabilidad para múltiples matrices',
+      description:
+        'Contamos con líneas dulces, saladas, frutales, cítricas, panificadas, especiadas y más. Cada esencia se adapta con precisión a procesos industriales, matrices líquidas o sólidas, y diversas condiciones de temperatura o pH.',
+    },
+  ]}
+  callToAction={{ href: '/contacto', text: 'Solicitar catálogo' }}
+/>
+
+
 
   <!-- sabores wid  **************** -->
   <FlavorFeature
@@ -65,6 +89,43 @@ const metadata = {
       },
   ]}
 />
+
+<Features3
+    columns={3}
+    isAfterContent={true}
+    items={[
+      {
+        title: 'Vainillas y derivados',
+        description: 'Notas cálidas y envolventes: vainilla, dulce de leche, marroc y más. Sabores icónicos con carácter argentino.',
+        icon: 'tabler:ice-cream',
+      },
+      {
+        title: 'Chocolates',
+        description: 'Cacao intenso, chocolate con leche y perfiles semi amargos para productos premium.',
+        icon: 'tabler:candy',
+      },
+      {
+        title: 'Frutales',
+        description: 'Sabores definidos y frescos: frutos rojos, cítricos, banana, ananá y más.',
+        icon: 'tabler:apple',
+      },
+      {
+        title: 'Especiados y panificados',
+        description: 'Canela, miel, caramelo y esencias que evocan lo artesanal. Muy buscados en panificación y repostería.',
+        icon: 'tabler:bread',
+      },
+      {
+        title: 'Mentolados y herbales',
+        description: 'Menta, eucalipto y perfiles verdes para aplicaciones refrescantes o funcionales.',
+        icon: 'tabler:plant',
+      },
+      {
+        title: 'Amplia aplicabilidad',
+        description: 'Formulaciones compatibles con alimentos, bebidas, suplementos, cosmética y más.',
+        icon: 'tabler:tool',
+      },
+    ]}
+  />
 
 <section class="py-10 px-4 max-w-6xl mx-auto text-center">
   <h2 class="text-3xl font-bold mb-2">¿Dónde estamos?</h2>

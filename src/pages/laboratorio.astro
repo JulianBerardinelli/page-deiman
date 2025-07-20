@@ -7,6 +7,7 @@ import FlavorFeature from '~/components/widgets/FlavorFeature.astro';
 import ContentCarouselLab from '~/components/widgets/carousels/ContentCarouselLab.astro';
 import FlavorRange from '~/components/ui/FlavorRange.astro';
 import labImage from '~/assets/images/laboratorio.png';
+import Features3 from '~/components/widgets/Features3.astro';
 
 const metadata = {
   title: 'Sabores - DEIMAN',
@@ -55,6 +56,43 @@ const metadata = {
     alt: 'Imagen de laboratorio de desarrollo',
   }}
 />
+
+<Features3
+    columns={3}
+    isAfterContent={true}
+    items={[
+      {
+        title: 'Vainillas y derivados',
+        description: 'Notas cálidas y envolventes: vainilla, dulce de leche, marroc y más. Sabores icónicos con carácter argentino.',
+        icon: 'tabler:ice-cream',
+      },
+      {
+        title: 'Chocolates',
+        description: 'Cacao intenso, chocolate con leche y perfiles semi amargos para productos premium.',
+        icon: 'tabler:candy',
+      },
+      {
+        title: 'Frutales',
+        description: 'Sabores definidos y frescos: frutos rojos, cítricos, banana, ananá y más.',
+        icon: 'tabler:apple',
+      },
+      {
+        title: 'Especiados y panificados',
+        description: 'Canela, miel, caramelo y esencias que evocan lo artesanal. Muy buscados en panificación y repostería.',
+        icon: 'tabler:bread',
+      },
+      {
+        title: 'Mentolados y herbales',
+        description: 'Menta, eucalipto y perfiles verdes para aplicaciones refrescantes o funcionales.',
+        icon: 'tabler:plant',
+      },
+      {
+        title: 'Amplia aplicabilidad',
+        description: 'Formulaciones compatibles con alimentos, bebidas, suplementos, cosmética y más.',
+        icon: 'tabler:tool',
+      },
+    ]}
+  />
 
 
 
