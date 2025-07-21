@@ -1,12 +1,14 @@
 ---
-import Features2 from '~/components/widgets/Features2.astro';
 import Features3 from '~/components/widgets/Features3.astro';
+import FindUs from '~/components/widgets/FindUs.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Steps2 from '~/components/widgets/Steps2.astro';
+import SupportOverview from '~/components/widgets/SupportOverview.astro';
 import Layout from '~/layouts/PageLayout.astro';
 
 const metadata = {
   title: 'Sobre nosotros',
+  description: 'Conocé más sobre DEIMAN, una empresa argentina especializada en la elaboración y desarrollo de saborizantes alimenticios. Nuestra filosofía combina profesionalismo, creatividad y cercanía con el cliente.',
 };
 ---
 
@@ -21,13 +23,24 @@ const metadata = {
     </Fragment>
 
     <Fragment slot="subtitle">
-      <span class="text-primary">Deiman</span> es una empresa argentina especializada en el desarrollo de esencias y sabores alimentarios. Nuestra filosofía combina profesionalismo, creatividad y cercanía con el cliente. Nos enfocamos en materias primas naturales y procesos técnicos rigurosos para lograr productos funcionales, seguros y memorables.
+      <span class="text-primary font-bold">DEIMAN</span> es una empresa argentina especializada en la elaboración y desarrollo de saborizantes alimenticios. Nuestra filosofía combina profesionalismo, creatividad y cercanía con el cliente. Nos enfocamos en materias primas naturales y de primera calidad, con procesos técnicos rigurosos para lograr productos que te identifiquen, que sean memorables.
     </Fragment>
+
+    <Fragment slot="image">
+      <img
+        src="/images/backgrounds/banner1.jpg"
+        alt="Imagen ilustrativa de sabores Deiman"
+        class="mx-auto rounded-md w-full max-w-4xl"
+        loading="eager"
+      />
+    </Fragment>
+
+    
   </Hero>
 
   <!-- Features3 Widget ************** -->
   <Features3
-    title="Lo que nos define"
+    title='<span class="text-primary font-bold">Lo que nos define </span>'
     subtitle="Somos una empresa joven que apuesta por la calidad, la innovación y el vínculo directo con nuestros clientes."
     columns={3}
     isBeforeContent={true}
@@ -106,63 +119,12 @@ const metadata = {
         description: 'Desde la materia prima hasta la atención postventa, garantizamos excelencia en todo el recorrido del producto.',
       },
     ]}
+
   />
 
-  <section class="py-10 px-4 max-w-6xl mx-auto text-center">
-    <h2 class="text-3xl font-bold mb-2">¿Dónde estamos?</h2>
-    <p class="text-lg mb-6 text-gray-600">Gral. Madariaga 1187, Parque Industrial Burzaco, Buenos Aires - Argentina</p>
+  <!-- FindUs Widget **************** -->
+  <FindUs/>
 
-    <div class="w-full h-[400px] rounded-xl overflow-hidden shadow-lg border">
-      <iframe
-        title="Ubicación en Google Maps"
-        width="100%"
-        height="100%"
-        frameborder="0"
-        style={{ border: 0 }}
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3274.8706909605976!2d-58.4296289237204!3d-34.83434356971549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcd47a25d401b5%3A0x5442fefa1fb543b1!2sGral.%20Madariaga%201187%2C%20B1852%20Burzaco%2C%20Provincia%20de%20Buenos%20Aires%2C%20Argentina!5e0!3m2!1ses!2sfi!4v1752782376374!5m2!1ses!2sfi"
-      ></iframe>
-    </div>
-  </section>
-
-  <!-- Features2 Widget ************** -->
-  <Features2
-    title="¿Tenés dudas o querés empezar?"
-    tagline="Contactanos"
-    columns={3}
-    items={[
-      {
-        title: 'Atención general',
-        description: 'Consultas sobre cuentas, navegación del sitio o información institucional.',
-        icon: 'tabler:info-circle',
-      },
-      {
-        title: 'Área comercial',
-        description: 'Presupuestos, desarrollos a medida, cotizaciones o asesoramiento de producto.',
-        icon: 'tabler:shopping-cart',
-      },
-      {
-        title: 'Soporte técnico',
-        description: 'Asistencia en aplicaciones, reformulaciones o compatibilidades.',
-        icon: 'tabler:tool',
-      },
-      {
-        title: 'Teléfono',
-        description: '+54 (11) 1234-5678',
-        icon: 'tabler:headset',
-      },
-      {
-        title: 'Correo electrónico',
-        description: 'info@<span class="text-primary">deiman</span>.com.ar',
-        icon: 'tabler:mail',
-      },
-      {
-        title: 'Ubicación',
-        description: 'Buenos Aires, Argentina',
-        icon: 'tabler:map-pin',
-      },
-    ]}
-  />
+  <!-- Support Overview Widget **************** -->
+  <SupportOverview/>
 </Layout>

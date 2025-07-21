@@ -9,6 +9,7 @@ interface FlavorCardProps {
   image: string;
   href: string;
   buttonText?: string;
+
 }
 
 interface Props {
@@ -17,6 +18,8 @@ interface Props {
   title?: string;
   subtitle?: string;
   items?: FlavorCardProps[];
+  noAnimation?: boolean;
+
 }
 
 const {
@@ -25,10 +28,11 @@ const {
   title,
   subtitle,
   items = [],
+  noAnimation = false, 
 } = Astro.props as Props;
 ---
 
-<WidgetWrapper id={id} containerClass="relative z-0">
+<WidgetWrapper id={id} containerClass="relative z-0" noAnimation={noAnimation}>
   <Headline
     tagline={tagline}
     title={title}

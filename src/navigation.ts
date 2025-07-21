@@ -22,7 +22,7 @@ export const headerData = {
           href: getPermalink('/sabores/panificados'),
         },
         {
-          text: 'Citricos',
+          text: 'Cítricos',
           href: getPermalink('/sabores/citricos'),
         },
         {

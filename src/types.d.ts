@@ -130,6 +130,7 @@ export interface FlavorRange extends Omit<Headline, 'classes'>, Widget {
   callToAction?: string | CallToAction;
   image?: string | Image | ImageMetadata;
   isReversed?: boolean;
+  noAnimation?: boolean;
 }
 
 
