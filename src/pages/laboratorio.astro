@@ -2,13 +2,12 @@
 import Layout from '~/layouts/PageLayout.astro';
 import Header from '~/components/widgets/Header.astro';
 import { headerData } from '~/navigation';
-import FlavorFeature from '~/components/widgets/FlavorFeature.astro';
 import ContentCarouselLab from '~/components/widgets/carousels/ContentCarouselLab.astro';
 import FlavorRange from '~/components/ui/FlavorRange.astro';
-import labImage from '~/assets/images/laboratorio.png';
 import Features3 from '~/components/widgets/Features3.astro';
 import FindUs from '~/components/widgets/FindUs.astro';
 import SupportOverview from '~/components/widgets/SupportOverview.astro';
+import FlavorFeatureContainer from '~/components/widgets/FlavorFeatureContainer.astro';
 
 const metadata = {
   title: 'Laboratorio de Desarrollo  ',
@@ -16,7 +15,7 @@ const metadata = {
   openGraph: {
     title: 'Laboratorio de Desarrollo - Deiman Sabores',
     description: 'Descubre nuestro laboratorio de desarrollo de sabores, donde creamos soluciones personalizadas para la industria alimentaria y más.',
-    image: '/images/laboratorio.png',
+    image: '/images/laboratorio.jpg',
     url: 'https://www.deiman.com.ar/laboratorio',
   },
 };
@@ -103,32 +102,8 @@ const metadata = {
 
 
 
-  <!-- sabores wid  **************** -->
-  <FlavorFeature
-  id="sabores"
-  items={[
-    {
-      title: 'DULCES',
-      image: '/images/sabores/dulces.png',
-      href: '/sabores/dulces',
-    },
-    {
-      title: 'SALADOS',
-      image: '/images/sabores/salados.png',
-      href: '/sabores/salados',
-    },
-    {
-      title: 'PANIFICADOS',
-      image: '/images/sabores/panificados.png',
-      href: '/sabores/panificados',
-    },
-    {
-      title: 'CÍTRICAS',
-      image: '/images/sabores/citricos.png',
-      href: '/sabores/citricas',
-    },
-  ]}
-/>
+  <!-- Flavor Feature Widget **************** -->
+  <FlavorFeatureContainer/>
 
   <FindUs/>
 
