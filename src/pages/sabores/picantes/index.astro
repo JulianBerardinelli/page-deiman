@@ -1,0 +1,71 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Header from '~/components/widgets/Header.astro';
+import { headerData } from '~/navigation';
+import FlavorRange from '~/components/ui/FlavorRange.astro';
+import picantesImage from '~/assets/images/picantes.jpg';
+import FindUs from '~/components/widgets/FindUs.astro';
+import SupportOverview from '~/components/widgets/SupportOverview.astro';
+import FlavorFeatureContainer from '~/components/widgets/FlavorFeatureContainer.astro';
+import ContentCarouselPicantes from '~/components/widgets/carousels/ContentCarouselPicantes.astro';
+
+const metadata = {
+  title: 'Sabores - Picantes',
+};
+---
+
+<Layout metadata={metadata}>
+  <Fragment slot="header">
+    <Header
+      {...headerData}
+      actions={[
+        {
+          variant: 'primary',
+          text: 'Contacto',
+          href: '/contact',
+        },
+      ]}
+      isSticky
+    />
+  </Fragment>
+
+  <ContentCarouselPicantes />
+
+  <FlavorRange
+  noAnimation={true}
+  id="picantes"
+  title='Sabores <span class="text-primary">Picantes</span>'
+  subtitle="Potentes, vibrantes y con personalidad"
+  tagline="El equilibrio justo entre intensidad y sabor"
+  items={[
+    {
+      title: 'Perfiles que despiertan los sentidos',
+      description:
+        'Ofrecemos una gama de sabores picantes que reproducen fielmente perfiles como ají, jalapeño, chili, pimienta negra o pimentón ahumado. Cada esencia está formulada para brindar una sensación de picor equilibrada, respetando la complejidad aromática del ingrediente original.',
+    },
+    {
+      title: 'Estables, versátiles y personalizables',
+      description:
+        'Desarrolladas para integrarse en snacks, salsas, aderezos, condimentos, rellenos y preparados cárnicos. Nuestras esencias picantes son termoestables, concentradas y adaptables a distintas matrices —líquidas, grasas o en polvo— sin perder intensidad ni perfil aromático.',
+    },
+  ]}
+  callToAction={{ href: '/contacto', text: 'Solicitar catálogo' }}
+  image={{
+    src: picantesImage,
+    alt: 'Imagen de esencias picantes',
+  }}
+/>
+
+
+
+
+
+
+  <!-- sabores wid  **************** -->
+  <FlavorFeatureContainer/>
+
+  <FindUs />
+
+  <!-- Support Overview Widget **************** -->
+  <SupportOverview/>
+</Layout>

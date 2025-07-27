@@ -1,0 +1,37 @@
+---
+// ContentCarousel.astro
+import Carousel from '../../ui/Carousel.astro';
+---
+
+<Carousel>
+
+    <div class="carousel-slide relative">
+        <picture>
+          <source srcset="/images/carousel/car-sirope-phone.jpg" media="(max-width: 768px)" />
+          <img
+            src="/images/carousel/car-siropes-1.jpg"
+            alt="Siropes Deiman"
+            class="absolute inset-0 w-full h-full object-cover -z-10"
+          />
+        </picture>
+      
+        <!-- Overlay oscuro -->
+        <div class="absolute inset-0 bg-black/20 z-0"></div>
+      
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-6 sm:px-10 z-10">
+          <h2 class="text-4xl sm:text-5xl font-bold mb-3 drop-shadow-xl tracking-wide text-[#fff3e3]">
+            Nuestros Siropes
+          </h2>
+      
+          <span class="text-sm sm:text-base bg-[#f57e7e] text-[#ffffff] px-4 py-1 rounded-full tracking-wider mb-5 shadow-md">
+            Ideales para postres, toppings y experiencias indulgentes
+          </span>
+      
+          <p class="max-w-2xl text-base sm:text-lg md:text-xl drop-shadow-xl leading-relaxed text-white">
+            Sabores irresistibles como <span class="text-[#ffe8cc] font-semibold">chocolate</span>, <span class="text-[#ffe8cc] font-semibold">dulce de leche</span>, <span class="text-[#ffe8cc] font-semibold">caramelo</span> y <span class="text-[#ffe8cc] font-semibold">pistacho</span> se combinan con notas frutales como <span class="text-[#ffe8cc] font-semibold">frutilla</span> y <span class="text-[#ffe8cc] font-semibold">limón</span>. Nuestras esencias tipo sirope aportan textura, cremosidad y un perfil indulgente ideal para postres, toppings, heladería, bebidas y panificados premium.          </p>
+        </div>
+      </div>
+      
+
+
+</Carousel>
