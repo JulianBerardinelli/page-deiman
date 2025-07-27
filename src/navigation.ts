@@ -68,6 +68,13 @@ export const footerData = {
         { text: 'Cítricos', href: '/sabores/citricos' },
         { text: 'Desarrallo Personalizado', href: '/' },
       ],
+      
+    },
+    {
+      title: 'Jarabes',
+      links: [
+        { text: 'Siropes', href: '/siropes' },
+      ],
     },
     {
       title: 'Soporte técnico',
