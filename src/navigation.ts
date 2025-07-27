@@ -31,7 +31,7 @@ export const headerData = {
         },
         {
           text: 'Siropes',
-          href: getPermalink('/sabores/picantes'),
+          href: getPermalink('/siropes'),
         },
         {
           text: 'Laboratorio',
