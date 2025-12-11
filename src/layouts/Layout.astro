@@ -11,6 +11,7 @@ import Metadata from '~/components/common/Metadata.astro';
 import SiteVerification from '~/components/common/SiteVerification.astro';
 import Analytics from '~/components/common/Analytics.astro';
 import BasicScripts from '~/components/common/BasicScripts.astro';
+import WppIcon from '~/components/Icons/WppIcon.astro';
 
 // Comment the line below to disable View Transitions
 import { ClientRouter } from 'astro:transitions';
@@ -42,6 +43,16 @@ const { language, textDirection } = I18N;
 
   <body class="antialiased text-default bg-page tracking-tight">
     <slot />
+
+    <a
+      href="https://wa.me/5491168239022"
+      class="fixed bottom-6 right-6 z-50 transition-transform duration-200 hover:scale-105 focus-visible:scale-105"
+      target="_blank"
+      rel="noreferrer noopener"
+      aria-label="Contactar por WhatsApp"
+    >
+      <WppIcon class="w-16 h-16 drop-shadow-[0_10px_25px_rgba(0,0,0,0.35)]" />
+    </a>
 
     <BasicScripts />
   </body>
