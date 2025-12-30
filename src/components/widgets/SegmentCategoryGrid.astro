@@ -1,0 +1,41 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import ItemGrid from '~/components/ui/ItemGrid.astro';
+
+const {
+  title,
+  subtitle,
+  tagline,
+  items = [],
+  id,
+  isDark = false,
+  classes = {},
+} = Astro.props;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl ${classes?.container ?? ''}`}>
+  <Headline
+    title={title}
+    subtitle={subtitle}
+    tagline={tagline}
+    classes={{
+      container: 'text-center',
+      title: 'text-3xl lg:text-4xl',
+      ...((classes?.headline as object) ?? {}),
+    }}
+  />
+
+  <ItemGrid
+    items={items}
+    columns={3}
+    classes={{
+      container: 'mt-10',
+      panel: 'items-start gap-4 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700/60 dark:bg-slate-900',
+      title: 'text-xl',
+      description: 'mt-2',
+      icon: 'w-8 h-8 text-primary',
+      action: 'mt-4',
+    }}
+  />
+</WidgetWrapper>

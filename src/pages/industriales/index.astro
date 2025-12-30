@@ -1,0 +1,56 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Header from '~/components/widgets/Header.astro';
+import { headerData } from '~/navigation';
+import ContentCarouselSegment from '~/components/widgets/carousels/ContentCarouselSegment.astro';
+import FlavorRange from '~/components/ui/FlavorRange.astro';
+import SegmentCategoryGrid from '~/components/widgets/SegmentCategoryGrid.astro';
+import FlavorFeatureContainer from '~/components/widgets/FlavorFeatureContainer.astro';
+import FindUs from '~/components/widgets/FindUs.astro';
+import SupportOverview from '~/components/widgets/SupportOverview.astro';
+import { industrialesSection } from '~/data/segments';
+
+const metadata = {
+  title: 'Línea Industriales',
+  description: 'Soluciones industriales de sabores, colorantes y emulsiones para producciones de gran escala.',
+};
+---
+
+<Layout metadata={metadata}>
+  <Fragment slot="header">
+    <Header
+      {...headerData}
+      actions={[
+        {
+          variant: 'primary',
+          text: 'Contacto',
+          href: '/contact',
+        },
+      ]}
+      isSticky
+    />
+  </Fragment>
+
+  <ContentCarouselSegment slides={industrialesSection.carouselSlides} />
+
+  <FlavorRange
+    noAnimation={true}
+    id="industriales"
+    title={`Línea <span class=\"text-primary\">${industrialesSection.title}</span>`}
+    subtitle={industrialesSection.subtitle}
+    tagline={industrialesSection.tagline}
+    items={industrialesSection.overviewItems}
+  />
+
+  <SegmentCategoryGrid
+    title="Explorá nuestras categorías"
+    subtitle="Productos diseñados para procesos industriales exigentes"
+    items={industrialesSection.categories}
+  />
+
+  <FlavorFeatureContainer />
+
+  <FindUs />
+
+  <SupportOverview />
+</Layout>
