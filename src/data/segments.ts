@@ -86,6 +86,8 @@ export const industrialesSection = {
       subtitle: 'Sabores naturales líquidos para producciones industriales.',
       tagline: 'Pureza y rendimiento',
       image: granjaLimasImage,
+      carouselImage: '/images/carousel/car-1.jpg',
+      carouselImageMobile: '/images/carousel/car-1-phone.jpg',
       rangeItems: [
         {
           title: 'Origen controlado y trazabilidad total',
@@ -114,6 +116,8 @@ export const industrialesSection = {
       subtitle: 'Perfiles aromáticos versátiles para múltiples aplicaciones.',
       tagline: 'Intensidad y fidelidad sensorial',
       image: escenciasImage,
+      carouselImage: '/images/carousel/car-flavor-1.jpg',
+      carouselImageMobile: '/images/carousel/car-flavor-phone-1.jpg',
       rangeItems: [
         {
           title: 'Notas auténticas y definidas',
@@ -147,6 +151,7 @@ export const industrialesSection = {
       subtitle: 'Soluciones cromáticas estables para gran escala.',
       tagline: 'Color y seguridad en cada lote',
       image: image1,
+      carouselImage: '/images/carousel/car-2.jpg',
       rangeItems: [
         {
           title: 'Colores uniformes y duraderos',
@@ -178,6 +183,7 @@ export const industrialesSection = {
       subtitle: 'Integración perfecta de aromas y aceites esenciales.',
       tagline: 'Estabilidad y homogeneidad',
       image: image2,
+      carouselImage: '/images/carousel/car-flavor-2.jpg',
       rangeItems: [
         {
           title: 'Texturas estables en producción continua',
@@ -209,6 +215,8 @@ export const industrialesSection = {
       subtitle: 'Notas intensas y auténticas de cacao para formulaciones premium.',
       tagline: 'Cuerpo y profundidad',
       image: image3,
+      carouselImage: '/images/carousel/car-flavor-1.jpg',
+      carouselImageMobile: '/images/carousel/car-flavor-phone-1.jpg',
       rangeItems: [
         {
           title: 'Perfil sensorial profundo',
@@ -234,6 +242,7 @@ export const industrialesSection = {
       subtitle: 'Laboratorio de desarrollo para soluciones personalizadas.',
       tagline: 'Innovación y soporte técnico',
       image: laboratorioImage,
+      carouselImage: '/images/carousel/car-flavor-2.jpg',
       rangeItems: [
         {
           title: 'Desarrollo técnico centrado en el cliente',
@@ -352,6 +361,8 @@ export const semiIndustrialesSection = {
       subtitle: 'Sabores naturales para procesos semi-industriales.',
       tagline: 'Equilibrio y autenticidad',
       image: frutillasProduccionImage,
+      carouselImage: '/images/carousel/car-1.jpg',
+      carouselImageMobile: '/images/carousel/car-1-phone.jpg',
       rangeItems: [
         {
           title: 'Sabores honestos y reconocibles',
@@ -377,6 +388,8 @@ export const semiIndustrialesSection = {
       subtitle: 'Notas aromáticas consistentes para producciones medianas.',
       tagline: 'Identidad y rendimiento',
       image: escenciasImage,
+      carouselImage: '/images/carousel/car-flavor-1.jpg',
+      carouselImageMobile: '/images/carousel/car-flavor-phone-1.jpg',
       rangeItems: [
         {
           title: 'Aromas balanceados',
@@ -408,6 +421,7 @@ export const semiIndustrialesSection = {
       subtitle: 'Color estable en procesos de mediana escala.',
       tagline: 'Tonalidades confiables',
       image: image4,
+      carouselImage: '/images/carousel/car-2.jpg',
       rangeItems: [
         {
           title: 'Resultados uniformes',
@@ -439,6 +453,7 @@ export const semiIndustrialesSection = {
       subtitle: 'Texturas estables y perfiles aromáticos integrados.',
       tagline: 'Homogeneidad y sabor',
       image: image2,
+      carouselImage: '/images/carousel/car-flavor-2.jpg',
       rangeItems: [
         {
           title: 'Emulsiones seguras y consistentes',
@@ -470,6 +485,8 @@ export const semiIndustrialesSection = {
       subtitle: 'Soluciones concentradas para potenciar sabores y aromas.',
       tagline: 'Impacto sensorial',
       image: frascosFrambuesaImage,
+      carouselImage: '/images/carousel/car-flavor-1.jpg',
+      carouselImageMobile: '/images/carousel/car-flavor-phone-1.jpg',
       rangeItems: [
         {
           title: 'Concentración y rendimiento',

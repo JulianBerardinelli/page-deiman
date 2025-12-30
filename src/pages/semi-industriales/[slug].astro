@@ -28,7 +28,8 @@ const carouselSlides = [
   {
     title: `Línea Semi-industriales <span class=\"text-yellow-300\">${page.title}</span>`,
     description: page.subtitle,
-    image: page.image?.src ?? '/images/carousel/car-flavor-1.jpg',
+    image: page.carouselImage ?? page.image?.src ?? '/images/carousel/car-flavor-1.jpg',
+    imageMobile: page.carouselImageMobile,
     align: 'center',
   },
 ];
