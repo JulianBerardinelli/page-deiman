@@ -33,24 +33,65 @@ export const headerData = {
           text: 'Siropes',
           href: getPermalink('/siropes'),
         },
+      ],
+    },
+    {
+      text: 'Industriales',
+      links: [
         {
-          text: 'Laboratorio',
-          href: getPermalink('/laboratorio'),
+          text: 'Naturales',
+          href: getPermalink('/industriales/naturales'),
+        },
+        {
+          text: 'Esencias',
+          href: getPermalink('/industriales/esencias'),
+        },
+        {
+          text: 'Colorantes',
+          href: getPermalink('/industriales/colorantes'),
+        },
+        {
+          text: 'Emulsiones',
+          href: getPermalink('/industriales/emulsiones'),
+        },
+        {
+          text: 'Extracto de cacao',
+          href: getPermalink('/industriales/extracto-de-cacao'),
+        },
+        {
+          text: 'Desarrollos',
+          href: getPermalink('/industriales/desarrollos'),
         },
       ],
     },
     {
-      text: 'Sobre Nosotros',
+      text: 'Semi-industriales',
       links: [
         {
-          text: 'Nosotros',
-          href: getPermalink('/about'),
+          text: 'Naturales',
+          href: getPermalink('/semi-industriales/naturales'),
         },
         {
-          text: 'Contacto',
-          href: getPermalink('/contact'),
+          text: 'Esencias',
+          href: getPermalink('/semi-industriales/esencias'),
+        },
+        {
+          text: 'Colorantes',
+          href: getPermalink('/semi-industriales/colorantes'),
+        },
+        {
+          text: 'Emulsiones',
+          href: getPermalink('/semi-industriales/emulsiones'),
+        },
+        {
+          text: 'Concentrados',
+          href: getPermalink('/semi-industriales/concentrados'),
         },
       ],
+    },
+    {
+      text: 'Hogar',
+      href: getPermalink('/hogar'),
     },
   ],
   actions: [{ text: 'Contacto', href: '/contact' }],
@@ -66,23 +107,37 @@ export const footerData = {
         { text: 'Salados', href: '/sabores/salados' },
         { text: 'Panificados', href: '/sabores/panificados' },
         { text: 'Cítricos', href: '/sabores/citricos' },
-        { text: 'Desarrallo Personalizado', href: '/' },
-      ],
-      
-    },
-    {
-      title: 'Jarabes',
-      links: [
+        { text: 'Picantes', href: '/sabores/picantes' },
         { text: 'Siropes', href: '/siropes' },
       ],
     },
     {
-      title: 'Soporte técnico',
-      links: [{ text: 'Contacto', href: '/contact' }],
+      title: 'Industriales',
+      links: [
+        { text: 'Naturales', href: '/industriales/naturales' },
+        { text: 'Esencias', href: '/industriales/esencias' },
+        { text: 'Colorantes', href: '/industriales/colorantes' },
+        { text: 'Emulsiones', href: '/industriales/emulsiones' },
+        { text: 'Extracto de cacao', href: '/industriales/extracto-de-cacao' },
+        { text: 'Desarrollos', href: '/industriales/desarrollos' },
+      ],
     },
     {
-      title: 'Deiman Argentina',
-      links: [{ text: 'Sobre Nosotros', href: '/about' }],
+      title: 'Semi-industriales',
+      links: [
+        { text: 'Naturales', href: '/semi-industriales/naturales' },
+        { text: 'Esencias', href: '/semi-industriales/esencias' },
+        { text: 'Colorantes', href: '/semi-industriales/colorantes' },
+        { text: 'Emulsiones', href: '/semi-industriales/emulsiones' },
+        { text: 'Concentrados', href: '/semi-industriales/concentrados' },
+      ],
+    },
+    {
+      title: 'Hogar',
+      links: [
+        { text: 'Próximamente', href: '/hogar' },
+        { text: 'Contacto', href: '/contact' },
+      ],
     },
   ],
   secondaryLinks: [

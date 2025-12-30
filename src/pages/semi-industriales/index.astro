@@ -1,0 +1,56 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Header from '~/components/widgets/Header.astro';
+import { headerData } from '~/navigation';
+import ContentCarouselSegment from '~/components/widgets/carousels/ContentCarouselSegment.astro';
+import FlavorRange from '~/components/ui/FlavorRange.astro';
+import SegmentCategoryGrid from '~/components/widgets/SegmentCategoryGrid.astro';
+import FlavorFeatureContainer from '~/components/widgets/FlavorFeatureContainer.astro';
+import FindUs from '~/components/widgets/FindUs.astro';
+import SupportOverview from '~/components/widgets/SupportOverview.astro';
+import { semiIndustrialesSection } from '~/data/segments';
+
+const metadata = {
+  title: 'Línea Semi-industriales',
+  description: 'Soluciones flexibles para producciones medianas y artesanales.',
+};
+---
+
+<Layout metadata={metadata}>
+  <Fragment slot="header">
+    <Header
+      {...headerData}
+      actions={[
+        {
+          variant: 'primary',
+          text: 'Contacto',
+          href: '/contact',
+        },
+      ]}
+      isSticky
+    />
+  </Fragment>
+
+  <ContentCarouselSegment slides={semiIndustrialesSection.carouselSlides} />
+
+  <FlavorRange
+    noAnimation={true}
+    id="semi-industriales"
+    title={`Línea <span class=\"text-primary\">${semiIndustrialesSection.title}</span>`}
+    subtitle={semiIndustrialesSection.subtitle}
+    tagline={semiIndustrialesSection.tagline}
+    items={semiIndustrialesSection.overviewItems}
+  />
+
+  <SegmentCategoryGrid
+    title="Explorá nuestras categorías"
+    subtitle="Productos diseñados para procesos semi-industriales"
+    items={semiIndustrialesSection.categories}
+  />
+
+  <FlavorFeatureContainer />
+
+  <FindUs />
+
+  <SupportOverview />
+</Layout>

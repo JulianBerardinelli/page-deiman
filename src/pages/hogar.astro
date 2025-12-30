@@ -1,0 +1,40 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Header from '~/components/widgets/Header.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import FindUs from '~/components/widgets/FindUs.astro';
+import SupportOverview from '~/components/widgets/SupportOverview.astro';
+import { headerData } from '~/navigation';
+
+const metadata = {
+  title: 'Hogar',
+  description: 'Próximamente una nueva línea pensada para el hogar.',
+};
+---
+
+<Layout metadata={metadata}>
+  <Fragment slot="header">
+    <Header
+      {...headerData}
+      actions={[
+        {
+          variant: 'primary',
+          text: 'Contacto',
+          href: '/contact',
+        },
+      ]}
+      isSticky
+    />
+  </Fragment>
+
+  <Hero
+    title="Hogar"
+    subtitle="Estamos preparando una propuesta pensada para llevar sabores únicos a cada cocina."
+    tagline="Próximamente"
+    bg={`<div class=\"absolute inset-0 bg-[url('/images/backgrounds/banner1.jpg')] bg-cover bg-center\"></div><div class=\"absolute inset-0 bg-black/50\"></div>`}
+  />
+
+  <FindUs />
+
+  <SupportOverview />
+</Layout>

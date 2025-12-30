@@ -1,0 +1,86 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Header from '~/components/widgets/Header.astro';
+import { headerData } from '~/navigation';
+import ContentCarouselSegment from '~/components/widgets/carousels/ContentCarouselSegment.astro';
+import FlavorRange from '~/components/ui/FlavorRange.astro';
+import ProductFormatTabs from '~/components/ui/ProductFormatTabs.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import FlavorFeatureContainer from '~/components/widgets/FlavorFeatureContainer.astro';
+import FindUs from '~/components/widgets/FindUs.astro';
+import SupportOverview from '~/components/widgets/SupportOverview.astro';
+import { industrialesSection } from '~/data/segments';
+
+export function getStaticPaths() {
+  return industrialesSection.pages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+
+const metadata = {
+  title: `${page.title} | Industriales`,
+  description: page.subtitle,
+};
+
+const carouselSlides = [
+  {
+    title: `Línea Industriales <span class=\"text-yellow-300\">${page.title}</span>`,
+    description: page.subtitle,
+    image: page.image?.src ?? '/images/carousel/car-1.jpg',
+    align: 'center',
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <Fragment slot="header">
+    <Header
+      {...headerData}
+      actions={[
+        {
+          variant: 'primary',
+          text: 'Contacto',
+          href: '/contact',
+        },
+      ]}
+      isSticky
+    />
+  </Fragment>
+
+  <ContentCarouselSegment slides={carouselSlides} />
+
+  <FlavorRange
+    noAnimation={true}
+    id={`industriales-${page.slug}`}
+    title={`${page.title} <span class=\"text-primary\">Industriales</span>`}
+    subtitle={page.subtitle}
+    tagline={page.tagline}
+    items={page.rangeItems}
+    image={page.image}
+  />
+
+  {page.tabs?.length ? (
+    <ProductFormatTabs
+      title="Formatos disponibles"
+      subtitle="Elegí la presentación ideal para tu proceso"
+      tabs={page.tabs}
+    />
+  ) : null}
+
+  {page.features?.length ? (
+    <Features3
+      columns={3}
+      isAfterContent={true}
+      items={page.features}
+    />
+  ) : null}
+
+  <FlavorFeatureContainer />
+
+  <FindUs />
+
+  <SupportOverview />
+</Layout>
