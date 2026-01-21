@@ -3,7 +3,19 @@ import { getPermalink } from './utils/permalinks';
 export const headerData = {
   links: [
     {
-      text: 'Descubri nuestros Sabores',
+      text: 'Industriales',
+      href: getPermalink('/industriales'),
+    },
+    {
+      text: 'Semi industriales',
+      href: getPermalink('/semi-industriales'),
+    },
+    {
+      text: 'Hogar',
+      href: getPermalink('/hogar'),
+    },
+    {
+      text: 'Sabores',
       links: [
         {
           text: 'Todos los sabores',
@@ -41,16 +53,7 @@ export const headerData = {
     },
     {
       text: 'Sobre Nosotros',
-      links: [
-        {
-          text: 'Nosotros',
-          href: getPermalink('/about'),
-        },
-        {
-          text: 'Contacto',
-          href: getPermalink('/contact'),
-        },
-      ],
+      href: getPermalink('/about'),
     },
   ],
   actions: [{ text: 'Contacto', href: '/contact' }],
