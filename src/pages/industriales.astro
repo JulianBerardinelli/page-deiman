@@ -3,6 +3,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import Header from '~/components/widgets/Header.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import FindUs from '~/components/widgets/FindUs.astro';
+import IndustrialFlavorFeatureContainer from '~/components/widgets/IndustrialFlavorFeatureContainer.astro';
 import SupportOverview from '~/components/widgets/SupportOverview.astro';
 import { headerData } from '~/navigation';
 
@@ -27,26 +28,42 @@ const metadata = {
     />
   </Fragment>
 
-  <Hero tagline="Industriales">
+  <Hero
+    tagline="Industriales"
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Solicitar catálogo',
+        href: '/contact',
+      },
+      {
+        variant: 'secondary',
+        text: 'Hablar con un especialista',
+        href: '/contact',
+      },
+    ]}
+  >
     <Fragment slot="title">
-      Sabores pensados para <br />
-      <span class="animate-gradient-text font-bold">producción industrial</span>
+      Soluciones integrales <br />
+      <span class="animate-gradient-text font-bold">para procesos industriales</span>
     </Fragment>
 
     <Fragment slot="subtitle">
-      Desarrollos estables, eficientes y escalables para grandes volúmenes. Acompañamos cada etapa del proceso
-      con soluciones técnicas que garantizan rendimiento y consistencia.
+      Formulaciones estables y escalables para grandes volúmenes, con soporte técnico dedicado para garantizar
+      consistencia, trazabilidad y rendimiento en cada lote.
     </Fragment>
 
     <Fragment slot="image">
       <img
-        src="/images/backgrounds/test.jpg"
+        src="/images/backgrounds/industriales.jpg"
         alt="Soluciones industriales Deiman"
         class="mx-auto rounded-md w-full max-w-4xl"
         loading="eager"
       />
     </Fragment>
   </Hero>
+
+  <IndustrialFlavorFeatureContainer />
 
   <FindUs />
 
