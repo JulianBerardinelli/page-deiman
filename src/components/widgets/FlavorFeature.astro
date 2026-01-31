@@ -53,6 +53,14 @@ const {
       <FlavorCard {...items[5]} class="md:row-start-3 md:col-start-2" />
       <FlavorCard {...items[6]} class="md:row-span-3 md:col-start-3 md:h-full" />
     </div>
+  ) : items.length === 5 ? (
+    <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 mt-10">
+      <FlavorCard {...items[0]} class="md:row-start-1 md:col-start-1" />
+      <FlavorCard {...items[1]} class="md:row-start-1 md:col-start-2" />
+      <FlavorCard {...items[2]} class="md:row-start-2 md:col-start-1" />
+      <FlavorCard {...items[3]} class="md:row-start-2 md:col-start-2" />
+      <FlavorCard {...items[4]} class="md:row-span-2 md:col-start-3 md:h-full" />
+    </div>
   ) : (
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 mt-10">
       {items.map((item) => <FlavorCard {...item} />)}

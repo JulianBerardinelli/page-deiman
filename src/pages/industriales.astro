@@ -3,6 +3,8 @@ import Layout from '~/layouts/PageLayout.astro';
 import Header from '~/components/widgets/Header.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import FindUs from '~/components/widgets/FindUs.astro';
+import IndustrialFlavorFeatureContainer from '~/components/widgets/IndustrialFlavorFeatureContainer.astro';
+import ProductGuide from '~/components/widgets/ProductGuide.astro';
 import SupportOverview from '~/components/widgets/SupportOverview.astro';
 import { headerData } from '~/navigation';
 
@@ -27,26 +29,69 @@ const metadata = {
     />
   </Fragment>
 
-  <Hero tagline="Industriales">
+  <Hero
+    tagline="Industriales"
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Solicitar catálogo',
+        href: '/contact',
+      },
+      {
+        variant: 'secondary',
+        text: 'Hablar con un especialista',
+        href: '/contact',
+      },
+    ]}
+  >
     <Fragment slot="title">
-      Sabores pensados para <br />
-      <span class="animate-gradient-text font-bold">producción industrial</span>
+      Soluciones integrales <br />
+      <span class="animate-gradient-text font-bold">para procesos industriales</span>
     </Fragment>
 
     <Fragment slot="subtitle">
-      Desarrollos estables, eficientes y escalables para grandes volúmenes. Acompañamos cada etapa del proceso
-      con soluciones técnicas que garantizan rendimiento y consistencia.
+      Formulaciones estables y escalables para grandes volúmenes, con soporte técnico dedicado para garantizar
+      consistencia, trazabilidad y rendimiento en cada lote.
     </Fragment>
 
     <Fragment slot="image">
       <img
-        src="/images/backgrounds/test.jpg"
+        src="/images/backgrounds/industriales.jpg"
         alt="Soluciones industriales Deiman"
         class="mx-auto rounded-md w-full max-w-4xl"
         loading="eager"
       />
     </Fragment>
   </Hero>
+
+  <ProductGuide
+    id="guia-industrial"
+    tagline="Guía industrial"
+    title="¿Qué significa un producto industrial en Deiman?"
+    subtitle="Soluciones pensadas para procesos continuos, con foco en rendimiento, estabilidad y acompañamiento técnico."
+    items={[
+      {
+        title: 'Escala y consistencia',
+        description:
+          'Formulaciones diseñadas para grandes volúmenes, con perfiles estables y resultados repetibles en cada lote.',
+        icon: 'lucide:layers',
+      },
+      {
+        title: 'Eficiencia operativa',
+        description:
+          'Optimización de dosificación, tiempos y rendimiento para integrarse sin fricciones a líneas automatizadas.',
+        icon: 'lucide:settings',
+      },
+      {
+        title: 'Soporte técnico',
+        description:
+          'Acompañamiento en formulación, escalado y ajustes para asegurar la calidad final del producto.',
+        icon: 'lucide:badge-check',
+      },
+    ]}
+  />
+
+  <IndustrialFlavorFeatureContainer />
 
   <FindUs />
 

@@ -3,6 +3,8 @@ import Layout from '~/layouts/PageLayout.astro';
 import Header from '~/components/widgets/Header.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import FindUs from '~/components/widgets/FindUs.astro';
+import SemiIndustrialFlavorFeatureContainer from '~/components/widgets/SemiIndustrialFlavorFeatureContainer.astro';
+import ProductGuide from '~/components/widgets/ProductGuide.astro';
 import SupportOverview from '~/components/widgets/SupportOverview.astro';
 import { headerData } from '~/navigation';
 
@@ -27,26 +29,69 @@ const metadata = {
     />
   </Fragment>
 
-  <Hero tagline="Semi industriales">
+  <Hero
+    tagline="Semi industriales"
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Solicitar catálogo',
+        href: '/contact',
+      },
+      {
+        variant: 'secondary',
+        text: 'Asesoramiento técnico',
+        href: '/contact',
+      },
+    ]}
+  >
     <Fragment slot="title">
-      Rendimiento y sabor <br />
+      Rendimiento confiable <br />
       <span class="animate-gradient-text font-bold">para producciones medianas</span>
     </Fragment>
 
     <Fragment slot="subtitle">
-      Fórmulas equilibradas para líneas semi industriales, con perfiles aromáticos definidos y gran adaptabilidad.
-      Pensadas para quienes buscan calidad sin perder flexibilidad.
+      Fórmulas equilibradas con perfiles aromáticos definidos, listas para adaptarse a líneas semi industriales sin
+      perder eficiencia ni calidad sensorial.
     </Fragment>
 
     <Fragment slot="image">
       <img
-        src="/images/backgrounds/test.jpg"
+        src="/images/backgrounds/semi-industriales.jpg"
         alt="Soluciones semi industriales Deiman"
         class="mx-auto rounded-md w-full max-w-4xl"
         loading="eager"
       />
     </Fragment>
   </Hero>
+
+  <ProductGuide
+    id="guia-semi-industrial"
+    tagline="Guía semi industrial"
+    title="¿Qué es una solución semi industrial?"
+    subtitle="Desarrollos flexibles que combinan rendimiento y adaptabilidad para producciones medianas."
+    items={[
+      {
+        title: 'Flexibilidad',
+        description:
+          'Perfiles aromáticos que se adaptan a distintos procesos con ajustes rápidos y controlados.',
+        icon: 'lucide:wand-2',
+      },
+      {
+        title: 'Escalabilidad gradual',
+        description:
+          'Pensado para crecer por etapas, manteniendo la calidad del sabor en cada nueva escala de producción.',
+        icon: 'lucide:trending-up',
+      },
+      {
+        title: 'Equilibrio sensorial',
+        description:
+          'Formulaciones equilibradas para lograr estabilidad y fidelidad aromática en lotes medianos.',
+        icon: 'lucide:scale',
+      },
+    ]}
+  />
+
+  <SemiIndustrialFlavorFeatureContainer />
 
   <FindUs />
 

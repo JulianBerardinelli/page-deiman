@@ -1,0 +1,113 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import Button from '~/components/ui/Button.astro';
+
+interface Props {
+  id: string;
+  title: string;
+  description: string;
+  industrialLabel?: string;
+  semiIndustrialLabel?: string;
+}
+
+const {
+  id,
+  title,
+  description,
+  industrialLabel = 'Industriales',
+  semiIndustrialLabel = 'Semi industriales',
+} = Astro.props as Props;
+
+const industrialContent = await Astro.slots.render('industrial');
+const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
+---
+
+<WidgetWrapper id={id} containerClass="max-w-5xl" noAnimation={true}>
+  <div class="text-center">
+    <Headline
+      title={title}
+      subtitle={description}
+      classes={{
+        container: 'text-center max-w-3xl mx-auto',
+        title: 'text-3xl md:text-4xl',
+      }}
+    />
+  </div>
+
+  <div class="mt-8 flex flex-col items-center gap-6">
+    <div
+      class="inline-flex flex-wrap justify-center gap-3 rounded-full border border-primary/30 bg-white/70 p-2 shadow-sm"
+      role="tablist"
+      aria-label="Variantes de producto"
+    >
+      <Button
+        type="button"
+        variant="secondary"
+        class="product-tab-btn"
+        data-variant="industrial"
+        data-group={id}
+        role="tab"
+        aria-pressed="true"
+      >
+        {industrialLabel}
+      </Button>
+      <Button
+        type="button"
+        variant="secondary"
+        class="product-tab-btn"
+        data-variant="semi-industrial"
+        data-group={id}
+        role="tab"
+        aria-pressed="false"
+      >
+        {semiIndustrialLabel}
+      </Button>
+    </div>
+
+    <div class="w-full text-left">
+      <div
+        class="product-tab-panel"
+        data-variant="industrial"
+        data-group={id}
+        role="tabpanel"
+        set:html={industrialContent}
+      />
+      <div
+        class="product-tab-panel hidden"
+        data-variant="semi-industrial"
+        data-group={id}
+        role="tabpanel"
+        set:html={semiIndustrialContent}
+      />
+    </div>
+  </div>
+</WidgetWrapper>
+
+<script is:inline>
+  const groupId = {JSON.stringify(id)};
+  const buttons = document.querySelectorAll(`[data-group='${groupId}'].product-tab-btn`);
+  const panels = document.querySelectorAll(`[data-group='${groupId}'].product-tab-panel`);
+
+  const setActive = (variant) => {
+    buttons.forEach((button) => {
+      const isActive = button.dataset.variant === variant;
+      button.classList.toggle('btn-primary', isActive);
+      button.classList.toggle('btn-secondary', !isActive);
+      button.classList.toggle('text-white', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+
+    panels.forEach((panel) => {
+      panel.classList.toggle('hidden', panel.dataset.variant !== variant);
+    });
+  };
+
+  setActive('industrial');
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      setActive(button.dataset.variant);
+    });
+  });
+</script>

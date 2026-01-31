@@ -1,0 +1,42 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import ItemGrid from '~/components/ui/ItemGrid.astro';
+
+interface Props {
+  id?: string;
+  title: string;
+  subtitle: string;
+  tagline?: string;
+  items: {
+    title: string;
+    description: string;
+    icon?: string;
+  }[];
+}
+
+const { id, title, subtitle, tagline, items } = Astro.props as Props;
+---
+
+<WidgetWrapper id={id} containerClass="max-w-6xl" noAnimation={true}>
+  <Headline
+    title={title}
+    subtitle={subtitle}
+    tagline={tagline}
+    classes={{
+      container: 'text-center max-w-3xl mx-auto',
+      title: 'text-3xl md:text-4xl',
+    }}
+  />
+
+  <div class="mt-10">
+    <ItemGrid
+      items={items}
+      columns={3}
+      classes={{
+        container: 'gap-8',
+        description: 'text-base text-muted',
+      }}
+    />
+  </div>
+</WidgetWrapper>
