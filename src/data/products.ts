@@ -10,6 +10,7 @@ export interface ProductVariantContent {
   headline: string;
   description: string;
   highlights: string[];
+  image: string;
 }
 
 export interface ProductSingleContent {
@@ -44,7 +45,7 @@ const baseSlides = (title: string, subtitle: string): ProductSlide[] => [
   {
     image: '/images/carousel/car-2.jpg',
     mobileImage: '/images/carousel/car-1-phone.jpg',
-    title: 'Calidad sensorial y soporte <span class="text-yellow-300">en cada lote</span>',
+    title: 'Calidad sensorial y soporte <span class="text-primary">en cada lote</span>',
     subtitle:
       'Acompañamos la elección de materias primas, dosificación y ajustes para sostener perfiles consistentes.',
     align: 'right',
@@ -56,11 +57,11 @@ export const products: ProductData[] = [
     slug: 'escencias-naturales',
     name: 'Escencias naturales',
     metaDescription: 'Escencias naturales con perfiles estables para procesos industriales y semi industriales.',
-    heroTitle: 'Escencias naturales con <span class="text-yellow-300">perfil auténtico</span>',
+    heroTitle: 'Escencias naturales con <span class="text-primary">perfil auténtico</span>',
     heroDescription:
       'Notas naturales cuidadosamente seleccionadas para mantener su identidad en distintos procesos productivos.',
     slides: baseSlides(
-      'Escencias naturales con <span class="text-yellow-300">impacto sensorial</span>',
+      'Escencias naturales con <span class="text-primary">impacto sensorial</span>',
       'Perfiles frescos y auténticos, diseñados para conservar su carácter en distintas aplicaciones.'
     ),
     variants: {
@@ -73,6 +74,7 @@ export const products: ProductData[] = [
           'Compatibilidad con procesos térmicos y mezclas continuas.',
           'Trazabilidad de materias primas y soporte técnico especializado.',
         ],
+        image: '/images/backgrounds/industriales.jpg',
       },
       semiIndustrial: {
         headline: 'Semi industriales',
@@ -83,6 +85,7 @@ export const products: ProductData[] = [
           'Buena integración en bases lácteas, panificados y bebidas.',
           'Equilibrio entre naturalidad, rendimiento y costo.',
         ],
+        image: '/images/backgrounds/semi-industriales.jpg',
       },
     },
   },
@@ -90,11 +93,11 @@ export const products: ProductData[] = [
     slug: 'escencias',
     name: 'Escencias',
     metaDescription: 'Escencias concentradas para industrias y producciones semi industriales.',
-    heroTitle: 'Escencias pensadas para <span class="text-yellow-300">cada necesidad</span>',
+    heroTitle: 'Escencias pensadas para <span class="text-primary">cada necesidad</span>',
     heroDescription:
       'Perfiles aromáticos definidos y consistentes para distintas aplicaciones alimenticias.',
     slides: baseSlides(
-      'Escencias con <span class="text-yellow-300">carácter definido</span>',
+      'Escencias con <span class="text-primary">carácter definido</span>',
       'Soluciones versátiles que respetan el perfil sensorial y la identidad de cada producto.'
     ),
     variants: {
@@ -107,6 +110,7 @@ export const products: ProductData[] = [
           'Baja dosificación para optimizar costos.',
           'Compatibilidad con matrices grasas, acuosas y secas.',
         ],
+        image: '/images/backgrounds/industriales.jpg',
       },
       semiIndustrial: {
         headline: 'Semi industriales',
@@ -117,6 +121,7 @@ export const products: ProductData[] = [
           'Buena persistencia aromática en almacenaje.',
           'Soporte para escalado gradual sin perder calidad.',
         ],
+        image: '/images/backgrounds/semi-industriales.jpg',
       },
     },
   },
@@ -124,11 +129,11 @@ export const products: ProductData[] = [
     slug: 'colorantes',
     name: 'Colorantes',
     metaDescription: 'Colorantes alimenticios estables para procesos industriales y semi industriales.',
-    heroTitle: 'Colorantes con <span class="text-yellow-300">impacto visual</span>',
+    heroTitle: 'Colorantes con <span class="text-primary">impacto visual</span>',
     heroDescription:
       'Tonales consistentes que realzan la presentación del producto final.',
     slides: baseSlides(
-      'Colorantes de <span class="text-yellow-300">alta estabilidad</span>',
+      'Colorantes de <span class="text-primary">alta estabilidad</span>',
       'Soluciones diseñadas para mantener el color en cada etapa del proceso.'
     ),
     variants: {
@@ -141,6 +146,7 @@ export const products: ProductData[] = [
           'Compatibles con líneas de alta velocidad.',
           'Soporte en formulación para evitar variaciones.',
         ],
+        image: '/images/backgrounds/industriales.jpg',
       },
       semiIndustrial: {
         headline: 'Semi industriales',
@@ -151,6 +157,7 @@ export const products: ProductData[] = [
           'Variaciones cromáticas controladas por lote.',
           'Fácil integración en procesos artesanales escalados.',
         ],
+        image: '/images/backgrounds/semi-industriales.jpg',
       },
     },
   },
@@ -158,11 +165,11 @@ export const products: ProductData[] = [
     slug: 'emulsiones',
     name: 'Emulsiones',
     metaDescription: 'Emulsiones estables para aplicaciones industriales y semi industriales.',
-    heroTitle: 'Emulsiones con <span class="text-yellow-300">rendimiento estable</span>',
+    heroTitle: 'Emulsiones con <span class="text-primary">rendimiento estable</span>',
     heroDescription:
       'Soluciones que mejoran textura, dispersión y uniformidad en distintas matrices.',
     slides: baseSlides(
-      'Emulsiones con <span class="text-yellow-300">estabilidad superior</span>',
+      'Emulsiones con <span class="text-primary">estabilidad superior</span>',
       'Textura y homogeneidad garantizadas para procesos exigentes.'
     ),
     variants: {
@@ -175,6 +182,7 @@ export const products: ProductData[] = [
           'Compatibilidad con líneas automatizadas y grandes volúmenes.',
           'Reducción de separación en almacenamiento prolongado.',
         ],
+        image: '/images/backgrounds/industriales.jpg',
       },
       semiIndustrial: {
         headline: 'Semi industriales',
@@ -185,6 +193,7 @@ export const products: ProductData[] = [
           'Mayor control sobre viscosidad y dispersión.',
           'Soporte técnico para ajustes rápidos.',
         ],
+        image: '/images/backgrounds/semi-industriales.jpg',
       },
     },
   },
@@ -192,11 +201,11 @@ export const products: ProductData[] = [
     slug: 'extracto-de-cacao',
     name: 'Extracto de cacao',
     metaDescription: 'Extracto de cacao para procesos industriales de gran escala.',
-    heroTitle: 'Extracto de cacao <span class="text-yellow-300">industrial</span>',
+    heroTitle: 'Extracto de cacao <span class="text-primary">industrial</span>',
     heroDescription:
       'Notas profundas y consistentes, formuladas para aplicaciones exigentes.',
     slides: baseSlides(
-      'Extracto de cacao con <span class="text-yellow-300">perfil intenso</span>',
+      'Extracto de cacao con <span class="text-primary">perfil intenso</span>',
       'Aporta cuerpo y carácter a formulaciones industriales.'
     ),
     single: {
@@ -215,11 +224,11 @@ export const products: ProductData[] = [
     slug: 'concentrados',
     name: 'Concentrados',
     metaDescription: 'Concentrados para producciones semi industriales con alta adaptabilidad.',
-    heroTitle: 'Concentrados con <span class="text-yellow-300">flexibilidad</span>',
+    heroTitle: 'Concentrados con <span class="text-primary">flexibilidad</span>',
     heroDescription:
       'Perfiles intensos y rendidores para producciones medianas.',
     slides: baseSlides(
-      'Concentrados con <span class="text-yellow-300">alto rendimiento</span>',
+      'Concentrados con <span class="text-primary">alto rendimiento</span>',
       'Pensados para potenciar sabor con dosificación eficiente.'
     ),
     single: {
