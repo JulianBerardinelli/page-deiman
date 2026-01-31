@@ -24,7 +24,8 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
 ---
 
 <WidgetWrapper id={id} containerClass="max-w-5xl" noAnimation={true}>
-  <div class="text-center" data-product-switch={id}>
+  <div data-product-switch={id}>
+    <div class="text-center">
     <Headline
       title={title}
       subtitle={description}
@@ -33,59 +34,60 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
         title: 'text-3xl md:text-4xl',
       }}
     />
-  </div>
-
-  <div class="mt-8 flex flex-col items-center gap-6">
-    <div
-      class="inline-flex flex-wrap justify-center gap-3 rounded-full border border-primary/30 bg-white/70 p-2 shadow-sm"
-      role="tablist"
-      aria-label="Variantes de producto"
-    >
-      <Button
-        type="button"
-        variant="secondary"
-        class="product-tab-btn px-6"
-        data-variant="industrial"
-        data-group={id}
-        role="tab"
-        aria-pressed="true"
-        aria-controls={`${id}-industrial`}
-      >
-        {industrialLabel}
-      </Button>
-      <Button
-        type="button"
-        variant="secondary"
-        class="product-tab-btn px-6"
-        data-variant="semi-industrial"
-        data-group={id}
-        role="tab"
-        aria-pressed="false"
-        aria-controls={`${id}-semi-industrial`}
-      >
-        {semiIndustrialLabel}
-      </Button>
     </div>
 
-    <div class="w-full">
+    <div class="mt-8 flex flex-col items-center gap-6">
       <div
-        class="product-tab-panel rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-sm transition"
-        data-variant="industrial"
-        data-group={id}
-        role="tabpanel"
-        id={`${id}-industrial`}
-        aria-live="polite"
-        set:html={industrialContent}
-      />
-      <div
-        class="product-tab-panel hidden rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-sm transition"
-        data-variant="semi-industrial"
-        data-group={id}
-        role="tabpanel"
-        id={`${id}-semi-industrial`}
-        aria-live="polite"
-        set:html={semiIndustrialContent}
-      />
+        class="inline-flex flex-wrap justify-center gap-3 rounded-full border border-primary/30 bg-white/70 p-2 shadow-sm"
+        role="tablist"
+        aria-label="Variantes de producto"
+      >
+        <Button
+          type="button"
+          variant="secondary"
+          class="product-tab-btn px-6"
+          data-variant="industrial"
+          data-group={id}
+          role="tab"
+          aria-pressed="true"
+          aria-controls={`${id}-industrial`}
+        >
+          {industrialLabel}
+        </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          class="product-tab-btn px-6"
+          data-variant="semi-industrial"
+          data-group={id}
+          role="tab"
+          aria-pressed="false"
+          aria-controls={`${id}-semi-industrial`}
+        >
+          {semiIndustrialLabel}
+        </Button>
+      </div>
+
+      <div class="w-full">
+        <div
+          class="product-tab-panel rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-sm transition"
+          data-variant="industrial"
+          data-group={id}
+          role="tabpanel"
+          id={`${id}-industrial`}
+          aria-live="polite"
+          set:html={industrialContent}
+        />
+        <div
+          class="product-tab-panel hidden rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-sm transition"
+          data-variant="semi-industrial"
+          data-group={id}
+          role="tabpanel"
+          id={`${id}-semi-industrial`}
+          aria-live="polite"
+          set:html={semiIndustrialContent}
+        />
+      </div>
     </div>
   </div>
 </WidgetWrapper>
