@@ -24,7 +24,7 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
 ---
 
 <WidgetWrapper id={id} containerClass="max-w-5xl" noAnimation={true}>
-  <div class="text-center">
+  <div class="text-center" data-product-switch={id}>
     <Headline
       title={title}
       subtitle={description}
@@ -44,40 +44,46 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
       <Button
         type="button"
         variant="secondary"
-        class="product-tab-btn"
+        class="product-tab-btn px-6"
         data-variant="industrial"
         data-group={id}
         role="tab"
         aria-pressed="true"
+        aria-controls={`${id}-industrial`}
       >
         {industrialLabel}
       </Button>
       <Button
         type="button"
         variant="secondary"
-        class="product-tab-btn"
+        class="product-tab-btn px-6"
         data-variant="semi-industrial"
         data-group={id}
         role="tab"
         aria-pressed="false"
+        aria-controls={`${id}-semi-industrial`}
       >
         {semiIndustrialLabel}
       </Button>
     </div>
 
-    <div class="w-full text-left">
+    <div class="w-full">
       <div
-        class="product-tab-panel"
+        class="product-tab-panel rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-sm transition"
         data-variant="industrial"
         data-group={id}
         role="tabpanel"
+        id={`${id}-industrial`}
+        aria-live="polite"
         set:html={industrialContent}
       />
       <div
-        class="product-tab-panel hidden"
+        class="product-tab-panel hidden rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-sm transition"
         data-variant="semi-industrial"
         data-group={id}
         role="tabpanel"
+        id={`${id}-semi-industrial`}
+        aria-live="polite"
         set:html={semiIndustrialContent}
       />
     </div>
@@ -87,8 +93,10 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
 <script is:inline>
   const initProductSwitch = () => {
     const groupId = {JSON.stringify(id)};
-    const buttons = document.querySelectorAll(`[data-group='${groupId}'].product-tab-btn`);
-    const panels = document.querySelectorAll(`[data-group='${groupId}'].product-tab-panel`);
+    const root = document.querySelector(`[data-product-switch='${groupId}']`);
+    if (!root) return;
+    const buttons = root.querySelectorAll(`[data-group='${groupId}'].product-tab-btn`);
+    const panels = root.querySelectorAll(`[data-group='${groupId}'].product-tab-panel`);
 
     if (!buttons.length || !panels.length) return;
 
@@ -108,10 +116,14 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
 
     setActive('industrial');
 
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        setActive(button.dataset.variant);
-      });
+    root.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      const button = target.closest('.product-tab-btn');
+      if (!button) return;
+      const variant = button.dataset.variant;
+      if (!variant) return;
+      setActive(variant);
     });
   };
 

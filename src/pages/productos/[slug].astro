@@ -44,25 +44,45 @@ const metadata = {
   {product.variants ? (
     <ProductDetailSwitch id={`${product.slug}-detalle`} title={product.heroTitle} description={product.heroDescription}>
       <Fragment slot="industrial">
-        <div class="space-y-4">
-          <h3 class="text-xl font-semibold text-primary">{product.variants.industrial.headline}</h3>
-          <p class="text-muted">{product.variants.industrial.description}</p>
-          <ul class="list-disc pl-5 text-muted">
-            {product.variants.industrial.highlights.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
+        <div class="grid gap-6 md:grid-cols-[1.2fr_1fr]">
+          <div class="space-y-4">
+            <span class="inline-flex items-center rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+              {product.variants.industrial.headline}
+            </span>
+            <p class="text-muted text-lg">{product.variants.industrial.description}</p>
+          </div>
+          <div class="rounded-xl border border-primary/10 bg-primary/5 p-5">
+            <h4 class="text-base font-semibold text-primary mb-3">Puntos clave</h4>
+            <ul class="space-y-2 text-muted">
+              {product.variants.industrial.highlights.map((item) => (
+                <li class="flex items-start gap-2">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Fragment>
       <Fragment slot="semiIndustrial">
-        <div class="space-y-4">
-          <h3 class="text-xl font-semibold text-primary">{product.variants.semiIndustrial.headline}</h3>
-          <p class="text-muted">{product.variants.semiIndustrial.description}</p>
-          <ul class="list-disc pl-5 text-muted">
-            {product.variants.semiIndustrial.highlights.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
+        <div class="grid gap-6 md:grid-cols-[1.2fr_1fr]">
+          <div class="space-y-4">
+            <span class="inline-flex items-center rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+              {product.variants.semiIndustrial.headline}
+            </span>
+            <p class="text-muted text-lg">{product.variants.semiIndustrial.description}</p>
+          </div>
+          <div class="rounded-xl border border-primary/10 bg-primary/5 p-5">
+            <h4 class="text-base font-semibold text-primary mb-3">Puntos clave</h4>
+            <ul class="space-y-2 text-muted">
+              {product.variants.semiIndustrial.highlights.map((item) => (
+                <li class="flex items-start gap-2">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Fragment>
     </ProductDetailSwitch>
@@ -74,14 +94,24 @@ const metadata = {
       badge={product.single?.badge}
     >
       <Fragment slot="content">
-        <div class="space-y-4">
-          <h3 class="text-xl font-semibold text-primary">{product.single?.headline}</h3>
-          <p class="text-muted">{product.single?.description}</p>
-          <ul class="list-disc pl-5 text-muted">
-            {(product.single?.highlights ?? []).map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
+        <div class="grid gap-6 md:grid-cols-[1.2fr_1fr]">
+          <div class="space-y-4">
+            <span class="inline-flex items-center rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+              {product.single?.headline}
+            </span>
+            <p class="text-muted text-lg">{product.single?.description}</p>
+          </div>
+          <div class="rounded-xl border border-primary/10 bg-primary/5 p-5">
+            <h4 class="text-base font-semibold text-primary mb-3">Puntos clave</h4>
+            <ul class="space-y-2 text-muted">
+              {(product.single?.highlights ?? []).map((item) => (
+                <li class="flex items-start gap-2">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Fragment>
     </ProductDetailSingle>
