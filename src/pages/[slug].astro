@@ -46,39 +46,48 @@ const metadata = {
   {product.variants ? (
     <ProductDetailSwitch id={`${product.slug}-detalle`} title={product.heroTitle} description={product.heroDescription}>
       <Fragment slot="industrial">
-        <div class="grid gap-8 md:grid-cols-[260px_1fr]">
-          <div class="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-50 shadow-sm">
+        <div class="grid gap-10 md:grid-cols-[300px_1fr]">
+          <div class="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-50 shadow-sm">
             <!-- TODO: Reemplazar imagen por una fotografía específica del producto -->
             <img
               src={product.variants.industrial.image}
               alt={`Vista del producto ${product.name} industrial`}
-              class="h-48 w-full object-cover md:h-full"
+              class="h-56 w-full object-cover md:h-full"
               loading="lazy"
               decoding="async"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/45 via-transparent to-transparent"></div>
-            <div class="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary shadow-sm">
+            <div class="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-primary shadow-sm">
               <SinTaccIcon class="h-5 w-5" aria-hidden="true" />
-              <span>Sin T.A.C.C.</span>
+              <span class="font-bold">Sin T.A.C.C.</span>
             </div>
           </div>
-          <div class="space-y-6">
-            <div class="space-y-3">
-              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-primary/80">
-                Perfil industrial <span class="text-primary font-extrabold">de alto rendimiento</span>
+          <div class="space-y-8">
+            <div class="space-y-4">
+              <p class="text-base font-semibold uppercase tracking-[0.3em] text-primary/80">
+                <span class="inline-flex items-center gap-2">
+                  <Icon name="tabler:info-circle" class="h-5 w-5 text-primary" />
+                  <span>
+                    Perfil industrial <span class="text-primary font-extrabold">de alto rendimiento</span>
+                  </span>
+                </span>
               </p>
-              <span class="inline-flex items-center rounded-full bg-primary/10 px-5 py-2 text-base font-bold text-primary">
+              <span class="inline-flex items-center gap-2 rounded-full bg-primary/10 px-6 py-2 text-lg font-extrabold text-primary">
+                <Icon name="tabler:shopping-cart" class="h-5 w-5 text-primary" />
                 {product.variants.industrial.headline}
               </span>
             </div>
-            <p class="text-muted text-xl leading-relaxed">{product.variants.industrial.description}</p>
-            <div class="space-y-3">
-              <h4 class="text-lg font-extrabold text-primary">Puntos clave</h4>
-              <ul class="space-y-3 text-base text-muted">
+            <p class="text-muted text-2xl leading-relaxed">{product.variants.industrial.description}</p>
+            <div class="space-y-4">
+              <h4 class="inline-flex items-center gap-2 text-xl font-extrabold text-primary">
+                <Icon name="tabler:info-circle" class="h-5 w-5 text-primary" />
+                Puntos clave
+              </h4>
+              <ul class="space-y-4 text-lg text-muted">
                 {product.variants.industrial.highlights.map((item) => (
-                  <li class="flex items-start gap-2">
-                    <Icon name="tabler:circle-check-filled" class="mt-1 h-5 w-5 text-primary" />
-                    <span class="font-medium">{item}</span>
+                  <li class="flex items-start gap-3">
+                    <Icon name="tabler:circle-check-filled" class="mt-1 h-6 w-6 text-primary" />
+                    <span class="font-semibold">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -87,39 +96,48 @@ const metadata = {
         </div>
       </Fragment>
       <Fragment slot="semiIndustrial">
-        <div class="grid gap-8 md:grid-cols-[260px_1fr]">
-          <div class="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-50 shadow-sm">
+        <div class="grid gap-10 md:grid-cols-[300px_1fr]">
+          <div class="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-50 shadow-sm">
             <!-- TODO: Reemplazar imagen por una fotografía específica del producto -->
             <img
               src={product.variants.semiIndustrial.image}
               alt={`Vista del producto ${product.name} semi industrial`}
-              class="h-48 w-full object-cover md:h-full"
+              class="h-56 w-full object-cover md:h-full"
               loading="lazy"
               decoding="async"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/45 via-transparent to-transparent"></div>
-            <div class="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary shadow-sm">
+            <div class="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-primary shadow-sm">
               <SinTaccIcon class="h-5 w-5" aria-hidden="true" />
-              <span>Sin T.A.C.C.</span>
+              <span class="font-bold">Sin T.A.C.C.</span>
             </div>
           </div>
-          <div class="space-y-6">
-            <div class="space-y-3">
-              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-primary/80">
-                Perfil semi industrial <span class="text-primary font-extrabold">más flexible</span>
+          <div class="space-y-8">
+            <div class="space-y-4">
+              <p class="text-base font-semibold uppercase tracking-[0.3em] text-primary/80">
+                <span class="inline-flex items-center gap-2">
+                  <Icon name="tabler:info-circle" class="h-5 w-5 text-primary" />
+                  <span>
+                    Perfil semi industrial <span class="text-primary font-extrabold">más flexible</span>
+                  </span>
+                </span>
               </p>
-              <span class="inline-flex items-center rounded-full bg-primary/10 px-5 py-2 text-base font-bold text-primary">
+              <span class="inline-flex items-center gap-2 rounded-full bg-primary/10 px-6 py-2 text-lg font-extrabold text-primary">
+                <Icon name="tabler:shopping-cart" class="h-5 w-5 text-primary" />
                 {product.variants.semiIndustrial.headline}
               </span>
             </div>
-            <p class="text-muted text-xl leading-relaxed">{product.variants.semiIndustrial.description}</p>
-            <div class="space-y-3">
-              <h4 class="text-lg font-extrabold text-primary">Puntos clave</h4>
-              <ul class="space-y-3 text-base text-muted">
+            <p class="text-muted text-2xl leading-relaxed">{product.variants.semiIndustrial.description}</p>
+            <div class="space-y-4">
+              <h4 class="inline-flex items-center gap-2 text-xl font-extrabold text-primary">
+                <Icon name="tabler:info-circle" class="h-5 w-5 text-primary" />
+                Puntos clave
+              </h4>
+              <ul class="space-y-4 text-lg text-muted">
                 {product.variants.semiIndustrial.highlights.map((item) => (
-                  <li class="flex items-start gap-2">
-                    <Icon name="tabler:circle-check-filled" class="mt-1 h-5 w-5 text-primary" />
-                    <span class="font-medium">{item}</span>
+                  <li class="flex items-start gap-3">
+                    <Icon name="tabler:circle-check-filled" class="mt-1 h-6 w-6 text-primary" />
+                    <span class="font-semibold">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -136,20 +154,24 @@ const metadata = {
       badge={product.single?.badge}
     >
       <Fragment slot="content">
-        <div class="grid gap-8 md:grid-cols-[1.2fr_1fr]">
-          <div class="space-y-5">
-            <span class="inline-flex items-center rounded-full bg-primary/10 px-5 py-2 text-base font-bold text-primary">
+        <div class="grid gap-10 md:grid-cols-[1.2fr_1fr]">
+          <div class="space-y-6">
+            <span class="inline-flex items-center gap-2 rounded-full bg-primary/10 px-6 py-2 text-lg font-extrabold text-primary">
+              <Icon name="tabler:info-circle" class="h-5 w-5 text-primary" />
               {product.single?.headline}
             </span>
-            <p class="text-muted text-xl leading-relaxed">{product.single?.description}</p>
+            <p class="text-muted text-2xl leading-relaxed">{product.single?.description}</p>
           </div>
-          <div class="space-y-3">
-            <h4 class="text-lg font-extrabold text-primary">Puntos clave</h4>
-            <ul class="space-y-3 text-base text-muted">
+          <div class="space-y-4">
+            <h4 class="inline-flex items-center gap-2 text-xl font-extrabold text-primary">
+              <Icon name="tabler:info-circle" class="h-5 w-5 text-primary" />
+              Puntos clave
+            </h4>
+            <ul class="space-y-4 text-lg text-muted">
               {(product.single?.highlights ?? []).map((item) => (
-                <li class="flex items-start gap-2">
-                  <Icon name="tabler:circle-check-filled" class="mt-1 h-5 w-5 text-primary" />
-                  <span class="font-medium">{item}</span>
+                <li class="flex items-start gap-3">
+                  <Icon name="tabler:circle-check-filled" class="mt-1 h-6 w-6 text-primary" />
+                  <span class="font-semibold">{item}</span>
                 </li>
               ))}
             </ul>
