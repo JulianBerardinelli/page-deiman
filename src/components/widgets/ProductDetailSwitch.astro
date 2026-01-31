@@ -85,29 +85,39 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
 </WidgetWrapper>
 
 <script is:inline>
-  const groupId = {JSON.stringify(id)};
-  const buttons = document.querySelectorAll(`[data-group='${groupId}'].product-tab-btn`);
-  const panels = document.querySelectorAll(`[data-group='${groupId}'].product-tab-panel`);
+  const initProductSwitch = () => {
+    const groupId = {JSON.stringify(id)};
+    const buttons = document.querySelectorAll(`[data-group='${groupId}'].product-tab-btn`);
+    const panels = document.querySelectorAll(`[data-group='${groupId}'].product-tab-panel`);
 
-  const setActive = (variant) => {
+    if (!buttons.length || !panels.length) return;
+
+    const setActive = (variant) => {
+      buttons.forEach((button) => {
+        const isActive = button.dataset.variant === variant;
+        button.classList.toggle('btn-primary', isActive);
+        button.classList.toggle('btn-secondary', !isActive);
+        button.classList.toggle('text-white', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+
+      panels.forEach((panel) => {
+        panel.classList.toggle('hidden', panel.dataset.variant !== variant);
+      });
+    };
+
+    setActive('industrial');
+
     buttons.forEach((button) => {
-      const isActive = button.dataset.variant === variant;
-      button.classList.toggle('btn-primary', isActive);
-      button.classList.toggle('btn-secondary', !isActive);
-      button.classList.toggle('text-white', isActive);
-      button.setAttribute('aria-pressed', String(isActive));
-    });
-
-    panels.forEach((panel) => {
-      panel.classList.toggle('hidden', panel.dataset.variant !== variant);
+      button.addEventListener('click', () => {
+        setActive(button.dataset.variant);
+      });
     });
   };
 
-  setActive('industrial');
-
-  buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-      setActive(button.dataset.variant);
-    });
-  });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProductSwitch);
+  } else {
+    initProductSwitch();
+  }
 </script>
