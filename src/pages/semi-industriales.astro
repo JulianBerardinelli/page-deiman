@@ -4,6 +4,7 @@ import Header from '~/components/widgets/Header.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import FindUs from '~/components/widgets/FindUs.astro';
 import SemiIndustrialFlavorFeatureContainer from '~/components/widgets/SemiIndustrialFlavorFeatureContainer.astro';
+import ProductGuide from '~/components/widgets/ProductGuide.astro';
 import SupportOverview from '~/components/widgets/SupportOverview.astro';
 import { headerData } from '~/navigation';
 
@@ -62,6 +63,33 @@ const metadata = {
       />
     </Fragment>
   </Hero>
+
+  <ProductGuide
+    id="guia-semi-industrial"
+    tagline="Guía semi industrial"
+    title="¿Qué es una solución semi industrial?"
+    subtitle="Desarrollos flexibles que combinan rendimiento y adaptabilidad para producciones medianas."
+    items={[
+      {
+        title: 'Flexibilidad',
+        description:
+          'Perfiles aromáticos que se adaptan a distintos procesos con ajustes rápidos y controlados.',
+        icon: 'lucide:wand-2',
+      },
+      {
+        title: 'Escalabilidad gradual',
+        description:
+          'Pensado para crecer por etapas, manteniendo la calidad del sabor en cada nueva escala de producción.',
+        icon: 'lucide:trending-up',
+      },
+      {
+        title: 'Equilibrio sensorial',
+        description:
+          'Formulaciones equilibradas para lograr estabilidad y fidelidad aromática en lotes medianos.',
+        icon: 'lucide:scale',
+      },
+    ]}
+  />
 
   <SemiIndustrialFlavorFeatureContainer />
 

@@ -1,0 +1,137 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import Button from '~/components/ui/Button.astro';
+
+interface Props {
+  id: string;
+  title: string;
+  description: string;
+  industrialLabel?: string;
+  semiIndustrialLabel?: string;
+}
+
+const {
+  id,
+  title,
+  description,
+  industrialLabel = 'Industriales',
+  semiIndustrialLabel = 'Semi industriales',
+} = Astro.props as Props;
+
+const industrialContent = await Astro.slots.render('industrial');
+const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
+---
+
+<WidgetWrapper id={id} containerClass="max-w-5xl" noAnimation={true}>
+  <div data-product-switch={id}>
+    <div class="text-center">
+    <Headline
+      title={title}
+      subtitle={description}
+      classes={{
+        container: 'text-center max-w-3xl mx-auto',
+        title: 'text-3xl md:text-4xl',
+      }}
+    />
+    </div>
+
+    <div class="mt-8 flex flex-col items-center gap-6">
+      <div
+        class="inline-flex flex-wrap justify-center gap-3 rounded-full border border-primary/30 bg-white/70 p-2 shadow-sm"
+        role="tablist"
+        aria-label="Variantes de producto"
+      >
+        <Button
+          type="button"
+          variant="secondary"
+          class="product-tab-btn px-6"
+          data-variant="industrial"
+          data-group={id}
+          role="tab"
+          aria-pressed="true"
+          aria-controls={`${id}-industrial`}
+        >
+          {industrialLabel}
+        </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          class="product-tab-btn px-6"
+          data-variant="semi-industrial"
+          data-group={id}
+          role="tab"
+          aria-pressed="false"
+          aria-controls={`${id}-semi-industrial`}
+        >
+          {semiIndustrialLabel}
+        </Button>
+      </div>
+
+      <div class="w-full">
+        <div
+          class="product-tab-panel rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-sm transition"
+          data-variant="industrial"
+          data-group={id}
+          role="tabpanel"
+          id={`${id}-industrial`}
+          aria-live="polite"
+          set:html={industrialContent}
+        />
+        <div
+          class="product-tab-panel hidden rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-sm transition"
+          data-variant="semi-industrial"
+          data-group={id}
+          role="tabpanel"
+          id={`${id}-semi-industrial`}
+          aria-live="polite"
+          set:html={semiIndustrialContent}
+        />
+      </div>
+    </div>
+  </div>
+</WidgetWrapper>
+
+<script is:inline>
+  const initProductSwitch = () => {
+    const groupId = {JSON.stringify(id)};
+    const root = document.querySelector(`[data-product-switch='${groupId}']`);
+    if (!root) return;
+    const buttons = root.querySelectorAll(`[data-group='${groupId}'].product-tab-btn`);
+    const panels = root.querySelectorAll(`[data-group='${groupId}'].product-tab-panel`);
+
+    if (!buttons.length || !panels.length) return;
+
+    const setActive = (variant) => {
+      buttons.forEach((button) => {
+        const isActive = button.dataset.variant === variant;
+        button.classList.toggle('btn-primary', isActive);
+        button.classList.toggle('btn-secondary', !isActive);
+        button.classList.toggle('text-white', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+
+      panels.forEach((panel) => {
+        panel.classList.toggle('hidden', panel.dataset.variant !== variant);
+      });
+    };
+
+    setActive('industrial');
+
+    root.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      const button = target.closest('.product-tab-btn');
+      if (!button) return;
+      const variant = button.dataset.variant;
+      if (!variant) return;
+      setActive(variant);
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProductSwitch);
+  } else {
+    initProductSwitch();
+  }
+</script>

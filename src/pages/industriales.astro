@@ -4,6 +4,7 @@ import Header from '~/components/widgets/Header.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import FindUs from '~/components/widgets/FindUs.astro';
 import IndustrialFlavorFeatureContainer from '~/components/widgets/IndustrialFlavorFeatureContainer.astro';
+import ProductGuide from '~/components/widgets/ProductGuide.astro';
 import SupportOverview from '~/components/widgets/SupportOverview.astro';
 import { headerData } from '~/navigation';
 
@@ -62,6 +63,33 @@ const metadata = {
       />
     </Fragment>
   </Hero>
+
+  <ProductGuide
+    id="guia-industrial"
+    tagline="Guía industrial"
+    title="¿Qué significa un producto industrial en Deiman?"
+    subtitle="Soluciones pensadas para procesos continuos, con foco en rendimiento, estabilidad y acompañamiento técnico."
+    items={[
+      {
+        title: 'Escala y consistencia',
+        description:
+          'Formulaciones diseñadas para grandes volúmenes, con perfiles estables y resultados repetibles en cada lote.',
+        icon: 'lucide:layers',
+      },
+      {
+        title: 'Eficiencia operativa',
+        description:
+          'Optimización de dosificación, tiempos y rendimiento para integrarse sin fricciones a líneas automatizadas.',
+        icon: 'lucide:settings',
+      },
+      {
+        title: 'Soporte técnico',
+        description:
+          'Acompañamiento en formulación, escalado y ajustes para asegurar la calidad final del producto.',
+        icon: 'lucide:badge-check',
+      },
+    ]}
+  />
 
   <IndustrialFlavorFeatureContainer />
 
