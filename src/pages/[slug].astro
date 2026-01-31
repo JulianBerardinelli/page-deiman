@@ -46,7 +46,7 @@ const metadata = {
   {product.variants ? (
     <ProductDetailSwitch id={`${product.slug}-detalle`} title={product.heroTitle} description={product.heroDescription}>
       <Fragment slot="industrial">
-        <div class="grid gap-6 md:grid-cols-[240px_1fr]">
+        <div class="grid gap-8 md:grid-cols-[260px_1fr]">
           <div class="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-50 shadow-sm">
             <!-- TODO: Reemplazar imagen por una fotografía específica del producto -->
             <img
@@ -62,23 +62,23 @@ const metadata = {
               <span>Sin T.A.C.C.</span>
             </div>
           </div>
-          <div class="space-y-5">
-            <div class="space-y-2">
-              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-primary/70">
-                Perfil industrial <span class="text-primary font-bold">de alto rendimiento</span>
+          <div class="space-y-6">
+            <div class="space-y-3">
+              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-primary/80">
+                Perfil industrial <span class="text-primary font-extrabold">de alto rendimiento</span>
               </p>
-              <span class="inline-flex items-center rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+              <span class="inline-flex items-center rounded-full bg-primary/10 px-5 py-2 text-base font-bold text-primary">
                 {product.variants.industrial.headline}
               </span>
             </div>
-            <p class="text-muted text-lg">{product.variants.industrial.description}</p>
-            <div class="rounded-2xl border border-primary/10 bg-primary/5 p-5 shadow-sm">
-              <h4 class="text-base font-semibold text-primary mb-3">Puntos clave</h4>
-              <ul class="space-y-2 text-muted">
+            <p class="text-muted text-xl leading-relaxed">{product.variants.industrial.description}</p>
+            <div class="space-y-3">
+              <h4 class="text-lg font-extrabold text-primary">Puntos clave</h4>
+              <ul class="space-y-3 text-base text-muted">
                 {product.variants.industrial.highlights.map((item) => (
                   <li class="flex items-start gap-2">
-                    <Icon name="tabler:circle-check-filled" class="mt-0.5 h-4 w-4 text-primary" />
-                    <span>{item}</span>
+                    <Icon name="tabler:circle-check-filled" class="mt-1 h-5 w-5 text-primary" />
+                    <span class="font-medium">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -87,7 +87,7 @@ const metadata = {
         </div>
       </Fragment>
       <Fragment slot="semiIndustrial">
-        <div class="grid gap-6 md:grid-cols-[240px_1fr]">
+        <div class="grid gap-8 md:grid-cols-[260px_1fr]">
           <div class="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-50 shadow-sm">
             <!-- TODO: Reemplazar imagen por una fotografía específica del producto -->
             <img
@@ -103,23 +103,23 @@ const metadata = {
               <span>Sin T.A.C.C.</span>
             </div>
           </div>
-          <div class="space-y-5">
-            <div class="space-y-2">
-              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-primary/70">
-                Perfil semi industrial <span class="text-primary font-bold">más flexible</span>
+          <div class="space-y-6">
+            <div class="space-y-3">
+              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-primary/80">
+                Perfil semi industrial <span class="text-primary font-extrabold">más flexible</span>
               </p>
-              <span class="inline-flex items-center rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+              <span class="inline-flex items-center rounded-full bg-primary/10 px-5 py-2 text-base font-bold text-primary">
                 {product.variants.semiIndustrial.headline}
               </span>
             </div>
-            <p class="text-muted text-lg">{product.variants.semiIndustrial.description}</p>
-            <div class="rounded-2xl border border-primary/10 bg-primary/5 p-5 shadow-sm">
-              <h4 class="text-base font-semibold text-primary mb-3">Puntos clave</h4>
-              <ul class="space-y-2 text-muted">
+            <p class="text-muted text-xl leading-relaxed">{product.variants.semiIndustrial.description}</p>
+            <div class="space-y-3">
+              <h4 class="text-lg font-extrabold text-primary">Puntos clave</h4>
+              <ul class="space-y-3 text-base text-muted">
                 {product.variants.semiIndustrial.highlights.map((item) => (
                   <li class="flex items-start gap-2">
-                    <Icon name="tabler:circle-check-filled" class="mt-0.5 h-4 w-4 text-primary" />
-                    <span>{item}</span>
+                    <Icon name="tabler:circle-check-filled" class="mt-1 h-5 w-5 text-primary" />
+                    <span class="font-medium">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -136,20 +136,20 @@ const metadata = {
       badge={product.single?.badge}
     >
       <Fragment slot="content">
-        <div class="grid gap-6 md:grid-cols-[1.2fr_1fr]">
-          <div class="space-y-4">
-            <span class="inline-flex items-center rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+        <div class="grid gap-8 md:grid-cols-[1.2fr_1fr]">
+          <div class="space-y-5">
+            <span class="inline-flex items-center rounded-full bg-primary/10 px-5 py-2 text-base font-bold text-primary">
               {product.single?.headline}
             </span>
-            <p class="text-muted text-lg">{product.single?.description}</p>
+            <p class="text-muted text-xl leading-relaxed">{product.single?.description}</p>
           </div>
-          <div class="rounded-xl border border-primary/10 bg-primary/5 p-5">
-            <h4 class="text-base font-semibold text-primary mb-3">Puntos clave</h4>
-            <ul class="space-y-2 text-muted">
+          <div class="space-y-3">
+            <h4 class="text-lg font-extrabold text-primary">Puntos clave</h4>
+            <ul class="space-y-3 text-base text-muted">
               {(product.single?.highlights ?? []).map((item) => (
                 <li class="flex items-start gap-2">
-                  <span class="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
-                  <span>{item}</span>
+                  <Icon name="tabler:circle-check-filled" class="mt-1 h-5 w-5 text-primary" />
+                  <span class="font-medium">{item}</span>
                 </li>
               ))}
             </ul>

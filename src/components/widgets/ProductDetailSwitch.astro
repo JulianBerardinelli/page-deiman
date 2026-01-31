@@ -70,7 +70,7 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
 
       <div class="w-full">
         <div
-          class="product-tab-panel intersect intersect-once min-h-[320px] rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-sm transition md:min-h-[360px]"
+          class="product-tab-panel intersect intersect-once min-h-[320px] py-2 transition md:min-h-[360px]"
           data-variant="industrial"
           data-group={id}
           role="tabpanel"
@@ -79,7 +79,7 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
           set:html={industrialContent}
         />
         <div
-          class="product-tab-panel intersect intersect-once hidden min-h-[320px] rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-sm transition md:min-h-[360px]"
+          class="product-tab-panel intersect intersect-once hidden min-h-[320px] py-2 transition md:min-h-[360px]"
           data-variant="semi-industrial"
           data-group={id}
           role="tabpanel"
