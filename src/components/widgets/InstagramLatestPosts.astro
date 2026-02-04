@@ -21,11 +21,15 @@ const {
   bg = await Astro.slots.render('bg'),
 } = Astro.props;
 
-const posts = await fetchInstagramLatestPosts({ username, count });
+const { posts, status } = await fetchInstagramLatestPosts({ count });
 const midpoint = Math.ceil(posts.length / 2) || posts.length;
 const rowOne = posts.slice(0, midpoint);
 const rowTwo = posts.slice(midpoint).length > 0 ? posts.slice(midpoint) : rowOne;
 const marqueeDuration = Math.max(24, posts.length * 2.5);
+const fallbackMessage =
+  status === 'missing-token'
+    ? 'Configura la variable INSTAGRAM_ACCESS_TOKEN para mostrar las publicaciones más recientes.'
+    : 'No se pudieron cargar publicaciones en este momento.';
 const buildPostUrl = (shortcode?: string) =>
   shortcode ? `https://www.instagram.com/p/${shortcode}/` : `https://www.instagram.com/${username}/`;
 ---
@@ -83,7 +87,7 @@ const buildPostUrl = (shortcode?: string) =>
       </div>
     </div>
   ) : (
-    <p class="text-muted dark:text-slate-400">No se pudieron cargar publicaciones en este momento.</p>
+    <p class="text-muted dark:text-slate-400">{fallbackMessage}</p>
   )}
 </WidgetWrapper>
 

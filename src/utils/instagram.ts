@@ -5,17 +5,17 @@ export interface InstagramPost {
   alt?: string;
 }
 
+export interface InstagramFeedResult {
+  posts: InstagramPost[];
+  status: 'ok' | 'missing-token' | 'error';
+}
+
 interface FetchInstagramPostsOptions {
-  username: string;
   count?: number;
 }
 
-const buildInstagramProfileUrl = (username: string) => {
-  const url = new URL(`https://www.instagram.com/${username}/`);
-  url.searchParams.set('__a', '1');
-  url.searchParams.set('__d', 'dis');
-  return url.toString();
-};
+const getAccessToken = () =>
+  import.meta.env.INSTAGRAM_ACCESS_TOKEN ?? process.env.INSTAGRAM_ACCESS_TOKEN ?? '';
 
 const getDisplayUrl = (node: Record<string, any>) =>
   node?.display_url ||
@@ -38,37 +38,52 @@ const mapInstagramNode = (node: Record<string, any>): InstagramPost | null => {
   };
 };
 
-export const fetchInstagramLatestPosts = async ({ username, count = 12 }: FetchInstagramPostsOptions) => {
+const buildGraphUrl = (count: number) => {
+  const url = new URL('https://graph.instagram.com/me/media');
+  url.searchParams.set('fields', 'id,media_url,permalink,caption,thumbnail_url');
+  url.searchParams.set('limit', String(count));
+  return url.toString();
+};
+
+export const fetchInstagramLatestPosts = async ({
+  count = 12,
+}: FetchInstagramPostsOptions): Promise<InstagramFeedResult> => {
+  const accessToken = getAccessToken();
+  if (!accessToken) {
+    return { posts: [], status: 'missing-token' };
+  }
+
   try {
-    const response = await fetch(buildInstagramProfileUrl(username), {
+    const response = await fetch(buildGraphUrl(count), {
       headers: {
         'User-Agent':
           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
         Accept: 'application/json',
         'Accept-Language': 'en-US,en;q=0.9',
+        Authorization: `Bearer ${accessToken}`,
       },
     });
 
     if (!response.ok) {
-      return [] as InstagramPost[];
+      return { posts: [], status: 'error' };
     }
 
     const data = (await response.json()) as Record<string, any>;
-    const edges =
-      data?.graphql?.user?.edge_owner_to_timeline_media?.edges ??
-      data?.data?.user?.edge_owner_to_timeline_media?.edges ??
-      data?.items ??
-      [];
+    const items = Array.isArray(data?.data) ? data.data : [];
+    const posts = items
+      .map((item) =>
+        mapInstagramNode({
+          id: item?.id,
+          display_url: item?.media_url ?? item?.thumbnail_url,
+          shortcode: item?.permalink?.split('/p/')[1]?.split('/')[0],
+          caption: { text: item?.caption },
+        })
+      )
+      .filter((post): post is InstagramPost => Boolean(post));
 
-    const posts = Array.isArray(edges)
-      ? edges
-          .map((edge) => (edge?.node ? mapInstagramNode(edge.node) : mapInstagramNode(edge)))
-          .filter((post): post is InstagramPost => Boolean(post))
-      : [];
-
-    return posts.slice(0, count);
+    return { posts: posts.slice(0, count), status: 'ok' };
   } catch (error) {
     console.warn('Instagram feed fetch failed', error);
-    return [] as InstagramPost[];
+    return { posts: [], status: 'error' };
   }
 };
