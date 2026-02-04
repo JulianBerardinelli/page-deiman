@@ -11,7 +11,7 @@ export const headerData = {
       href: getPermalink('/semi-industriales'),
     },
     {
-      text: 'Hogar (próximamente)',
+      text: 'Hogar (Proximamente)',
       href: getPermalink('/hogar'),
       isHighlighted: true,
       links: [
@@ -55,7 +55,7 @@ export const headerData = {
       ],
     },
     {
-      text: 'Desarrollos (Laboratorio)',
+      text: 'Desarrollos',
       href: getPermalink('/laboratorio'),
     },
     {
