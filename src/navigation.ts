@@ -45,7 +45,7 @@ export const headerData = {
           href: getPermalink('/productos/emulsiones'),
         },
         {
-          text: 'Extractos de cacao',
+          text: 'Extractos de Cacao',
           href: getPermalink('/productos/extracto-de-cacao'),
         },
         {
