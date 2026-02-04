@@ -1,0 +1,55 @@
+---
+import FlavorFeature from "./FlavorFeature.astro";
+
+---
+<FlavorFeature
+  noAnimation={true}
+  id="productos"
+  tagline="Explorá nuestras"
+  title='Líneas de <span class="animate-gradient-text">Productos</span>'
+  subtitle="Desarrollamos soluciones versátiles para la industria alimentaria, combinando tecnología, estabilidad y perfiles sensoriales que acompañan cada formulación."
+  items={[
+    {
+      title: 'ESCENCIAS',
+      image: '/images/backgrounds/escencias.jpg',
+      href: '/productos/escencias',
+      buttonText: 'Ver escencias',
+      description: 'Perfiles intensos y estables para todo tipo de aplicaciones industriales.',
+    },
+    {
+      title: 'ESCENCIAS NATURALES',
+      image: '/images/sabores/citricos.jpg',
+      href: '/productos/escencias-naturales',
+      buttonText: 'Ver naturales',
+      description: 'Notas auténticas con materias primas seleccionadas y trazabilidad garantizada.',
+    },
+    {
+      title: 'EMULSIONES',
+      image: '/images/backgrounds/industriales.jpg',
+      href: '/productos/emulsiones',
+      buttonText: 'Ver emulsiones',
+      description: 'Mejoran textura, dispersión y homogeneidad en distintas matrices.',
+    },
+    {
+      title: 'COLORANTES',
+      image: '/images/sabores/siropes.jpg',
+      href: '/productos/colorantes',
+      buttonText: 'Ver colorantes',
+      description: 'Tonalidades estables para realzar la presentación del producto final.',
+    },
+    {
+      title: 'CONCENTRADOS',
+      image: '/images/backgrounds/semi-industriales.jpg',
+      href: '/productos/concentrados',
+      buttonText: 'Ver concentrados',
+      description: 'Soluciones de alto rendimiento para formulaciones exigentes.',
+    },
+    {
+      title: 'EXTRACTOS DE CACAO',
+      image: '/images/sabores/dulces.jpg',
+      href: '/productos/extracto-de-cacao',
+      buttonText: 'Ver extractos',
+      description: 'Perfil intenso y persistente para notas profundas de cacao.',
+    },
+  ]}
+/>
