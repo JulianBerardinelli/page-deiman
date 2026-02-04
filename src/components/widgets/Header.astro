@@ -14,6 +14,7 @@ interface Link {
   href?: string;
   ariaLabel?: string;
   icon?: string;
+  isHighlighted?: boolean;
 }
 
 interface MenuLink extends Link {
@@ -86,13 +87,16 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
         class="flex flex-col md:flex-row md:self-center w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium md:justify-center"
       >
         {
-          links.map(({ text, href, links }) => (
+          links.map(({ text, href, links, isHighlighted }) => (
             <li class={links?.length ? 'dropdown' : ''}>
               {links?.length ? (
                 <>
                   <button
                     type="button"
-                    class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap"
+                    class:list={[
+                      'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
+                      { 'text-primary font-bold': isHighlighted },
+                    ]}
                   >
                     {text}{' '}
                     <Icon name="tabler:chevron-down" class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline" />
@@ -118,6 +122,7 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
                   class:list={[
                     'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
                     { 'aw-link-active': href === currentPath },
+                    { 'text-primary font-bold': isHighlighted },
                   ]}
                   href={href}
                 >

@@ -11,45 +11,52 @@ export const headerData = {
       href: getPermalink('/semi-industriales'),
     },
     {
-      text: 'Hogar',
+      text: 'Hogar (próximamente)',
       href: getPermalink('/hogar'),
-    },
-    {
-      text: 'Sabores',
+      isHighlighted: true,
       links: [
         {
-          text: 'Todos los sabores',
-          href: getPermalink('/sabores'),
+          text: 'Sabores',
+          href: getPermalink('/hogar#sabores'),
         },
         {
-          text: 'Dulces',
-          href: getPermalink('/sabores/dulces'),
+          text: 'Colores',
+          href: getPermalink('/hogar#colores'),
         },
         {
-          text: 'Salados',
-          href: getPermalink('/sabores/salados'),
-        },
-        {
-          text: 'Panificados',
-          href: getPermalink('/sabores/panificados'),
-        },
-        {
-          text: 'Cítricos',
-          href: getPermalink('/sabores/citricos'),
-        },
-        {
-          text: 'Picantes',
-          href: getPermalink('/sabores/picantes'),
-        },
-        {
-          text: 'Siropes',
-          href: getPermalink('/siropes'),
-        },
-        {
-          text: 'Laboratorio',
-          href: getPermalink('/laboratorio'),
+          text: 'Sazonadores',
+          href: getPermalink('/hogar#sazonadores'),
         },
       ],
+    },
+    {
+      text: 'Productos',
+      links: [
+        {
+          text: 'Esencias naturales',
+          href: getPermalink('/productos/escencias-naturales'),
+        },
+        {
+          text: 'Esencias',
+          href: getPermalink('/productos/escencias'),
+        },
+        {
+          text: 'Emulsiones',
+          href: getPermalink('/productos/emulsiones'),
+        },
+        {
+          text: 'Extractos de cacao',
+          href: getPermalink('/productos/extracto-de-cacao'),
+        },
+        {
+          text: 'Concentrados',
+          href: getPermalink('/productos/concentrados'),
+        },
+      ],
+    },
+    {
+      text: 'Desarrollos (Laboratorio)',
+      href: getPermalink('/laboratorio'),
     },
     {
       text: 'Sobre Nosotros',
