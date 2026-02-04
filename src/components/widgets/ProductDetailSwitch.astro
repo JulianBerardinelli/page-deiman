@@ -23,7 +23,7 @@ const industrialContent = await Astro.slots.render('industrial');
 const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
 ---
 
-<WidgetWrapper id={id} containerClass="max-w-5xl" noAnimation={true}>
+<WidgetWrapper id={id} containerClass="max-w-6xl pb-6 md:pb-8 lg:pb-10" noAnimation={true}>
   <div data-product-switch={id}>
     <div class="text-center">
     <Headline
@@ -70,7 +70,7 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
 
       <div class="w-full">
         <div
-          class="product-tab-panel rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-sm transition"
+          class="product-tab-panel intersect intersect-once min-h-[320px] py-2 transition md:min-h-[360px]"
           data-variant="industrial"
           data-group={id}
           role="tabpanel"
@@ -79,7 +79,7 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
           set:html={industrialContent}
         />
         <div
-          class="product-tab-panel hidden rounded-2xl border border-slate-200/80 bg-white/80 p-6 shadow-sm transition"
+          class="product-tab-panel intersect intersect-once hidden min-h-[320px] py-2 transition md:min-h-[360px]"
           data-variant="semi-industrial"
           data-group={id}
           role="tabpanel"
@@ -92,15 +92,26 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
   </div>
 </WidgetWrapper>
 
-<script is:inline>
+<script is:inline define:vars={{ productGroupId: id }}>
   const initProductSwitch = () => {
-    const groupId = {JSON.stringify(id)};
+    const groupId = productGroupId;
     const root = document.querySelector(`[data-product-switch='${groupId}']`);
     if (!root) return;
     const buttons = root.querySelectorAll(`[data-group='${groupId}'].product-tab-btn`);
     const panels = root.querySelectorAll(`[data-group='${groupId}'].product-tab-panel`);
 
     if (!buttons.length || !panels.length) return;
+
+    const animatePanel = (panel) => {
+      if (!panel || !panel.animate) return;
+      panel.animate(
+        [
+          { opacity: 0, transform: 'translateY(6px)' },
+          { opacity: 1, transform: 'translateY(0)' },
+        ],
+        { duration: 240, easing: 'ease-out' }
+      );
+    };
 
     const setActive = (variant) => {
       buttons.forEach((button) => {
@@ -109,10 +120,16 @@ const semiIndustrialContent = await Astro.slots.render('semiIndustrial');
         button.classList.toggle('btn-secondary', !isActive);
         button.classList.toggle('text-white', isActive);
         button.setAttribute('aria-pressed', String(isActive));
+        button.setAttribute('aria-selected', String(isActive));
       });
 
       panels.forEach((panel) => {
-        panel.classList.toggle('hidden', panel.dataset.variant !== variant);
+        const isActive = panel.dataset.variant === variant;
+        panel.classList.toggle('hidden', !isActive);
+        panel.setAttribute('aria-hidden', String(!isActive));
+        if (isActive) {
+          animatePanel(panel);
+        }
       });
     };
 
