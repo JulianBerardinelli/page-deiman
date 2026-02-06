@@ -59,9 +59,11 @@ const marqueeItems = [...products, ...products];
 <section class="relative overflow-hidden py-16 sm:py-20">
   <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white via-white to-slate-50"></div>
 
-  <div class="absolute inset-x-0 bottom-6 z-0 space-y-4 sm:bottom-8 sm:space-y-6">
-    <div class="marquee-mask">
-      <ul class="marquee-track flex w-max items-center gap-10 py-2 sm:gap-14">
+  <div class="absolute inset-x-0 bottom-6 z-0 space-y-6 sm:bottom-8 sm:space-y-8">
+    <div class="marquee-shell">
+      <div class="marquee-fade marquee-fade-left"></div>
+      <div class="marquee-fade marquee-fade-right"></div>
+      <ul class="marquee-track flex w-max items-center gap-10 py-3 sm:gap-14">
         {marqueeItems.map((item, index) => (
           <li
             class="group relative flex h-36 w-36 flex-shrink-0 items-center justify-center rounded-3xl bg-white shadow-[0_16px_28px_rgba(15,23,42,0.12)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1"
@@ -81,8 +83,10 @@ const marqueeItems = [...products, ...products];
         ))}
       </ul>
     </div>
-    <div class="marquee-mask">
-      <ul class="marquee-track marquee-track-reverse flex w-max items-center gap-10 py-2 sm:gap-14">
+    <div class="marquee-shell">
+      <div class="marquee-fade marquee-fade-left"></div>
+      <div class="marquee-fade marquee-fade-right"></div>
+      <ul class="marquee-track marquee-track-reverse flex w-max items-center gap-10 py-3 sm:gap-14">
         {marqueeItems.map((item, index) => (
           <li
             class="group relative flex h-36 w-36 flex-shrink-0 items-center justify-center rounded-3xl bg-white shadow-[0_16px_28px_rgba(15,23,42,0.12)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1"
@@ -133,9 +137,29 @@ const marqueeItems = [...products, ...products];
 </section>
 
 <style>
-  .marquee-mask {
-    overflow: hidden;
-    mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  .marquee-shell {
+    position: relative;
+    overflow: visible;
+    padding: 0.75rem 0;
+  }
+
+  .marquee-fade {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 5.5rem;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .marquee-fade-left {
+    left: 0;
+    background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0.9) 40%, transparent 100%);
+  }
+
+  .marquee-fade-right {
+    right: 0;
+    background: linear-gradient(270deg, #fff 0%, rgba(255, 255, 255, 0.9) 40%, transparent 100%);
   }
 
   .marquee-track {
