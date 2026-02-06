@@ -63,10 +63,10 @@ const marqueeItems = [...products, ...products];
     <div class="marquee-shell">
       <div class="marquee-fade marquee-fade-left"></div>
       <div class="marquee-fade marquee-fade-right"></div>
-      <ul class="marquee-track flex w-max items-center gap-10 py-3 sm:gap-14">
+      <ul class="marquee-track flex w-max items-center gap-10 py-3 pb-5 sm:gap-14">
         {marqueeItems.map((item, index) => (
           <li
-            class="group relative flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-3xl bg-white shadow-[0_16px_28px_rgba(15,23,42,0.12)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 sm:h-36 sm:w-36"
+            class="group relative flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-3xl bg-white shadow-[0_4px_18px_rgba(15,23,42,0.10)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 sm:h-36 sm:w-36"
             aria-hidden={index >= products.length ? 'true' : undefined}
           >
             <img
@@ -86,10 +86,10 @@ const marqueeItems = [...products, ...products];
     <div class="marquee-shell">
       <div class="marquee-fade marquee-fade-left"></div>
       <div class="marquee-fade marquee-fade-right"></div>
-      <ul class="marquee-track marquee-track-reverse flex w-max items-center gap-10 py-3 sm:gap-14">
+      <ul class="marquee-track marquee-track-reverse flex w-max items-center gap-10 py-3 pb-5 sm:gap-14">
         {marqueeItems.map((item, index) => (
           <li
-            class="group relative flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-3xl bg-white shadow-[0_16px_28px_rgba(15,23,42,0.12)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 sm:h-36 sm:w-36"
+            class="group relative flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-3xl bg-white shadow-[0_4px_18px_rgba(15,23,42,0.10)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 sm:h-36 sm:w-36"
             aria-hidden={index >= products.length ? 'true' : undefined}
           >
             <img
@@ -139,10 +139,10 @@ const marqueeItems = [...products, ...products];
     <div class="marquee-shell">
       <div class="marquee-fade marquee-fade-left"></div>
       <div class="marquee-fade marquee-fade-right"></div>
-      <ul class="marquee-track flex w-max items-center gap-10 py-3">
+      <ul class="marquee-track flex w-max items-center gap-10 py-3 pb-5">
         {marqueeItems.map((item, index) => (
           <li
-            class="group relative flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-3xl bg-white shadow-[0_16px_28px_rgba(15,23,42,0.12)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1"
+            class="group relative flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-3xl bg-white shadow-[0_4px_18px_rgba(15,23,42,0.10)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1"
             aria-hidden={index >= products.length ? 'true' : undefined}
           >
             <img
