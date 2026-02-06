@@ -56,10 +56,10 @@ const { title = 'Conocé nuestros productos para el hogar', subtitle = 'Una nuev
 
 const marqueeItems = [...products, ...products];
 ---
-<section class="relative overflow-hidden py-16 sm:py-20">
+<section class="relative overflow-x-hidden overflow-y-visible py-16 sm:py-20">
   <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white via-white to-slate-50"></div>
 
-  <div class="absolute inset-x-0 bottom-6 z-0 space-y-6 sm:bottom-8 sm:space-y-8">
+  <div class="absolute inset-x-0 top-6 bottom-6 z-0 space-y-6 sm:top-8 sm:bottom-8 sm:space-y-8">
     <div class="marquee-shell">
       <div class="marquee-fade marquee-fade-left"></div>
       <div class="marquee-fade marquee-fade-right"></div>
