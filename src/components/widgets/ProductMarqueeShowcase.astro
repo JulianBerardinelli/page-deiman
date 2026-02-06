@@ -59,7 +59,7 @@ const marqueeItems = [...products, ...products];
 <section class="relative min-h-[520px] overflow-x-hidden overflow-y-visible py-20 sm:min-h-[560px] sm:py-28">
   <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white via-white to-slate-50"></div>
 
-  <div class="absolute inset-x-0 top-8 bottom-8 z-0 space-y-3 sm:space-y-4">
+  <div class="absolute inset-x-0 top-8 bottom-8 z-0 hidden space-y-3 sm:block sm:space-y-4">
     <div class="marquee-shell">
       <div class="marquee-fade marquee-fade-left"></div>
       <div class="marquee-fade marquee-fade-right"></div>
@@ -106,29 +106,6 @@ const marqueeItems = [...products, ...products];
         ))}
       </ul>
     </div>
-    <div class="marquee-shell sm:hidden">
-      <div class="marquee-fade marquee-fade-left"></div>
-      <div class="marquee-fade marquee-fade-right"></div>
-      <ul class="marquee-track flex w-max items-center gap-10 py-3">
-        {marqueeItems.map((item, index) => (
-          <li
-            class="group relative flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-3xl bg-white shadow-[0_16px_28px_rgba(15,23,42,0.12)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1"
-            aria-hidden={index >= products.length ? 'true' : undefined}
-          >
-            <img
-              src={item.src}
-              alt={item.alt}
-              loading="lazy"
-              decoding="async"
-              class="h-20 w-auto object-contain transition duration-300 group-hover:scale-110"
-            />
-            <span class="absolute -bottom-6 left-1/2 w-max -translate-x-1/2 rounded-full bg-white/90 px-3 py-1 text-[0.6rem] font-semibold text-slate-700 opacity-0 shadow-md transition duration-300 group-hover:opacity-100">
-              {item.alt}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
   </div>
 
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -155,6 +132,32 @@ const marqueeItems = [...products, ...products];
           </a>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="relative mx-auto max-w-6xl px-4 sm:hidden">
+    <div class="marquee-shell">
+      <div class="marquee-fade marquee-fade-left"></div>
+      <div class="marquee-fade marquee-fade-right"></div>
+      <ul class="marquee-track flex w-max items-center gap-10 py-3">
+        {marqueeItems.map((item, index) => (
+          <li
+            class="group relative flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-3xl bg-white shadow-[0_16px_28px_rgba(15,23,42,0.12)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1"
+            aria-hidden={index >= products.length ? 'true' : undefined}
+          >
+            <img
+              src={item.src}
+              alt={item.alt}
+              loading="lazy"
+              decoding="async"
+              class="h-20 w-auto object-contain transition duration-300 group-hover:scale-110"
+            />
+            <span class="absolute -bottom-6 left-1/2 w-max -translate-x-1/2 rounded-full bg-white/90 px-3 py-1 text-[0.6rem] font-semibold text-slate-700 opacity-0 shadow-md transition duration-300 group-hover:opacity-100">
+              {item.alt}
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   </div>
 </section>
