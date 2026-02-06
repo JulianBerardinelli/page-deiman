@@ -1,0 +1,176 @@
+---
+import type { Widget } from '~/types';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import { fetchInstagramLatestPosts } from '~/utils/instagram';
+
+export interface Props extends Widget {
+  title?: string;
+  subtitle?: string;
+  username?: string;
+  count?: number;
+}
+
+const {
+  title = 'Últimas publicaciones en <span class="text-primary">Instagram</span>',
+  subtitle = 'Contenido actualizado automáticamente desde nuestro perfil.',
+  username = 'deiman.arg',
+  count = 12,
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+
+const { posts, status } = await fetchInstagramLatestPosts({ count });
+const midpoint = Math.ceil(posts.length / 2) || posts.length;
+const rowOne = posts.slice(0, midpoint);
+const rowTwo = posts.slice(midpoint).length > 0 ? posts.slice(midpoint) : rowOne;
+const marqueeDuration = Math.max(24, posts.length * 2.5);
+const fallbackMessage =
+  status === 'missing-token'
+    ? 'Configura la variable INSTAGRAM_ACCESS_TOKEN para mostrar las publicaciones más recientes.'
+    : 'No se pudieron cargar publicaciones en este momento.';
+const buildPostUrl = (shortcode?: string) =>
+  shortcode ? `https://www.instagram.com/p/${shortcode}/` : `https://www.instagram.com/${username}/`;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={classes?.container as string} bg={bg}>
+  <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-8">
+    <div class="max-w-2xl">
+      <h2
+        class="text-3xl font-bold tracking-tight sm:text-4xl sm:leading-none group font-heading mb-2"
+        set:html={title}
+      />
+      {subtitle && <p class="text-muted dark:text-slate-400" set:html={subtitle} />}
+    </div>
+    <a
+      class="inline-flex items-center text-sm font-semibold text-primary hover:text-primary-600 transition"
+      href={`https://www.instagram.com/${username}/`}
+      target="_blank"
+      rel="noreferrer"
+    >
+      Visitar perfil
+    </a>
+  </div>
+
+  {posts.length > 0 ? (
+    <div class="instagram-marquee">
+      <div class="instagram-row" style={{ '--marquee-duration': `${marqueeDuration}s` }}>
+        <div class="instagram-track">
+          {[...rowOne, ...rowOne].map((post) => (
+            <a
+              class="instagram-card"
+              href={buildPostUrl(post.shortcode)}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Ver publicación de Instagram"
+            >
+              <img src={post.displayUrl} alt={post.alt ?? 'Publicación de Instagram'} loading="lazy" />
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="instagram-row instagram-row-reverse" style={{ '--marquee-duration': `${marqueeDuration}s` }}>
+        <div class="instagram-track">
+          {[...rowTwo, ...rowTwo].map((post) => (
+            <a
+              class="instagram-card"
+              href={buildPostUrl(post.shortcode)}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Ver publicación de Instagram"
+            >
+              <img src={post.displayUrl} alt={post.alt ?? 'Publicación de Instagram'} loading="lazy" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  ) : (
+    <p class="text-muted dark:text-slate-400">{fallbackMessage}</p>
+  )}
+</WidgetWrapper>
+
+<style>
+  .instagram-marquee {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow: hidden;
+  }
+
+  .instagram-row {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .instagram-track {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    animation: instagram-marquee-left var(--marquee-duration, 28s) linear infinite;
+  }
+
+  .instagram-row-reverse .instagram-track {
+    animation-name: instagram-marquee-right;
+  }
+
+  .instagram-card {
+    display: block;
+    width: 8rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: rgba(15, 23, 42, 0.05);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .instagram-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .instagram-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.15);
+  }
+
+  @media (min-width: 640px) {
+    .instagram-card {
+      width: 9rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .instagram-card {
+      width: 11rem;
+    }
+  }
+
+  @keyframes instagram-marquee-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes instagram-marquee-right {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .instagram-track {
+      animation: none;
+    }
+  }
+</style>
