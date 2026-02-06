@@ -61,10 +61,10 @@ const marqueeItems = [...products, ...products];
 
   <div class="pointer-events-none absolute inset-x-0 bottom-6 z-0 sm:bottom-8">
     <div class="marquee-mask">
-      <ul class="marquee-track flex w-max items-center gap-10 py-6 sm:gap-14">
+      <ul class="marquee-track flex w-max items-center gap-12 py-6 sm:gap-16">
         {marqueeItems.map((item, index) => (
           <li
-            class="group flex h-36 w-36 flex-shrink-0 items-center justify-center rounded-3xl bg-white shadow-[0_16px_28px_rgba(15,23,42,0.12)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1"
+            class="group flex h-44 w-44 flex-shrink-0 items-center justify-center rounded-[28px] bg-white shadow-[0_18px_32px_rgba(15,23,42,0.14)] ring-1 ring-black/5 transition duration-300 hover:-translate-y-1"
             aria-hidden={index >= products.length ? 'true' : undefined}
           >
             <img
@@ -72,7 +72,7 @@ const marqueeItems = [...products, ...products];
               alt={item.alt}
               loading="lazy"
               decoding="async"
-              class="h-28 w-auto object-contain transition duration-300 group-hover:scale-105"
+              class="h-36 w-auto object-contain transition duration-300 group-hover:scale-105"
             />
           </li>
         ))}
