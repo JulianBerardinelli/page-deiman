@@ -13,7 +13,11 @@ const { title, description, image, href, buttonText = "Ver productos", class: ex
 
 ---
 
-<a href={href} class={`relative group h-72 w-full overflow-hidden rounded-xl shadow-lg ${extraClass}`}>
+<a
+  href={href}
+  data-glass-tilt
+  class={`glass-tilt-card group h-72 w-full ${extraClass}`}
+>
   <img
     src={image}
     alt={title}
@@ -36,3 +40,52 @@ const { title, description, image, href, buttonText = "Ver productos", class: ex
     </span>
   </div>
 </a>
+
+<script is:inline>
+  (() => {
+    if (window.__glassTiltInit) return;
+    window.__glassTiltInit = true;
+
+    const activeClass = 'active';
+    const maxTilt = 12;
+
+    const setTilt = (element, event) => {
+      const rect = element.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -maxTilt;
+      const rotateY = ((x - centerX) / centerX) * maxTilt;
+
+      element.style.setProperty('--tilt-x', `${rotateX.toFixed(2)}deg`);
+      element.style.setProperty('--tilt-y', `${rotateY.toFixed(2)}deg`);
+      element.style.setProperty('--glow-x', `${x.toFixed(0)}px`);
+      element.style.setProperty('--glow-y', `${y.toFixed(0)}px`);
+    };
+
+    const resetTilt = (element) => {
+      element.style.setProperty('--tilt-x', '0deg');
+      element.style.setProperty('--tilt-y', '0deg');
+      element.style.setProperty('--glow-x', '50%');
+      element.style.setProperty('--glow-y', '50%');
+    };
+
+    const handlePointerMove = (event) => {
+      const target = event.target.closest('[data-glass-tilt]');
+      if (!target) return;
+      target.dataset.glass = activeClass;
+      setTilt(target, event);
+    };
+
+    const handlePointerLeave = (event) => {
+      const target = event.target.closest('[data-glass-tilt]');
+      if (!target) return;
+      target.dataset.glass = '';
+      resetTilt(target);
+    };
+
+    document.addEventListener('pointermove', handlePointerMove);
+    document.addEventListener('pointerleave', handlePointerLeave, true);
+  })();
+</script>
