@@ -4,6 +4,7 @@ import Header from '~/components/widgets/Header.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import FindUs from '~/components/widgets/FindUs.astro';
 import SupportOverview from '~/components/widgets/SupportOverview.astro';
+import ProductMarqueeShowcase from '~/components/widgets/ProductMarqueeShowcase.astro';
 import { headerData } from '~/navigation';
 
 const metadata = {
@@ -38,16 +39,13 @@ const metadata = {
       Pronto vas a poder encontrar <span class="font-semibold">sabores, colores y sazonadores</span> desarrollados para
       aportar identidad, equilibrio y practicidad a tus recetas, con la calidad Deiman de siempre.
     </Fragment>
-
-    <Fragment slot="image">
-      <img
-        src="/images/backgrounds/test.jpg"
-        alt="Sabores para el hogar Deiman"
-        class="mx-auto rounded-md w-full max-w-4xl"
-        loading="eager"
-      />
-    </Fragment>
   </Hero>
+
+  <ProductMarqueeShowcase
+    title="Próximamente para tu cocina"
+    subtitle="Una selección creada para acompañar recetas caseras con la calidad y el equilibrio de Deiman."
+    showCta={false}
+  />
 
   <section class="py-12 md:py-16">
     <div class="mx-auto w-full max-w-5xl px-6">
