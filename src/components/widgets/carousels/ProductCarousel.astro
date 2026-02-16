@@ -1,9 +1,11 @@
 ---
 import Carousel from '~/components/ui/Carousel.astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
 interface Slide {
-  image: string;
-  mobileImage?: string;
+  image: string | ImageMetadata;
+  mobileImage?: string | ImageMetadata;
   title: string;
   subtitle: string;
   align?: 'center' | 'right';
@@ -42,8 +44,18 @@ const resolvedSlides = slides.length > 0 ? slides : defaultSlides;
     resolvedSlides.map((slide) => (
       <div class="carousel-slide relative">
         <picture>
-          {slide.mobileImage && <source srcset={slide.mobileImage} media="(max-width: 768px)" />}
-          <img src={slide.image} alt="Carousel Deiman" class="absolute inset-0 w-full h-full object-cover -z-10" />
+          {slide.mobileImage && (
+             typeof slide.mobileImage === 'string' ? (
+                <source srcset={slide.mobileImage} media="(max-width: 768px)" />
+             ) : (
+                <source srcset={slide.mobileImage.src} media="(max-width: 768px)" />
+             )
+          )}
+          {typeof slide.image === 'string' ? (
+             <img src={slide.image} alt="Carousel Deiman" class="absolute inset-0 w-full h-full object-cover -z-10" />
+          ) : (
+             <Image src={slide.image} alt="Carousel Deiman" class="absolute inset-0 w-full h-full object-cover -z-10" />
+          )}
         </picture>
 
         <div
@@ -53,7 +65,7 @@ const resolvedSlides = slides.length > 0 ? slides : defaultSlides;
           ]}
         >
           <div class:list={['max-w-2xl drop-shadow-md', slide.align === 'right' ? 'text-right' : 'text-center']}>
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6" set:html={slide.title} />
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 uppercase" set:html={slide.title} />
             <hr
               class:list={[
                 'w-20 sm:w-24 border-t-2 border-yellow-200 mb-6',

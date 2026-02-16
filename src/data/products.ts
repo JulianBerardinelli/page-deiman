@@ -1,6 +1,15 @@
+import type { ImageMetadata } from 'astro';
+
+import escenciasNaturalesImg from '~/assets/images/escencias-naturales.jpg';
+import escenciasImg from '~/assets/images/escencias.jpg';
+import colorantesImg from '~/assets/images/colorantes.jpg';
+import emulsionesImg from '~/assets/images/emulsiones.jpg';
+import extractoCacaoImg from '~/assets/images/extracto-de-cacao.jpg';
+import concentradosImg from '~/assets/images/concentrados.jpg';
+
 export interface ProductSlide {
-  image: string;
-  mobileImage?: string;
+  image: string | ImageMetadata;
+  mobileImage?: string | ImageMetadata;
   title: string;
   subtitle: string;
   align?: 'center' | 'right';
@@ -60,10 +69,14 @@ export const products: ProductData[] = [
     heroTitle: 'Escencias naturales con <span class="text-primary">perfil auténtico</span>',
     heroDescription:
       'Notas naturales cuidadosamente seleccionadas para mantener su identidad en distintos procesos productivos.',
-    slides: baseSlides(
-      'Escencias naturales con <span class="text-primary">impacto sensorial</span>',
-      'Perfiles frescos y auténticos, diseñados para conservar su carácter en distintas aplicaciones.'
-    ),
+    slides: [
+      {
+        image: escenciasNaturalesImg,
+        title: 'Escencias naturales con impacto sensorial',
+        subtitle: 'Perfiles frescos y auténticos, diseñados para conservar su carácter en distintas aplicaciones.',
+        align: 'center',
+      },
+    ],
     variants: {
       industrial: {
         headline: 'Industriales',
@@ -96,10 +109,14 @@ export const products: ProductData[] = [
     heroTitle: 'Escencias pensadas para <span class="text-primary">cada necesidad</span>',
     heroDescription:
       'Perfiles aromáticos definidos y consistentes para distintas aplicaciones alimenticias.',
-    slides: baseSlides(
-      'Escencias con <span class="text-primary">carácter definido</span>',
-      'Soluciones versátiles que respetan el perfil sensorial y la identidad de cada producto.'
-    ),
+    slides: [
+      {
+        image: escenciasImg,
+        title: 'Escencias con carácter definido',
+        subtitle: 'Soluciones versátiles que respetan el perfil sensorial y la identidad de cada producto.',
+        align: 'center',
+      },
+    ],
     variants: {
       industrial: {
         headline: 'Industriales',
@@ -132,10 +149,14 @@ export const products: ProductData[] = [
     heroTitle: 'Colorantes con <span class="text-primary">impacto visual</span>',
     heroDescription:
       'Tonales consistentes que realzan la presentación del producto final.',
-    slides: baseSlides(
-      'Colorantes de <span class="text-primary">alta estabilidad</span>',
-      'Soluciones diseñadas para mantener el color en cada etapa del proceso.'
-    ),
+    slides: [
+      {
+        image: colorantesImg,
+        title: 'Colorantes de alta estabilidad',
+        subtitle: 'Soluciones diseñadas para mantener el color en cada etapa del proceso.',
+        align: 'center',
+      },
+    ],
     variants: {
       industrial: {
         headline: 'Industriales',
@@ -168,10 +189,14 @@ export const products: ProductData[] = [
     heroTitle: 'Emulsiones con <span class="text-primary">rendimiento estable</span>',
     heroDescription:
       'Soluciones que mejoran textura, dispersión y uniformidad en distintas matrices.',
-    slides: baseSlides(
-      'Emulsiones con <span class="text-primary">estabilidad superior</span>',
-      'Textura y homogeneidad garantizadas para procesos exigentes.'
-    ),
+    slides: [
+      {
+        image: emulsionesImg,
+        title: 'Emulsiones con estabilidad superior',
+        subtitle: 'Textura y homogeneidad garantizadas para procesos exigentes.',
+        align: 'center',
+      },
+    ],
     variants: {
       industrial: {
         headline: 'Industriales',
@@ -204,10 +229,14 @@ export const products: ProductData[] = [
     heroTitle: 'Extracto de cacao <span class="text-primary">industrial</span>',
     heroDescription:
       'Notas profundas y consistentes, formuladas para aplicaciones exigentes.',
-    slides: baseSlides(
-      'Extracto de cacao con <span class="text-primary">perfil intenso</span>',
-      'Aporta cuerpo y carácter a formulaciones industriales.'
-    ),
+    slides: [
+      {
+        image: extractoCacaoImg,
+        title: 'Extracto de cacao con perfil intenso',
+        subtitle: 'Aporta cuerpo y carácter a formulaciones industriales.',
+        align: 'center',
+      },
+    ],
     single: {
       badge: 'Solo industriales',
       headline: 'Extracto de cacao para gran escala',
@@ -227,10 +256,14 @@ export const products: ProductData[] = [
     heroTitle: 'Concentrados con <span class="text-primary">flexibilidad</span>',
     heroDescription:
       'Perfiles intensos y rendidores para producciones medianas.',
-    slides: baseSlides(
-      'Concentrados con <span class="text-primary">alto rendimiento</span>',
-      'Pensados para potenciar sabor con dosificación eficiente.'
-    ),
+    slides: [
+      {
+        image: concentradosImg,
+        title: 'Concentrados con alto rendimiento',
+        subtitle: 'Pensados para potenciar sabor con dosificación eficiente.',
+        align: 'center',
+      },
+    ],
     single: {
       badge: 'Solo semi industriales',
       headline: 'Concentrados para lotes medianos',

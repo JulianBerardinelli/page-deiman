@@ -1,5 +1,12 @@
 ---
 import FlavorFeature from "./FlavorFeature.astro";
+import escenciasImg from '~/assets/images/escencias.jpg';
+import escenciasNaturalesImg from '~/assets/images/escencias-naturales.jpg';
+import emulsionesImg from '~/assets/images/emulsiones.jpg';
+import colorantesImg from '~/assets/images/colorantes.jpg';
+import concentradosImg from '~/assets/images/concentrados.jpg';
+import extractoCacaoImg from '~/assets/images/extracto-de-cacao.jpg';
+
 
 ---
 <FlavorFeature
@@ -11,42 +18,42 @@ import FlavorFeature from "./FlavorFeature.astro";
   items={[
     {
       title: 'ESCENCIAS',
-      image: '/images/backgrounds/escencias.jpg',
+      image: escenciasImg,
       href: '/productos/escencias',
       buttonText: 'Ver escencias',
       description: 'Perfiles intensos y estables para todo tipo de aplicaciones industriales.',
     },
     {
       title: 'ESCENCIAS NATURALES',
-      image: '/images/sabores/citricos.jpg',
+      image: escenciasNaturalesImg,
       href: '/productos/escencias-naturales',
       buttonText: 'Ver naturales',
       description: 'Notas auténticas con materias primas seleccionadas y trazabilidad garantizada.',
     },
     {
-      title: 'EMULSIONES',
-      image: '/images/backgrounds/industriales.jpg',
-      href: '/productos/emulsiones',
-      buttonText: 'Ver emulsiones',
-      description: 'Mejoran textura, dispersión y homogeneidad en distintas matrices.',
-    },
-    {
       title: 'COLORANTES',
-      image: '/images/sabores/siropes.jpg',
+      image: colorantesImg,
       href: '/productos/colorantes',
       buttonText: 'Ver colorantes',
       description: 'Tonalidades estables para realzar la presentación del producto final.',
     },
     {
       title: 'CONCENTRADOS',
-      image: '/images/backgrounds/semi-industriales.jpg',
+      image: concentradosImg,
       href: '/productos/concentrados',
       buttonText: 'Ver concentrados',
       description: 'Soluciones de alto rendimiento para formulaciones exigentes.',
     },
+        {
+      title: 'EMULSIONES',
+      image: emulsionesImg,
+      href: '/productos/emulsiones',
+      buttonText: 'Ver emulsiones',
+      description: 'Mejoran textura, dispersión y homogeneidad en distintas matrices.',
+    },
     {
       title: 'EXTRACTOS DE CACAO',
-      image: '/images/sabores/dulces.jpg',
+      image: extractoCacaoImg,
       href: '/productos/extracto-de-cacao',
       buttonText: 'Ver extractos',
       description: 'Perfil intenso y persistente para notas profundas de cacao.',
