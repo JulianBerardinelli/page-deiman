@@ -8,7 +8,7 @@ export function getStaticPaths() {
   }));
 }
 
-const { product } = Astro.props;
+const { slug } = Astro.params;
 
-return Astro.redirect(`/${product.slug}`, 301);
+return Astro.redirect(`/${slug}`, 301);
 ---

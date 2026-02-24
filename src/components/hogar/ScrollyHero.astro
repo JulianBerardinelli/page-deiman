@@ -170,14 +170,13 @@ import logoRed from '~/assets/logo/deiman-new-red.svg';
 
     const textSegments = document.querySelectorAll('.scrolly-text') as NodeListOf<HTMLElement>;
     
-    let context: CanvasRenderingContext2D | null = canvas.getContext('2d');
+    const context: CanvasRenderingContext2D | null = canvas.getContext('2d');
     const images: HTMLImageElement[] = [];
     const frames = {
         currentIndex: 0,
         maxIndex: FRAME_COUNT - 1
     };
     let w = 0, h = 0;
-    let canvasReady = false;
 
     // Preload Images
     const preloadImages = () => {
@@ -192,7 +191,6 @@ import logoRed from '~/assets/logo/deiman-new-red.svg';
                 img.onload = () => {
                     if (frames.currentIndex === 0) {
                         renderFrame(0);
-                        canvasReady = true;
                         // Fade out fallback smoothly once first frame is ready
                         if (fallbackImg) {
                              fallbackImg.style.opacity = '0';
