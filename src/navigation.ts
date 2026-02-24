@@ -11,29 +11,14 @@ export const headerData = {
       href: getPermalink('/semi-industriales'),
     },
     {
-      text: 'Hogar (Proximamente)',
+      text: 'Hogar',
       href: getPermalink('/hogar'),
-      isHighlighted: true,
-      links: [
-        {
-          text: 'Sabores',
-          href: getPermalink('/hogar#sabores'),
-        },
-        {
-          text: 'Colores',
-          href: getPermalink('/hogar#colores'),
-        },
-        {
-          text: 'Sazonadores',
-          href: getPermalink('/hogar#sazonadores'),
-        },
-      ],
     },
     {
       text: 'Productos',
       links: [
         {
-          text: 'Esencias naturales',
+          text: 'Esencias Naturales',
           href: getPermalink('/productos/escencias-naturales'),
         },
         {
@@ -52,6 +37,10 @@ export const headerData = {
           text: 'Concentrados',
           href: getPermalink('/productos/concentrados'),
         },
+        {
+          text: 'Colorantes',
+          href: getPermalink('/productos/colorantes'),
+        },
       ],
     },
     {
@@ -69,30 +58,31 @@ export const headerData = {
 export const footerData = {
   links: [
     {
-      title: 'Sabores',
+      title: 'Productos',
       links: [
-        { text: 'Todos los sabores', href: '/sabores' },
-        { text: 'Dulces', href: '/sabores/dulces' },
-        { text: 'Salados', href: '/sabores/salados' },
-        { text: 'Panificados', href: '/sabores/panificados' },
-        { text: 'Cítricos', href: '/sabores/citricos' },
-        { text: 'Desarrallo Personalizado', href: '/' },
-      ],
-      
-    },
-    {
-      title: 'Jarabes',
-      links: [
-        { text: 'Siropes', href: '/siropes' },
+        { text: 'Esencias Naturales', href: '/productos/escencias-naturales' },
+        { text: 'Esencias', href: '/productos/escencias' },
+        { text: 'Emulsiones', href: '/productos/emulsiones' },
+        { text: 'Extractos de Cacao', href: '/productos/extracto-de-cacao' },
+        { text: 'Concentrados', href: '/productos/concentrados' },
+        { text: 'Colorantes', href: '/productos/colorantes' },
       ],
     },
     {
-      title: 'Soporte técnico',
-      links: [{ text: 'Contacto', href: '/contact' }],
+      title: 'Líneas',
+      links: [
+        { text: 'Industriales', href: '/industriales' },
+        { text: 'Semi industriales', href: '/semi-industriales' },
+        { text: 'Hogar', href: '/hogar' },
+      ],
     },
     {
-      title: 'Deiman Argentina',
-      links: [{ text: 'Sobre Nosotros', href: '/about' }],
+      title: 'Compañía',
+      links: [
+        { text: 'Sobre Nosotros', href: '/about' },
+        { text: 'Desarrollos', href: '/laboratorio' },
+        { text: 'Contacto', href: '/contact' },
+      ],
     },
   ],
   secondaryLinks: [

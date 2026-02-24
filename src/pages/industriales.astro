@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import Header from '~/components/widgets/Header.astro';
 import Hero from '~/components/widgets/Hero.astro';
+import Features2 from '~/components/widgets/Features2.astro';
 import FindUs from '~/components/widgets/FindUs.astro';
 import IndustrialFlavorFeatureContainer from '~/components/widgets/IndustrialFlavorFeatureContainer.astro';
 import ProductGuide from '~/components/widgets/ProductGuide.astro';
@@ -30,7 +31,8 @@ const metadata = {
   </Fragment>
 
   <Hero
-    tagline="Industriales"
+    classes={{ container: 'mt-0', spacer: 'hidden pt-0 md:pt-8' }}
+    tagline='<span class="text-white/90 tracking-widest font-semibold uppercase">Industriales</span>'
     actions={[
       {
         variant: 'primary',
@@ -41,26 +43,22 @@ const metadata = {
         variant: 'secondary',
         text: 'Hablar con un especialista',
         href: '/contact',
+        class: 'border-2 border-white/60 text-white font-bold hover:bg-white hover:text-black transition-colors',
       },
     ]}
   >
+    <Fragment slot="bg">
+      <img src="/images/backgrounds/industriales.jpg" alt="Fondo Industriales" class="absolute inset-0 w-full h-full object-cover pointer-events-none" loading="eager" />
+      <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+    </Fragment>
+
     <Fragment slot="title">
-      Soluciones integrales <br />
-      <span class="animate-gradient-text font-bold">para procesos industriales</span>
+      <span class="text-white">Soluciones integrales</span> <br />
+      <span class="animate-gradient-text font-bold drop-shadow-md">para procesos industriales</span>
     </Fragment>
 
     <Fragment slot="subtitle">
-      Formulaciones estables y escalables para grandes volúmenes, con soporte técnico dedicado para garantizar
-      consistencia, trazabilidad y rendimiento en cada lote.
-    </Fragment>
-
-    <Fragment slot="image">
-      <img
-        src="/images/backgrounds/industriales.jpg"
-        alt="Soluciones industriales Deiman"
-        class="mx-auto rounded-md w-full max-w-4xl"
-        loading="eager"
-      />
+      <span class="text-white/90 drop-shadow-sm">Formulaciones estables y escalables para grandes volúmenes, con soporte técnico dedicado para garantizar consistencia, trazabilidad y rendimiento en cada lote.</span>
     </Fragment>
   </Hero>
 
@@ -90,6 +88,43 @@ const metadata = {
       },
     ]}
   />
+
+  <Features2
+    columns={2}
+    classes={{ container: 'max-w-5xl mx-auto' }}
+    title="Presentaciones a la medida de tu producción"
+    subtitle="Nuestros productos se adaptan a tus necesidades. Ofrecemos formatos en <span class='text-primary font-semibold'>líquido y polvo</span>, diseñados para <span class='text-primary font-semibold'>optimizar el almacenamiento, manejo y dosificación</span> en procesos industriales."
+    items={[
+      {
+        title: 'Presentaciones Líquidas',
+        description: 'Formatos disponibles en 10 kg, 15 kg y 20 kg. Ideales para rápida integración y homogeneidad en mezclas húmedas y emulsiones.',
+        icon: 'tabler:droplet',
+        productImages: [
+          {
+            src: '/images/products/packages/bidon-industrial.png',
+            alt: 'Bidón Industrial',
+            hoverText: '10 kg, 15 kg y 20 kg',
+          }
+        ],
+      },
+      {
+        title: 'Presentaciones en Polvo',
+        description: 'Formatos disponibles en 10 kg, 15 kg, 20 kg y 25 kg. Perfectos para mezclas secas, garantizando estabilidad prolongada y control preciso.',
+        icon: 'tabler:box-seam',
+        productImages: [
+          {
+            src: '/images/products/packages/caja-industrial.png',
+            alt: 'Caja Industrial',
+            hoverText: '10 kg, 15 kg, 20 kg y 25 kg',
+          }
+        ],
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-primary/5 dark:bg-transparent"></div>
+    </Fragment>
+  </Features2>
 
   <IndustrialFlavorFeatureContainer />
 

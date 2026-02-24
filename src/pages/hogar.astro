@@ -1,9 +1,10 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import Header from '~/components/widgets/Header.astro';
-import Hero from '~/components/widgets/Hero.astro';
+import ScrollyHero from '~/components/hogar/ScrollyHero.astro';
 import FindUs from '~/components/widgets/FindUs.astro';
 import SupportOverview from '~/components/widgets/SupportOverview.astro';
+import ProductMarqueeShowcase from '~/components/widgets/ProductMarqueeShowcase.astro';
 import { headerData } from '~/navigation';
 
 const metadata = {
@@ -27,29 +28,15 @@ const metadata = {
     />
   </Fragment>
 
-  <Hero tagline="Hogar">
-    <Fragment slot="title">
-      Una línea hecha para el hogar <br />
-      <span class="animate-gradient-text font-bold">disponible próximamente</span>
-    </Fragment>
+  <ScrollyHero />
 
-    <Fragment slot="subtitle">
-      Estamos preparando una propuesta pensada para cocina casera, repostería y pequeños emprendimientos.
-      Pronto vas a poder encontrar <span class="font-semibold">sabores, colores y sazonadores</span> desarrollados para
-      aportar identidad, equilibrio y practicidad a tus recetas, con la calidad Deiman de siempre.
-    </Fragment>
+  <ProductMarqueeShowcase
+    title="Próximamente para tu cocina"
+    subtitle="Una selección creada para acompañar recetas caseras con la calidad y el equilibrio de Deiman."
+    showCta={false}
+  />
 
-    <Fragment slot="image">
-      <img
-        src="/images/backgrounds/test.jpg"
-        alt="Sabores para el hogar Deiman"
-        class="mx-auto rounded-md w-full max-w-4xl"
-        loading="eager"
-      />
-    </Fragment>
-  </Hero>
-
-  <section class="py-12 md:py-16">
+  <section id="catalogo" class="py-12 md:py-16">
     <div class="mx-auto w-full max-w-5xl px-6">
       <div class="grid gap-8 md:grid-cols-3">
         <div id="sabores" class="rounded-2xl border border-gray-200 bg-white/80 p-6 shadow-sm">

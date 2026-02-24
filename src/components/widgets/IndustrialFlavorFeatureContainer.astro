@@ -1,9 +1,14 @@
 ---
 import FlavorFeature from './FlavorFeature.astro';
+import escenciasNaturalesImg from '~/assets/images/escencias-naturales.jpg';
+import escenciasImg from '~/assets/images/escencias.jpg';
+import colorantesImg from '~/assets/images/colorantes.jpg';
+import emulsionesImg from '~/assets/images/emulsiones.jpg';
+import extractoCacaoImg from '~/assets/images/extracto-de-cacao.jpg';
+
 ---
 
 <FlavorFeature
-  noAnimation={true}
   id="familias-industriales"
   tagline="Líneas industriales"
   title='Soluciones para <span class="animate-gradient-text">producción industrial</span>'
@@ -11,31 +16,31 @@ import FlavorFeature from './FlavorFeature.astro';
   items={[
     {
       title: 'Escencias naturales',
-      image: '/images/backgrounds/escencias.jpg',
+      image: escenciasNaturalesImg,
       href: '/escencias-naturales',
       buttonText: 'Consultar',
     },
     {
       title: 'Escencias',
-      image: '/images/backgrounds/escencias.jpg',
+      image: escenciasImg,
       href: '/escencias',
       buttonText: 'Consultar',
     },
     {
       title: 'Colorantes',
-      image: '/images/backgrounds/industriales.jpg',
+      image: colorantesImg,
       href: '/colorantes',
       buttonText: 'Consultar',
     },
     {
       title: 'Emulsiones',
-      image: '/images/backgrounds/industriales.jpg',
+      image: emulsionesImg,
       href: '/emulsiones',
       buttonText: 'Consultar',
     },
     {
       title: 'Extracto de cacao',
-      image: '/images/backgrounds/industriales.jpg',
+      image: extractoCacaoImg,
       href: '/extracto-de-cacao',
       buttonText: 'Consultar',
     },

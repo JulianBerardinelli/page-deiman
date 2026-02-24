@@ -1,0 +1,299 @@
+---
+import Button from '~/components/ui/Button.astro';
+
+export interface Props {
+  fallbackImage?: string;
+}
+
+const { fallbackImage = '/escena-sabores/ezgif-frame-001.jpg' } = Astro.props;
+
+import { Image } from 'astro:assets';
+import logoRed from '~/assets/logo/deiman-new-red.svg';
+---
+
+<div class="scrolly-container relative z-10 bg-black text-white" style="height: 500vh;">
+  <div class="sticky top-0 h-[100dvh] w-full overflow-hidden">
+    <!-- Canvas for Image Sequence -->
+    <canvas id="hero-canvas" class="absolute inset-0 h-full w-full object-cover z-0"></canvas>
+    
+    <!-- Gradient Overlay for Contrast (Always visible) -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none z-10 transition-opacity duration-300"></div>
+
+    <!-- Fallback Image -->
+    <img 
+      id="fallback-img"
+      src={fallbackImage} 
+      alt="Deiman Hogar" 
+      class="fallback-image absolute inset-0 h-full w-full object-cover z-20 transition-opacity duration-700 ease-out"
+    />
+
+    <!-- Scrollytelling Text Overlays -->
+    <div class="absolute inset-0 z-30 pointer-events-none">
+      
+      <!-- Text Segment 1: Intro (Center) -->
+      <div 
+        class="scrolly-text opacity-100 transition-all duration-1000 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full px-6 text-center"
+        data-start="0" 
+        data-end="0.15"
+      >
+        <Image 
+            src={logoRed} 
+            alt="Deiman Logo" 
+            class="w-24 md:w-32 h-auto mx-auto mb-6 drop-shadow-lg"
+        />
+        <h1 class="text-5xl md:text-8xl font-extrabold tracking-tight mb-4 text-white drop-shadow-[0_5px_5px_rgba(0,0,0,0.6)]">
+          Tu Cocina, <br/> <span class="text-primary drop-shadow-[0_0_20px_rgba(255,255,255,0.6)]">Nivel Experto</span>
+        </h1>
+        <p class="text-xl md:text-3xl font-medium text-gray-100 drop-shadow-md max-w-3xl mx-auto mt-4">
+          La calidad industrial de Deiman, ahora en tu hogar.
+        </p>
+      </div>
+
+      <!-- Text Segment 2: Flavor (Bottom Right) -->
+      <div 
+        class="scrolly-text opacity-0 transition-all duration-1000 absolute bottom-32 md:bottom-40 right-6 md:right-24 max-w-lg text-right px-6" 
+        data-start="0.25" 
+        data-end="0.40"
+      >
+        <h2 class="text-4xl md:text-6xl font-bold mb-3 text-white drop-shadow-lg">
+          Sabores Auténticos
+        </h2>
+        <p class="text-xl md:text-2xl text-gray-100 font-medium drop-shadow-md">
+          Esencias y concentrados que transforman cada receta en una experiencia única.
+        </p>
+      </div>
+
+      <!-- Text Segment 3: Color (Bottom Left) -->
+      <div 
+        class="scrolly-text opacity-0 transition-all duration-1000 absolute bottom-32 md:bottom-40 left-6 md:left-24 max-w-lg text-left px-6" 
+        data-start="0.50" 
+        data-end="0.65"
+      >
+        <h2 class="text-4xl md:text-6xl font-bold mb-3 text-white drop-shadow-lg">
+          Sabores Cautivadores
+        </h2>
+        <p class="text-xl md:text-2xl text-gray-100 font-medium drop-shadow-md">
+          Envuelve tus sentidos y da un acabado profesional a cada comida.
+        </p>
+      </div>
+
+      <!-- Text Segment 4: CTA (Center) -->
+      <div 
+        class="scrolly-text opacity-0 transition-all duration-1000 absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full px-4" 
+        data-start="0.75" 
+        data-end="1.5"
+      >
+        <h2 class="text-5xl md:text-7xl font-bold mb-8 text-white drop-shadow-lg">
+          Crea sin Límites
+        </h2>
+        
+        <div class="pointer-events-auto">
+             <Button 
+                variant="primary" 
+                class="text-xl py-4 px-12 rounded-full shadow-xl hover:scale-105 transition-transform" 
+                href="#catalogo"
+            >
+                Ver Catálogo Hogar
+            </Button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-30 opacity-80 drop-shadow-md pointer-events-none">
+      <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .scrolly-container {
+      height: 100vh !important; /* Remove scroll distance */
+    }
+    #hero-canvas {
+      display: none;
+    }
+    .fallback-image {
+      opacity: 1 !important;
+      z-index: 10 !important;
+    }
+    .scrolly-text {
+        opacity: 1 !important;
+        position: relative !important;
+        transform: none !important;
+        inset: auto !important; /* Reset absolute positioning */
+        margin-bottom: 2rem;
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        text-align: center !important;
+    }
+    .sticky {
+        position: relative !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+    /* stack texts for fallback */
+    .absolute.inset-0.z-30 {
+        position: relative !important;
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+        background: rgba(0,0,0,0.6);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-y: auto;
+    }
+  }
+</style>
+
+<script>
+  // Configuration
+  const FRAME_COUNT = 200;
+  const FRAME_PATH = '/escena-sabores/ezgif-frame-';
+  const FRAME_EXT = '.jpg';
+  const PAD_LENGTH = 3; // e.g. 001
+
+  let cleanupFn: (() => void) | null = null;
+
+  const init = () => {
+    if (cleanupFn) cleanupFn();
+
+    const container = document.querySelector('.scrolly-container') as HTMLElement;
+    const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement;
+    const fallbackImg = document.getElementById('fallback-img') as HTMLImageElement;
+    
+    if (!container || !canvas) return;
+
+    const textSegments = document.querySelectorAll('.scrolly-text') as NodeListOf<HTMLElement>;
+    
+    let context: CanvasRenderingContext2D | null = canvas.getContext('2d');
+    const images: HTMLImageElement[] = [];
+    const frames = {
+        currentIndex: 0,
+        maxIndex: FRAME_COUNT - 1
+    };
+    let w = 0, h = 0;
+    let canvasReady = false;
+
+    // Preload Images
+    const preloadImages = () => {
+        for (let i = 1; i <= FRAME_COUNT; i++) {
+            const imageUrl = `${FRAME_PATH}${i.toString().padStart(PAD_LENGTH, '0')}${FRAME_EXT}`;
+            const img = new Image();
+            img.src = imageUrl;
+            images.push(img);
+            
+            // Draw first frame immediately when loaded
+            if (i === 1) {
+                img.onload = () => {
+                    if (frames.currentIndex === 0) {
+                        renderFrame(0);
+                        canvasReady = true;
+                        // Fade out fallback smoothly once first frame is ready
+                        if (fallbackImg) {
+                             fallbackImg.style.opacity = '0';
+                        }
+                    }
+                };
+            }
+        }
+    };
+
+    // Render Logic
+    const renderFrame = (index: number) => {
+        if (!context || !images[index] || !images[index].complete) return;
+        
+        const img = images[index];
+        // Ensure accurate cover fit
+        w = canvas.width;  // Use current canvas dims
+        h = canvas.height;
+        
+        const scale = Math.max(w / img.width, h / img.height);
+        const x = (w / 2) - (img.width / 2) * scale;
+        const y = (h / 2) - (img.height / 2) * scale;
+        
+        context.clearRect(0, 0, w, h);
+        context.drawImage(img, x, y, img.width * scale, img.height * scale);
+    };
+
+    const handleResize = () => {
+        // Use window inner dimensions for full coverage
+        const newW = window.innerWidth;
+        const newH = window.innerHeight;
+        
+        // Only update if changed to avoid jitter on mobile scroll (address bar)
+        // Actually, we want to update if dimensions change significantly
+        if (canvas.width !== newW || canvas.height !== newH) {
+            canvas.width = newW;
+            canvas.height = newH;
+            w = newW;
+            h = newH;
+            renderFrame(frames.currentIndex);
+        }
+    };
+
+    const handleScroll = () => {
+        const scrollTop = window.scrollY;
+        const containerTop = container.offsetTop;
+        const containerHeight = container.offsetHeight;
+        const windowHeight = window.innerHeight;
+
+        // Calculate scroll progress within the container
+        let progress = (scrollTop - containerTop) / (containerHeight - windowHeight);
+        progress = Math.max(0, Math.min(1, progress));
+
+        const frameIndex = Math.floor(progress * frames.maxIndex);
+        
+        if (frameIndex !== frames.currentIndex) {
+            frames.currentIndex = frameIndex;
+            requestAnimationFrame(() => renderFrame(frameIndex));
+        }
+
+        // Text Scrollytelling
+        textSegments.forEach(el => {
+            const start = parseFloat(el.dataset.start || '0');
+            const end = parseFloat(el.dataset.end || '1');
+            
+            if (progress >= start && progress <= end) {
+                el.style.opacity = '1';
+                el.style.pointerEvents = 'auto';
+            } else {
+                el.style.opacity = '0';
+                el.style.pointerEvents = 'none';
+            }
+        });
+    };
+
+    // Execution
+    handleResize(); // Set initial size
+    preloadImages();
+
+    // Use resize observer for more robustness? 
+    // Standard event is fine for now.
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    cleanupFn = () => {
+        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('scroll', handleScroll);
+    };
+  };
+
+  document.addEventListener('astro:page-load', () => {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReduced) {
+        init();
+      }
+  });
+
+  document.addEventListener('astro:before-swap', () => {
+      if (cleanupFn) {
+          cleanupFn();
+          cleanupFn = null;
+      }
+  });
+</script>

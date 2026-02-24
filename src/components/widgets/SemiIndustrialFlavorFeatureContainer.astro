@@ -1,9 +1,15 @@
 ---
 import FlavorFeature from './FlavorFeature.astro';
+import escenciasNaturalesImg from '~/assets/images/escencias-naturales.jpg';
+import escenciasImg from '~/assets/images/escencias.jpg';
+import colorantesImg from '~/assets/images/colorantes.jpg';
+import emulsionesImg from '~/assets/images/emulsiones.jpg';
+import concentradosImg from '~/assets/images/concentrados.jpg';
+
+
 ---
 
 <FlavorFeature
-  noAnimation={true}
   id="familias-semi-industriales"
   tagline="Líneas semi industriales"
   title='Perfil aromático <span class="animate-gradient-text">para producciones medianas</span>'
@@ -11,31 +17,31 @@ import FlavorFeature from './FlavorFeature.astro';
   items={[
     {
       title: 'Escencias naturales',
-      image: '/images/backgrounds/escencias.jpg',
+      image: escenciasNaturalesImg,
       href: '/escencias-naturales',
       buttonText: 'Consultar',
     },
     {
       title: 'Escencias',
-      image: '/images/backgrounds/escencias.jpg',
+      image: escenciasImg,
       href: '/escencias',
       buttonText: 'Consultar',
     },
     {
       title: 'Colorantes',
-      image: '/images/backgrounds/semi-industriales.jpg',
+      image: colorantesImg,
       href: '/colorantes',
       buttonText: 'Consultar',
     },
     {
       title: 'Emulsiones',
-      image: '/images/backgrounds/semi-industriales.jpg',
+      image: emulsionesImg,
       href: '/emulsiones',
       buttonText: 'Consultar',
     },
     {
       title: 'Concentrados',
-      image: '/images/backgrounds/semi-industriales.jpg',
+      image: concentradosImg,
       href: '/concentrados',
       buttonText: 'Consultar',
     },

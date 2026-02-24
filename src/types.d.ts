@@ -147,7 +147,11 @@ export interface Item {
   icon?: string;
   classes?: Record<string, string>;
   callToAction?: CallToAction;
-  image?: Image;
+  productImages?: Array<{
+    src: string | ImageMetadata;
+    alt?: string;
+    hoverText?: string;
+  }>;
 }
 
 export interface Price {
@@ -223,7 +227,7 @@ export interface Form {
 }
 
 // WIDGETS
-export interface Hero extends Omit<Headline, 'classes'>, Omit<Widget, 'isDark' | 'classes'> {
+export interface Hero extends Omit<Headline, 'classes'>, Omit<Widget, 'isDark'> {
   content?: string;
   actions?: string | CallToAction[];
   image?: string | unknown;
