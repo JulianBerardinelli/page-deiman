@@ -3,14 +3,14 @@ import Layout from '~/layouts/PageLayout.astro';
 import Header from '~/components/widgets/Header.astro';
 import { headerData } from '~/navigation';
 import FlavorRange from '~/components/ui/FlavorRange.astro';
-import siropesImage from '~/assets/images/siropes.jpg';
+import siropesImage from '~/assets/images/frutales.jpg';
 import FindUs from '~/components/widgets/FindUs.astro';
 import SupportOverview from '~/components/widgets/SupportOverview.astro';
 import FlavorFeatureContainer from '~/components/widgets/FlavorFeatureContainer.astro';
-import ContentCarouselSiropes from '~/components/widgets/carousels/ContentCarouselSiropes.astro';
+import ContentCarouselFrutales from '~/components/widgets/carousels/ContentCarouselFrutales.astro';
 
 const metadata = {
-  title: '¡Descubri nuestros Siropes!',
+  title: '¡Descubri nuestros Frutales!',
 };
 ---
 
@@ -29,30 +29,30 @@ const metadata = {
     />
   </Fragment>
 
-  <ContentCarouselSiropes />
+  <ContentCarouselFrutales />
 
   <FlavorRange
   noAnimation={true}
-  id="siropes"
-  title='Sabores <span class="text-primary">Siropes</span>'
-  subtitle="Cremosos, dulces y tentadores"
-  tagline="Sabores clásicos y gourmet para productos irresistibles"
+  id="frutales"
+  title='Sabores <span class="text-primary">Frutales</span>'
+  subtitle="Refrescantes, intensos y vibrantes"
+  tagline="Sabores frutales para productos irresistibles"
   items={[
     {
-      title: 'Variedad de perfiles indulgentes',
+      title: 'Variedad de perfiles frutales',
       description:
-        'Ofrecemos esencias que reproducen con fidelidad sabores como chocolate, dulce de leche, pistacho, frutilla, caramelo o limón. Cada perfil está formulado para brindar una experiencia sensorial auténtica, equilibrando dulzura, cremosidad y notas aromáticas características.',
+        'Ofrecemos esencias que reproducen con fidelidad sabores como frutilla, limón, naranja, arándano, durazno, frutos rojos o manzana. Cada perfil está formulado para brindar una experiencia sensorial auténtica y fresca, capturando la esencia natural de la fruta.',
     },
     {
       title: 'Diseñadas para alto rendimiento y aplicación directa',
       description:
-        'Ideales para siropes, coberturas, postres, helados, yogures o rellenos. Nuestras esencias son termoestables, altamente concentradas y adaptables a matrices líquidas o cremosas, manteniendo su perfil y textura sin degradarse.',
+        'Ideales para jugos, bebidas, helados, gelatinas, yogures o repostería. Nuestras esencias frutales son termoestables y altamente concentradas, diseñadas para mantener un perfil vibrante, su color y su frescura en cualquier matriz.',
     },
   ]}
   callToAction={{ href: '/contacto', text: 'Solicitar catálogo' }}
   image={{
     src: siropesImage,
-    alt: 'Imagen de esencias siropes',
+    alt: 'Imagen de esencias frutales',
   }}
 />
 

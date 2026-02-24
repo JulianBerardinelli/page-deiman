@@ -1,11 +1,6 @@
 import type { ImageMetadata } from 'astro';
 
-import escenciasNaturalesImg from '~/assets/images/escencias-naturales.jpg';
-import escenciasImg from '~/assets/images/escencias.jpg';
-import colorantesImg from '~/assets/images/colorantes.jpg';
 import emulsionesImg from '~/assets/images/emulsiones.jpg';
-import extractoCacaoImg from '~/assets/images/extracto-de-cacao.jpg';
-import concentradosImg from '~/assets/images/concentrados.jpg';
 
 export interface ProductSlide {
   image: string | ImageMetadata;
@@ -43,23 +38,7 @@ export interface ProductData {
   single?: ProductSingleContent;
 }
 
-const baseSlides = (title: string, subtitle: string): ProductSlide[] => [
-  {
-    image: '/images/carousel/car-1.jpg',
-    mobileImage: '/images/carousel/car-1-phone.jpg',
-    title,
-    subtitle,
-    align: 'center',
-  },
-  {
-    image: '/images/carousel/car-2.jpg',
-    mobileImage: '/images/carousel/car-1-phone.jpg',
-    title: 'Calidad sensorial y soporte <span class="text-primary">en cada lote</span>',
-    subtitle:
-      'Acompañamos la elección de materias primas, dosificación y ajustes para sostener perfiles consistentes.',
-    align: 'right',
-  },
-];
+
 
 export const products: ProductData[] = [
   {
@@ -71,7 +50,7 @@ export const products: ProductData[] = [
       'Notas naturales cuidadosamente seleccionadas para mantener su identidad en distintos procesos productivos.',
     slides: [
       {
-        image: escenciasNaturalesImg,
+        image: '/images/carousel/car-escencias-naturales-1.jpg',
         title: 'Escencias naturales con impacto sensorial',
         subtitle: 'Perfiles frescos y auténticos, diseñados para conservar su carácter en distintas aplicaciones.',
         align: 'center',
@@ -111,7 +90,7 @@ export const products: ProductData[] = [
       'Perfiles aromáticos definidos y consistentes para distintas aplicaciones alimenticias.',
     slides: [
       {
-        image: escenciasImg,
+        image: '/images/carousel/car-escencias-1.jpg',
         title: 'Escencias con carácter definido',
         subtitle: 'Soluciones versátiles que respetan el perfil sensorial y la identidad de cada producto.',
         align: 'center',
@@ -151,7 +130,7 @@ export const products: ProductData[] = [
       'Tonales consistentes que realzan la presentación del producto final.',
     slides: [
       {
-        image: colorantesImg,
+        image: '/images/carousel/car-colorantes-1.jpg',
         title: 'Colorantes de alta estabilidad',
         subtitle: 'Soluciones diseñadas para mantener el color en cada etapa del proceso.',
         align: 'center',
@@ -231,7 +210,7 @@ export const products: ProductData[] = [
       'Notas profundas y consistentes, formuladas para aplicaciones exigentes.',
     slides: [
       {
-        image: extractoCacaoImg,
+        image: '/images/carousel/car-cacao-1.jpg',
         title: 'Extracto de cacao con perfil intenso',
         subtitle: 'Aporta cuerpo y carácter a formulaciones industriales.',
         align: 'center',
@@ -258,7 +237,7 @@ export const products: ProductData[] = [
       'Perfiles intensos y rendidores para producciones medianas.',
     slides: [
       {
-        image: concentradosImg,
+        image: '/images/carousel/car-concentrados-1.jpg',
         title: 'Concentrados con alto rendimiento',
         subtitle: 'Pensados para potenciar sabor con dosificación eficiente.',
         align: 'center',

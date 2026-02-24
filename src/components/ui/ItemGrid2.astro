@@ -32,26 +32,57 @@ const {
         containerClass
       )}
     >
-      {items.map(({ title, description, icon, callToAction, classes: itemClasses = {} }) => (
-        <div
-          class={twMerge(
-            'relative flex flex-col intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
-            panelClass,
-            itemClasses?.panel
-          )}
-        >
+      {items.map(({ title, description, icon, productImages, callToAction, classes: itemClasses = {} }, idx) => (
+        <div class="relative mt-6 md:mt-10 flex flex-col w-full">
+
+          
+          <div
+            class={twMerge(
+              'relative flex flex-col items-center text-center pt-12 intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
+              panelClass,
+              (itemClasses as Record<string, string>)?.panel
+            )}
+          >
           {(icon || defaultIcon) && (
-            <Icon name={icon || defaultIcon} class={twMerge('mb-2 w-10 h-10', defaultIconClass, itemClasses?.icon)} />
+            <Icon name={icon || defaultIcon} class={twMerge('mb-2 w-10 h-10', defaultIconClass, (itemClasses as Record<string, string>)?.icon)} />
           )}
-          <div class={twMerge('text-xl font-bold', titleClass, itemClasses?.title)}>{title}</div>
+          <div class={twMerge('text-xl font-bold', titleClass, (itemClasses as Record<string, string>)?.title)}>{title}</div>
           {description && (
-            <p class={twMerge('text-muted mt-2', descriptionClass, itemClasses?.description)} set:html={description} />
+            <p class={twMerge('text-muted mt-2', descriptionClass, (itemClasses as Record<string, string>)?.description)} set:html={description} />
           )}
-          {callToAction && (
-            <div class="mt-2">
-              <Button {...callToAction} />
+            {callToAction && (
+              <div class="mt-2">
+                <Button {...callToAction} />
+              </div>
+            )}
+          </div>
+
+          {/* Product Hover Containers */}
+          {productImages && productImages.length > 0 && (
+            <div class={`mt-8 flex flex-row justify-center ${idx === 0 ? 'md:justify-end md:pr-4' : idx === 1 ? 'md:justify-start md:pl-4' : ''} gap-6 w-full`}>
+              {productImages.map((prod) => (
+                <div class="group relative bg-white border border-gray-100 rounded-2xl p-4 w-64 h-44 flex flex-col justify-center items-center shadow-md transition-all duration-500 ease-out hover:shadow-xl hover:-translate-y-2 hover:bg-primary hover:border-primary cursor-default overflow-hidden">
+                  
+                  {/* Image */}
+                  <img 
+                    src={typeof prod.src === 'string' ? prod.src : (prod.src as { src: string }).src} 
+                    alt={prod.alt || title} 
+                    class="max-h-32 object-contain filter drop-shadow-md transition-all duration-500 ease-out group-hover:-translate-y-4 group-hover:scale-105"
+                  />
+                  
+                  {/* Hover Details */}
+                  {prod.hoverText && (
+                    <div class="absolute bottom-4 left-0 right-0 opacity-0 translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 flex justify-center">
+                      <span class="text-white text-sm font-semibold text-center px-4">
+                        {prod.hoverText}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           )}
+
         </div>
       ))}
     </div>

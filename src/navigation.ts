@@ -13,13 +13,12 @@ export const headerData = {
     {
       text: 'Hogar',
       href: getPermalink('/hogar'),
-      isHighlighted: true,
     },
     {
       text: 'Productos',
       links: [
         {
-          text: 'Esencias naturales',
+          text: 'Esencias Naturales',
           href: getPermalink('/productos/escencias-naturales'),
         },
         {
@@ -37,6 +36,10 @@ export const headerData = {
         {
           text: 'Concentrados',
           href: getPermalink('/productos/concentrados'),
+        },
+        {
+          text: 'Colorantes',
+          href: getPermalink('/productos/colorantes'),
         },
       ],
     },
@@ -57,11 +60,12 @@ export const footerData = {
     {
       title: 'Productos',
       links: [
-        { text: 'Esencias naturales', href: '/productos/escencias-naturales' },
+        { text: 'Esencias Naturales', href: '/productos/escencias-naturales' },
         { text: 'Esencias', href: '/productos/escencias' },
         { text: 'Emulsiones', href: '/productos/emulsiones' },
         { text: 'Extractos de Cacao', href: '/productos/extracto-de-cacao' },
         { text: 'Concentrados', href: '/productos/concentrados' },
+        { text: 'Colorantes', href: '/productos/colorantes' },
       ],
     },
     {

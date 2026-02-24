@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import Header from '~/components/widgets/Header.astro';
 import Hero from '~/components/widgets/Hero.astro';
+import Features2 from '~/components/widgets/Features2.astro';
 import FindUs from '~/components/widgets/FindUs.astro';
 import SemiIndustrialFlavorFeatureContainer from '~/components/widgets/SemiIndustrialFlavorFeatureContainer.astro';
 import ProductGuide from '~/components/widgets/ProductGuide.astro';
@@ -30,7 +31,8 @@ const metadata = {
   </Fragment>
 
   <Hero
-    tagline="Semi industriales"
+    classes={{ container: 'mt-0', spacer: 'hidden pt-0 md:pt-8' }}
+    tagline='<span class="text-white/90 tracking-widest font-semibold uppercase">Semi industriales</span>'
     actions={[
       {
         variant: 'primary',
@@ -41,26 +43,22 @@ const metadata = {
         variant: 'secondary',
         text: 'Asesoramiento técnico',
         href: '/contact',
+        class: 'border-2 border-white/60 text-white font-bold hover:bg-white hover:text-black transition-colors',
       },
     ]}
   >
+    <Fragment slot="bg">
+      <img src="/images/backgrounds/semi-industriales.jpg" alt="Fondo Semi industriales" class="absolute inset-0 w-full h-full object-cover pointer-events-none" loading="eager" />
+      <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+    </Fragment>
+
     <Fragment slot="title">
-      Rendimiento confiable <br />
-      <span class="animate-gradient-text font-bold">para producciones medianas</span>
+      <span class="text-white">Sabor y rendimiento ideal</span> <br />
+      <span class="animate-gradient-text font-bold drop-shadow-md">para heladerías y panaderías</span>
     </Fragment>
 
     <Fragment slot="subtitle">
-      Fórmulas equilibradas con perfiles aromáticos definidos, listas para adaptarse a líneas semi industriales sin
-      perder eficiencia ni calidad sensorial.
-    </Fragment>
-
-    <Fragment slot="image">
-      <img
-        src="/images/backgrounds/semi-industriales.jpg"
-        alt="Soluciones semi industriales Deiman"
-        class="mx-auto rounded-md w-full max-w-4xl"
-        loading="eager"
-      />
+      <span class="text-white/90 drop-shadow-sm">Fórmulas equilibradas con perfiles aromáticos definidos, especialmente diseñadas para adaptarse a producciones artesanales y semi industriales como heladerías, panaderías y reposterías, garantizando calidad en cada elaboración.</span>
     </Fragment>
   </Hero>
 
@@ -90,6 +88,53 @@ const metadata = {
       },
     ]}
   />
+
+  <Features2
+    columns={2}
+    classes={{ container: 'max-w-5xl mx-auto' }}
+    title="Presentaciones prácticas para tu negocio"
+    subtitle="Ofrecemos formatos en <span class='text-primary font-semibold'>líquido y polvo</span> pensados específicamente para <span class='text-primary font-semibold'>facilitar el manejo y almacenamiento</span> en heladerías, panaderías y emprendimientos medianos."
+    items={[
+      {
+        title: 'Presentaciones Líquidas',
+        description: 'Formatos disponibles en 1 kg, 5 kg y 10 kg. Ideales para fácil dosificación y rápida integración en todo tipo de preparaciones.',
+        icon: 'tabler:droplet',
+        productImages: [
+          {
+            src: '/images/products/bidon-semi-ind-helados.png',
+            alt: 'Bidón Heladería',
+            hoverText: '1 kg, 5 kg y 10 kg',
+          },
+          {
+            src: '/images/products/bidon-semi-panaderia.png',
+            alt: 'Bidón Panadería',
+            hoverText: '1 kg, 5 kg y 10 kg',
+          }
+        ],
+      },
+      {
+        title: 'Presentaciones en Polvo',
+        description: 'Formatos disponibles en 1 kg, 5 kg y 10 kg. Perfectos para mezclas secas, asegurando vida útil prolongada y control preciso en la receta.',
+        icon: 'tabler:box-seam',
+        productImages: [
+          {
+            src: '/images/products/caja-semi-ind-helados.png',
+            alt: 'Caja Heladería',
+            hoverText: '1 kg, 5 kg y 10 kg',
+          },
+          {
+            src: '/images/products/caja-semi-ind-panaderia.png',
+            alt: 'Caja Panadería',
+            hoverText: '1 kg, 5 kg y 10 kg',
+          }
+        ],
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-primary/5 dark:bg-transparent"></div>
+    </Fragment>
+  </Features2>
 
   <SemiIndustrialFlavorFeatureContainer />
 
