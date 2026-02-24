@@ -27,6 +27,9 @@ import logoRed from '~/assets/logo/deiman-new-red.svg';
       class="fallback-image absolute inset-0 h-full w-full object-cover z-20 transition-opacity duration-700 ease-out"
     />
 
+    <!-- Flash Overlay -->
+    <div id="flash-overlay" class="absolute inset-0 bg-white z-[25] pointer-events-none opacity-0"></div>
+
     <!-- Scrollytelling Text Overlays -->
     <div class="absolute inset-0 z-30 pointer-events-none">
       
@@ -165,6 +168,7 @@ import logoRed from '~/assets/logo/deiman-new-red.svg';
     const container = document.querySelector('.scrolly-container') as HTMLElement;
     const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement;
     const fallbackImg = document.getElementById('fallback-img') as HTMLImageElement;
+    const flashOverlay = document.getElementById('flash-overlay') as HTMLElement;
     
     if (!container || !canvas) return;
 
@@ -244,11 +248,23 @@ import logoRed from '~/assets/logo/deiman-new-red.svg';
         let progress = (scrollTop - containerTop) / (containerHeight - windowHeight);
         progress = Math.max(0, Math.min(1, progress));
 
-        const frameIndex = Math.floor(progress * frames.maxIndex);
+        const exactFrame = progress * frames.maxIndex;
+        const frameIndex = Math.floor(exactFrame);
         
         if (frameIndex !== frames.currentIndex) {
             frames.currentIndex = frameIndex;
             requestAnimationFrame(() => renderFrame(frameIndex));
+        }
+
+        // Flash between frame 179 (index 178) and 180 (index 179)
+        if (flashOverlay) {
+            const distance = Math.abs(exactFrame - 178.5);
+            if (distance < 12.0) {
+                const intensity = Math.pow(1 - distance / 12.0, 1.5);
+                flashOverlay.style.opacity = intensity.toString();
+            } else {
+                flashOverlay.style.opacity = '0';
+            }
         }
 
         // Text Scrollytelling
