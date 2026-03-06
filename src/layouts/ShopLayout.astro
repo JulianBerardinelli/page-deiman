@@ -1,0 +1,72 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import ShopHeader from '~/components/widgets/ShopHeader.astro';
+import Footer from '~/components/widgets/Footer.astro';
+import SideCart from '~/components/hogar/SideCart.astro';
+import { shopHeaderData, footerData } from '~/navigation';
+
+import type { MetaData } from '~/types';
+
+export interface Props {
+  metadata?: MetaData;
+}
+
+const { metadata } = Astro.props;
+const isCheckout = Astro.url.pathname.includes('/checkout');
+---
+
+<Layout metadata={metadata}>
+  <slot name="header">
+    <ShopHeader {...shopHeaderData} isSticky />
+  </slot>
+
+  <main class="min-h-screen bg-slate-50">
+    <!-- Aquí dentro vivirá toda la aplicación de E-Commerce -->
+    <slot />
+  </main>
+  
+  <slot name="footer">
+    <Footer {...footerData} />
+  </slot>
+
+  <!-- SideCart Component Global -->
+  {!isCheckout && <SideCart />}
+
+  <!-- Script que inicializa y re-evalúa silenciosamente la región del usuario -->
+  <script>
+    import { regionIdStore, cartIdStore } from '~/store/client';
+    import { medusaClient } from '~/lib/medusa';
+
+    async function initializeRegion() {
+      try {
+        const { regions } = await medusaClient.store.region.list();
+        if (regions && regions.length > 0) {
+          const currentRegionId = regionIdStore.get();
+          // Verificamos si la región guardada en memoria todavía existe en el dashboard
+          const isRegionValid = regions.some((r) => r.id === currentRegionId);
+
+          if (!currentRegionId || !isRegionValid) {
+            console.warn("⚠️ Región no encontrada o desactualizada. Re-sincronizando...");
+            // Asigna la primera región por defecto (ej. Argentina)
+            regionIdStore.set(regions[0].id);
+            // Si la región cambió, el carrito viejo es incompatible. Lo matamos para que nazca uno nuevo:
+            cartIdStore.set(undefined);
+            
+            console.log("🛒 Nueva Región E-Commerce configurada:", regions[0].name);
+            
+            // Si estamos en el checkout y nos quedamos sin carrito, redirigir a Home
+            if (window.location.pathname.includes('/checkout')) {
+               window.location.href = '/hogar';
+            }
+          }
+        }
+      } catch (error) {
+        console.error("🛒 Error obteniendo las regiones del servidor:", error);
+      }
+    }
+
+    // Ejecutar cuando el DOM esté listo o Astro cargue la página
+    document.addEventListener("DOMContentLoaded", initializeRegion);
+    document.addEventListener("astro:page-load", initializeRegion); // Por si usa ViewTransitions
+  </script>
+</Layout>

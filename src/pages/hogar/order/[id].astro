@@ -1,0 +1,188 @@
+---
+export const prerender = false;
+
+import ShopLayout from '~/layouts/ShopLayout.astro';
+import { medusaClient } from '~/lib/medusa';
+import { Icon } from 'astro-icon/components';
+import Logo from '~/components/Logo.astro';
+
+const { id } = Astro.params;
+
+let order;
+let error;
+
+try {
+  // En Medusa el endpoint para obtener una orden es store.order.retrieve
+  const result = await medusaClient.store.order.retrieve(id as string, {
+    fields: '*items,*shipping_address'
+  });
+  order = result.order;
+} catch (err) {
+  console.error("Error fetching order:", err);
+  error = err;
+}
+
+const formatter = new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' });
+---
+<ShopLayout metadata={{title: `Orden Confirmada ${order ? '#' + (order.display_id || '') : ''}`}}>
+  <!-- Wrapper con imagen de fondo -->
+  <div class="relative min-h-[85vh] py-16 px-4 bg-[#f8f9fa] bg-[url('/images/backgrounds/productos-background-page.png')] bg-cover bg-center">
+    
+    <!-- Capa sutil de legibilidad -->
+    <div class="absolute inset-0 bg-white/40 backdrop-blur-[2px]"></div>
+
+    <!-- Onda Roja de Fondo (SVG) que corta el Ticket -->
+    <div class="absolute top-0 left-0 w-full overflow-hidden leading-none z-0 drop-shadow-xl pointer-events-none">
+       <svg class="relative block w-[calc(110%+1.3px)] h-[150px] md:h-[250px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+           <defs>
+               <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                   <stop offset="0%" stop-color="#15803d" />
+                   <stop offset="100%" stop-color="#22c55e" />
+               </linearGradient>
+           </defs>
+           <path d="M0,0V75C150,110 350,90 600,60C850,30 1050,45 1200,75V0Z" fill="url(#waveGradient)"></path>
+       </svg>
+    </div>
+
+    <div class="max-w-5xl mx-auto relative z-10 flex items-center justify-center min-h-[70vh]">
+      {error || !order ? (
+       <div class="text-center bg-red-50 p-10 rounded-3xl border border-red-100 mt-10">
+         <Icon name="tabler:alert-circle" class="w-16 h-16 text-red-500 mx-auto mb-4" />
+         <h1 class="text-2xl font-black text-gray-900 mb-2">Orden no encontrada</h1>
+         <p class="text-gray-500">Lo sentimos, no pudimos cargar los detalles de tu orden. Verifica el enlace o contacta soporte.</p>
+         <a href="/hogar" class="inline-block mt-6 px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-colors">Volver a la tienda</a>
+       </div>
+     ) : (
+       <div class="relative bg-white shadow-2xl rounded-2xl w-full flex flex-col md:flex-row mx-auto overflow-hidden transform transition-all border border-gray-100">
+         
+         <!-- Lado Izquierdo: Ticket Stub -->
+         <div class="w-full md:w-5/12 bg-green-50/50 p-6 md:p-10 flex flex-col items-center justify-center border-b-2 md:border-b-0 md:border-r-2 border-dashed border-gray-300 relative">
+            <div class="mb-6 scale-75 md:scale-90">
+               <Logo />
+            </div>
+            <div class="w-16 h-16 bg-green-100 shadow-inner rounded-full flex items-center justify-center mb-4 ring-4 ring-green-50">
+               <Icon name="tabler:check" class="w-8 h-8 text-green-500" />
+            </div>
+            <h1 class="text-2xl font-black text-gray-900 mb-2 text-center tracking-tight">¡Orden Confirmada!</h1>
+            <p class="text-sm text-center text-gray-500 max-w-[250px] leading-snug">Gracias por tu compra. Nos contactaremos a <br/><span class="font-bold text-gray-900">{order.email}</span></p>
+
+            <!-- Marcas de corte del ticket (desktop) -->
+            <div class="hidden md:block absolute -right-4 top-[-16px] w-8 h-8 rounded-full shadow-inner bg-[url('/images/backgrounds/productos-background-page.png')] bg-cover"></div>
+            <div class="hidden md:block absolute -right-4 bottom-[-16px] w-8 h-8 rounded-full shadow-inner bg-[url('/images/backgrounds/productos-background-page.png')] bg-cover"></div>
+         </div>
+
+         <!-- Lado Derecho: Recibo Detalles -->
+         <div class="w-full md:w-7/12 bg-white p-6 md:p-8 relative flex flex-col justify-between">
+             
+             <!-- Totales Hero -->
+             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 pb-4 border-b border-gray-100 gap-4">
+                 <div>
+                   <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Nº Comprobante</p>
+                   <p class="text-xl font-black text-gray-900 font-mono tracking-tighter">#{order.display_id || order.id.split('_')[1].slice(-6).toUpperCase()}</p>
+                 </div>
+                 <div class="text-left md:text-right">
+                   <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Total Pagado</p>
+                   <p class="text-3xl font-black text-primary leading-none">{formatter.format(order.total || 0)}</p>
+                 </div>
+             </div>
+
+             <!-- Grid Detalles (Ahora arriba) -->
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 pb-6 border-b border-gray-100">
+                 <!-- Resumen Financiero -->
+                 <div class="space-y-3">
+                     <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
+                       <Icon name="tabler:receipt" class="w-4 h-4 text-gray-400" />
+                       Resumen
+                     </h3>
+                     <div class="flex justify-between text-xs text-gray-500 border-b border-gray-50 pb-1.5">
+                       <span>Subtotal</span>
+                       <span class="font-medium text-gray-900">{formatter.format(order.item_total || 0)}</span>
+                     </div>
+                     <div class="flex justify-between text-xs text-gray-500 border-b border-gray-50 pb-1.5">
+                       <span>Envío</span>
+                       <span class="font-medium text-gray-900">{formatter.format(order.shipping_total || 0)}</span>
+                     </div>
+                     <div class="flex justify-between text-xs text-gray-500 font-bold">
+                       <span>Impuestos</span>
+                       <span class="font-medium text-gray-900">{formatter.format(order.tax_total || 0)}</span>
+                     </div>
+                 </div>
+                 
+                 <!-- Dirección de Envío -->
+                 {order.shipping_address && (
+                   <div>
+                     <h3 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
+                       <Icon name="tabler:map-pin" class="w-4 h-4 text-gray-400" />
+                       Envío
+                     </h3>
+                     <div class="text-xs text-gray-500 leading-relaxed bg-gray-50 p-3 rounded-lg border border-gray-100 shadow-sm">
+                       <p class="font-bold text-gray-900 mb-0.5">{order.shipping_address.first_name} {order.shipping_address.last_name}</p>
+                       <p>{order.shipping_address.address_1} {order.shipping_address.address_2 || ''}</p>
+                       <p>{order.shipping_address.city}, {order.shipping_address.province}</p>
+                       <p class="mt-1 text-gray-400 font-mono tracking-tighter truncate" title={order.id}>Ref: {order.id}</p>
+                     </div>
+                   </div>
+                 )}
+             </div>
+
+             <!-- Items Comprados (Ahora abajo) -->
+             {order.items && order.items.length > 0 && (
+               <div class="flex-grow">
+                  <h3 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Artículos ({order.items.length})</h3>
+                  <div class="flex flex-wrap items-center gap-3">
+                     {order.items.slice(0, 3).map((item) => (
+                       <div class="relative group" title={item.title}>
+                         <div class="w-12 h-12 rounded-lg bg-gray-50 border border-gray-200 overflow-hidden shrink-0 shadow-sm transition-transform hover:-translate-y-1">
+                           {item.thumbnail ? (
+                             <img src={item.thumbnail} alt={item.title} class="w-full h-full object-cover" />
+                           ) : (
+                             <div class="w-full h-full flex items-center justify-center text-gray-300">
+                                <Icon name="tabler:photo" class="w-4 h-4" />
+                             </div>
+                           )}
+                         </div>
+                         <!-- Cantidad Badge -->
+                         <div class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-gray-900 text-white text-[9px] font-bold flex items-center justify-center rounded-full shadow-sm">
+                           {item.quantity}
+                         </div>
+                       </div>
+                     ))}
+                     
+                     {order.items.length > 3 && (
+                       <div class="w-12 h-12 rounded-lg bg-gray-50 border-2 border-dashed border-gray-300 flex items-center justify-center text-xs font-black text-gray-400 shrink-0 cursor-help transition-all hover:bg-gray-100 hover:border-gray-400 hover:text-gray-600" title="Revise su correo electrónico para ver el detalle completo de todos los ítems">
+                         +{order.items.length - 3}
+                       </div>
+                     )}
+                  </div>
+               </div>
+             )}
+
+             <!-- Botones de Acción -->
+             <div class="mt-8 pt-6 border-t border-gray-100 flex justify-between items-center flex-wrap gap-4">
+                 <a href={`/hogar/order/print/${order.id}`} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white border-2 border-gray-200 text-gray-700 text-xs font-bold rounded-xl hover:bg-gray-50 transition-colors">
+                    <Icon name="tabler:printer" class="w-4 h-4" />
+                    Descargar Recibo (PDF)
+                 </a>
+                 <a href="/hogar" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary/90 transition-all focus:ring-4 focus:ring-primary/20 shadow-lg hover:-translate-y-0.5 group">
+                   Volver a la tienda
+                   <Icon name="tabler:arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                 </a>
+             </div>
+         </div>
+       </div>
+    )}
+    </div>
+  </div>
+</ShopLayout>
+
+<script>
+  // Script para limpiar el carrito visual permanentemente luego del éxito
+  import { cartIdStore } from '~/store/client';
+  
+  document.addEventListener('astro:page-load', () => {
+    // Retraso de seguridad para que los renders estáticos no parpadeen
+    setTimeout(() => {
+       cartIdStore.set(undefined);
+    }, 100);
+  });
+</script>

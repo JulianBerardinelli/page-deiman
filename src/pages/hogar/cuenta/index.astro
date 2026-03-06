@@ -1,0 +1,144 @@
+---
+import ShopLayout from '~/layouts/ShopLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+export const prerender = false;
+---
+
+<ShopLayout metadata={{ title: 'Mi Cuenta | Deiman' }}>
+  <div class="min-h-[70vh] bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+     <div class="max-w-4xl mx-auto">
+        
+        <!-- Estado de Carga Inicial -->
+        <div id="auth-loading" class="flex flex-col items-center justify-center py-20">
+           <Icon name="tabler:loader-2" class="w-10 h-10 text-primary animate-spin mb-4" />
+           <p class="text-gray-500 font-medium animate-pulse">Cargando tu perfil...</p>
+        </div>
+
+        <!-- Contenido Protegido (Oculto hasta validar JWT) -->
+        <div id="protected-content" class="hidden opacity-0 transition-opacity duration-500">
+            <!-- Encabezado de la cuenta -->
+            <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-gray-100 mb-8 flex flex-col md:flex-row items-center justify-between gap-6">
+               <div class="flex items-center gap-6">
+                  <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary shrink-0">
+                     <Icon name="tabler:user" class="w-10 h-10" />
+                  </div>
+                  <div>
+                     <h1 class="text-3xl font-black text-gray-900" id="user-greeting">¡Hola!</h1>
+                     <p class="text-gray-500" id="user-email">Cargando email...</p>
+                  </div>
+               </div>
+               <button id="logout-btn" class="px-6 py-2.5 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-colors flex items-center gap-2">
+                 <Icon name="tabler:logout" class="w-4 h-4" />
+                 Cerrar Sesión
+               </button>
+            </div>
+
+            <!-- Navegación del Portal -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+               <!-- Tarjeta de Perfil (Activa) -->
+               <a href="/hogar/cuenta/perfil" class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:border-gray-300 hover:shadow-md transition-all group relative overflow-hidden">
+                  <div class="absolute top-0 right-0 w-24 h-24 bg-gray-50 rounded-bl-[100px] pointer-events-none group-hover:bg-primary/5 transition-colors"></div>
+                  <Icon name="tabler:id" class="w-8 h-8 text-gray-400 group-hover:text-primary transition-colors mb-4" />
+                  <h3 class="text-lg font-black text-gray-900 mb-2 flex items-center gap-2">
+                     Mis Datos
+                     <Icon name="tabler:pencil" class="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-primary" />
+                  </h3>
+                  <p class="text-sm text-gray-500 mb-6">Administra tu información personal y de contacto.</p>
+                  
+                  <div class="space-y-4">
+                     <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Nombre Completo</p>
+                        <p class="text-gray-900 font-medium group-hover:text-primary transition-colors" id="profile-name">-</p>
+                     </div>
+                     <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Teléfono</p>
+                        <p class="text-gray-900 font-medium group-hover:text-primary transition-colors" id="profile-phone">No registrado</p>
+                     </div>
+                  </div>
+               </a>
+
+               <!-- Tarjeta de Historial -->
+               <a href="/hogar/cuenta/ordenes" class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:border-gray-300 hover:shadow-md transition-all group relative overflow-hidden">
+                  <div class="absolute top-0 right-0 w-24 h-24 bg-gray-50 rounded-bl-[100px] pointer-events-none group-hover:bg-primary/5 transition-colors"></div>
+                  <Icon name="tabler:receipt" class="w-8 h-8 text-gray-400 group-hover:text-primary transition-colors mb-4" />
+                  <h3 class="text-lg font-black text-gray-900 mb-2 flex items-center gap-2">
+                     Mis Órdenes
+                     <Icon name="tabler:arrow-right" class="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-primary" />
+                  </h3>
+                  <p class="text-sm text-gray-500">Revisa el estado de tus compras y descarga tus recibos.</p>
+               </a>
+
+               <!-- Tarjeta de Direcciones -->
+               <a href="/hogar/cuenta/direcciones" class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:border-gray-300 hover:shadow-md transition-all group relative overflow-hidden">
+                  <div class="absolute top-0 right-0 w-24 h-24 bg-gray-50 rounded-bl-[100px] pointer-events-none group-hover:bg-primary/5 transition-colors"></div>
+                  <Icon name="tabler:map-pins" class="w-8 h-8 text-gray-400 group-hover:text-primary transition-colors mb-4" />
+                  <h3 class="text-lg font-black text-gray-900 mb-2 flex items-center gap-2">
+                     Mis Direcciones
+                     <Icon name="tabler:arrow-right" class="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-primary" />
+                  </h3>
+                  <p class="text-sm text-gray-500">Guarda locaciones frecuentes para acelerar tu compra.</p>
+               </a>
+            </div>
+        </div>
+
+     </div>
+  </div>
+</ShopLayout>
+
+<script>
+  import { getMe, logoutCustomer } from '~/lib/auth';
+
+  document.addEventListener('astro:page-load', async () => {
+      const loadingState = document.getElementById('auth-loading');
+      const protectedContent = document.getElementById('protected-content');
+      
+      // Selectors de Data
+      const userGreeting = document.getElementById('user-greeting');
+      const userEmail = document.getElementById('user-email');
+      const profileName = document.getElementById('profile-name');
+      const profilePhone = document.getElementById('profile-phone');
+      
+      const logoutBtn = document.getElementById('logout-btn');
+
+      if (!loadingState) return;
+
+      try {
+         // Validar si existe sesión en Medusa
+         const customer = await getMe();
+         
+         if (!customer) {
+            // No autorizado -> Expulsar a login
+            window.location.replace('/hogar/login');
+            return;
+         }
+
+         // Llenar vista con datos protegidos
+         if(userGreeting) userGreeting.textContent = `¡Hola, ${customer.first_name || 'Cliente'}!`;
+         if(userEmail) userEmail.textContent = customer.email;
+         if(profileName) profileName.textContent = `${customer.first_name || ''} ${customer.last_name || ''}`.trim() || '-';
+         if(profilePhone && customer.phone) profilePhone.textContent = customer.phone;
+
+         // Transición visual
+         loadingState.classList.add('hidden');
+         if(protectedContent) {
+           protectedContent.classList.remove('hidden');
+           // Trigger reflow antes de opacidad
+           void protectedContent.offsetWidth;
+           protectedContent.classList.remove('opacity-0');
+         }
+
+      } catch (err) {
+         console.error("Error validando sesión:", err);
+         window.location.replace('/hogar/login');
+      }
+
+      // Handler Logout
+      if(logoutBtn) {
+         logoutBtn.addEventListener('click', async () => {
+            await logoutCustomer();
+            window.location.href = '/hogar/login';
+         });
+      }
+  });
+</script>

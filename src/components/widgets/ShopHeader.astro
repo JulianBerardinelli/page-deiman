@@ -1,0 +1,209 @@
+---
+import { Icon } from 'astro-icon/components';
+import Logo from '~/components/Logo.astro';
+import Announcement from '~/components/widgets/Announcement.astro';
+
+
+
+interface Link {
+  text?: string;
+  href?: string;
+  ariaLabel?: string;
+  isHighlighted?: boolean;
+}
+
+interface MenuLink extends Link {
+  links?: Array<MenuLink>;
+}
+
+export interface Props {
+  id?: string;
+  links?: Array<MenuLink>;
+  subLinks?: Array<Link>;
+  isSticky?: boolean;
+  isDark?: boolean;
+}
+
+const {
+  id = 'shop-header',
+  links = [],
+  subLinks = [],
+  isSticky = false,
+  isDark = false,
+} = Astro.props;
+
+---
+
+<header
+  class:list={[
+    { sticky: isSticky, relative: !isSticky, dark: isDark },
+    'top-0 z-40 flex-none mx-auto w-full transition-[opacity] ease-in-out bg-white shadow-sm',
+  ]}
+  {...isSticky ? { 'data-aw-sticky-header': true } : {}}
+  {...id ? { id } : {}}
+>
+  <!-- 1. Top Announcement Bar -->
+  <Announcement />
+
+  <!-- 2. Main Navigation Bar -->
+  <div class="relative text-default py-3 px-3 md:px-6 mx-auto w-full max-w-7xl flex items-center justify-between">
+    
+    <!-- Lado Izquierdo: Logo Menu Movil -->
+    <div class="flex items-center gap-4">
+      <div class="flex items-center md:hidden">
+        <button type="button" class="text-gray-500 hover:text-gray-700 focus:outline-none" aria-label="Toggle Menu">
+          <Icon name="tabler:menu" class="w-6 h-6" />
+        </button>
+      </div>
+      <a class="flex items-center" href="/hogar">
+        <Logo />
+      </a>
+    </div>
+
+    <!-- Centro: Desktop Navigation (Strictly Centered) -->
+    <nav class="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2" aria-label="Shop navigation">
+      <ul class="flex space-x-6 text-sm font-semibold tracking-wide text-gray-700">
+        {links.map(({ text, href, isHighlighted }) => (
+          <li>
+            <a
+              class:list={[
+                'relative py-1 transition-colors duration-200 hover:text-primary group',
+                { 'font-bold text-primary': isHighlighted },
+              ]}
+              href={href}
+            >
+              {text}
+              <!-- Animación de subrayado de izquierda a derecha (solo al hacer hover) -->
+              <span class="absolute bottom-0 left-0 h-[2px] bg-primary transition-all duration-300 ease-in-out w-0 group-hover:w-full"></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Lado Derecho: Actions (Web Corp, Buscar, Perfil, Carrito) -->
+    <div class="flex items-center gap-5 text-gray-600">
+      
+      <!-- Volver a Web Corporativa Badge -->
+      <a 
+        href="/" 
+        class="hidden lg:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-gray-600 bg-gray-100/80 hover:bg-gray-200 border border-gray-200 rounded-full transition-colors duration-200"
+        aria-label="Volver a la Web Corporativa"
+      >
+        <Icon name="tabler:arrow-left" class="w-3.5 h-3.5" />
+        <span>Web Corporativa</span>
+      </a>
+
+      <!-- Search -->
+      <button aria-label="Buscar productos" class="hover:text-primary outline-none transition-transform duration-200 hover:scale-105 active:scale-95">
+        <Icon name="tabler:search" class="w-[22px] h-[22px]" />
+      </button>
+
+      <!-- User Profile (Auth State) -->
+      <div id="header-auth-container" class="hidden sm:flex items-center gap-2">
+         <!-- Skeleton loader o estado inicial -->
+         <div class="h-5 w-5 rounded-full border-2 border-gray-200 border-t-gray-400 animate-spin"></div>
+      </div>
+
+      <!-- Cart -->
+      <button id="open-cart-btn" aria-label="Ver Carrito" class="relative hover:text-primary outline-none transition-transform duration-200 hover:scale-105 active:scale-95 group">
+        <Icon name="tabler:shopping-cart" class="w-[22px] h-[22px]" />
+        <!-- Cart Counter Indicator -->
+        <span id="header-cart-count" class="absolute -top-1.5 -right-2 hidden h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white shadow-sm ring-2 ring-white group-hover:bg-primary/90 transition-colors">
+          0
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. Sub-Navigation Bar (Quick Links) -->
+  {subLinks.length > 0 && (
+    <div class="hidden md:block w-full border-t border-gray-100 bg-gray-100">
+      <div class="max-w-7xl mx-auto px-6 py-2 flex items-center justify-center gap-8 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+        {subLinks.map(({ text, href }) => (
+          <a href={href} class="hover:text-primary transition-colors duration-200">
+            {text}
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+</header>
+
+<script>
+  import { isCartOpenStore } from '~/store/client';
+
+  const setupHeaderCart = () => {
+    // Escuchar boton de abrir carrito
+    const openCartBtn = document.getElementById('open-cart-btn');
+    if (openCartBtn) {
+      openCartBtn.addEventListener('click', () => {
+        isCartOpenStore.set(true);
+      });
+    }
+
+    // Escuchar actualizacion de cantidad global
+    const cartCountEl = document.getElementById('header-cart-count');
+    
+    const updateCartCount = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      if (cartCountEl) {
+        const count = customEvent.detail.count;
+        cartCountEl.textContent = count.toString();
+        if (count > 0) {
+          cartCountEl.classList.remove('hidden');
+          cartCountEl.classList.add('flex');
+        } else {
+          cartCountEl.classList.add('hidden');
+          cartCountEl.classList.remove('flex');
+        }
+      }
+    };
+
+    document.addEventListener('cart:updated', updateCartCount);
+  };
+
+  import { getMe } from '~/lib/auth';
+
+  const setupHeaderAuth = async () => {
+    const authContainer = document.getElementById('header-auth-container');
+    if (!authContainer) return;
+
+    try {
+        const customer = await getMe();
+        
+        if (customer) {
+            // Usuario logueado
+            authContainer.innerHTML = `
+                <a href="/hogar/cuenta" class="flex items-center gap-1.5 hover:text-primary transition-colors duration-200 group">
+                    <svg class="w-[22px] h-[22px] transition-transform duration-200 group-hover:scale-105" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path></svg>
+                    <span class="text-xs font-bold truncate max-w-[100px] hidden md:block">${customer.first_name || 'Mi Perfil'}</span>
+                </a>
+            `;
+        } else {
+            // Usuario no logueado
+            authContainer.innerHTML = `
+                <div class="flex items-center gap-3 text-xs font-bold">
+                    <a href="/hogar/login" class="hover:text-primary transition-colors">Ingresar</a>
+                    <span class="text-gray-300">|</span>
+                    <a href="/hogar/register" class="hover:text-primary transition-colors">Crear Cuenta</a>
+                </div>
+            `;
+        }
+    } catch {
+        // En caso de error, mostrar login
+        authContainer.innerHTML = `
+            <div class="flex items-center gap-3 text-xs font-bold">
+                <a href="/hogar/login" class="hover:text-primary transition-colors">Ingresar</a>
+                <span class="text-gray-300">|</span>
+                <a href="/hogar/register" class="hover:text-primary transition-colors">Crear Cuenta</a>
+            </div>
+        `;
+    }
+  };
+
+  document.addEventListener('astro:page-load', () => {
+      setupHeaderCart();
+      setupHeaderAuth();
+  });
+</script>

@@ -102,3 +102,30 @@ export const footerData = {
     Desarollado por <a class="text-blue-600 font-bold underline dark:text-muted" href="https://julianberardinelli.com/"> Julián Berardinelli</a> · Todos los derechos reservados.
   `,
 };
+
+export const shopHeaderData = {
+  links: [
+    {
+      text: 'Catálogo',
+      href: '/hogar',
+    },
+    {
+      text: 'Sabores',
+      href: '/hogar/sabores',
+    },
+    {
+      text: 'Colores',
+      href: '/hogar/colores',
+    },
+    {
+      text: 'Sazonadores',
+      href: '/hogar/sazonadores',
+    },
+  ],
+  subLinks: [
+    { text: 'Nuevos Ingresos', href: '/hogar/nuevos' },
+    { text: 'Más Vendidos', href: '/hogar/topsoles' },
+    { text: 'Ofertas Especiales', href: '/hogar/ofertas' },
+    { text: 'Guía de Recetas', href: '/hogar/recetas' },
+  ],
+};

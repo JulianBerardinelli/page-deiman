@@ -1,0 +1,97 @@
+---
+import { Icon } from 'astro-icon/components';
+
+export interface Props {
+  product: {
+    id: string;
+    title: string;
+    handle: string;
+    description?: string;
+    thumbnail?: string | null;
+    variants?: Array<{
+      title: string;
+      calculated_price?: number; // Precio calculado desde la API de Medusa basado en la Región
+    }>;
+  };
+}
+
+const { product } = Astro.props;
+
+// Calculamos el precio base tomando la primera variante disponible.
+// Si no hay precio (ej. backend sin precios en B2C), mostramos "Consultar"
+const baseVariant = product.variants?.[0];
+const basePrice = baseVariant?.calculated_price 
+  ? new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(baseVariant.calculated_price)
+  : null;
+---
+
+<!-- 
+  Efecto Glassmorphism y UI vibrante/Premium
+  Enlace que cubre toda la tarjeta para navegar al PDP (Product Detail Page) 
+-->
+<a 
+  href={`/hogar/${product.handle}`} 
+  class="group relative flex flex-col overflow-hidden rounded-2xl bg-white/70 backdrop-blur-md border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,129,188,0.12)] transition-all duration-300 hover:-translate-y-1"
+>
+  <!-- Contenedor de Imagen (Aspect Ratio Cuadrado) con superposiciones -->
+  <div class="relative aspect-square w-full overflow-hidden bg-slate-100/50 p-4 flex items-center justify-center">
+    {product.thumbnail ? (
+      <img 
+        src={product.thumbnail} 
+        alt={product.title} 
+        class="h-full w-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110" 
+        loading="lazy" 
+      />
+    ) : (
+      <div class="flex flex-col items-center justify-center text-gray-400">
+        <Icon name="tabler:photo-x" class="w-12 h-12 mb-2 opacity-50" />
+        <span class="text-xs font-medium uppercase tracking-wider">Sin Imagen</span>
+      </div>
+    )}
+
+    <!-- Badge Superpuesto (Ejemplo: "Nuevo" o "Stock") -->
+    <div class="absolute top-3 left-3">
+      <span class="inline-flex items-center rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-primary shadow-sm ring-1 ring-black/5">
+        Stock
+      </span>
+    </div>
+
+    <!-- Quick-add Overlay (Aparece en hover) -->
+    <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+      <button class="w-full rounded-xl bg-primary/95 text-white py-2.5 text-sm font-bold shadow-lg backdrop-blur-md hover:bg-primary transition-colors flex items-center justify-center gap-2">
+        <Icon name="tabler:shopping-cart-plus" class="w-4 h-4" />
+        Ver Producto
+      </button>
+    </div>
+  </div>
+
+  <!-- Información del Producto (Cuerpo inferior) -->
+  <div class="flex flex-1 flex-col p-5 bg-gradient-to-b from-white/40 to-white/90">
+    <h3 class="font-bold text-gray-900 text-lg leading-tight line-clamp-2 mb-1 group-hover:text-primary transition-colors">
+      {product.title}
+    </h3>
+    
+    <p class="text-sm text-gray-500 line-clamp-2 mb-4 leading-relaxed flex-1">
+      {product.description || 'Sin descripción detallada.'}
+    </p>
+
+    <!-- Precios y Variantes -->
+    <div class="mt-auto flex items-end justify-between pt-4 border-t border-gray-100/80">
+      <div class="flex flex-col">
+        {product.variants && product.variants.length > 1 && (
+          <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">
+            {product.variants.length} Variantes
+          </span>
+        )}
+        <span class="text-lg font-black text-gray-900 tracking-tight">
+          {basePrice ? basePrice : <span class="text-base text-gray-500 font-medium">Precio no act.</span>}
+        </span>
+      </div>
+      
+      <!-- Icono decorativo de flecha (Se empuja en hover) -->
+      <div class="h-8 w-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+        <Icon name="tabler:arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+      </div>
+    </div>
+  </div>
+</a>

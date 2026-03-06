@@ -82,6 +82,9 @@ export default defineConfig({
   },
 
   vite: {
+    ssr: {
+      noExternal: ['@medusajs/js-sdk'],
+    },
     resolve: {
       alias: {
         '~': path.resolve(__dirname, './src'),

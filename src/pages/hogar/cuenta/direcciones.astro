@@ -1,0 +1,308 @@
+---
+export const prerender = false;
+
+import ShopLayout from '~/layouts/ShopLayout.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<ShopLayout metadata={{title: 'Mis Direcciones | Deiman'}}>
+  <div class="min-h-[70vh] bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+     <div class="max-w-4xl mx-auto">
+        
+        <!-- Headers -->
+        <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+           <div>
+               <a href="/hogar/cuenta" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-primary transition-colors mb-4">
+                 <Icon name="tabler:arrow-left" class="w-4 h-4 mr-1" />
+                 Volver al Panel
+               </a>
+               <h1 class="text-3xl font-black text-gray-900 tracking-tight">Mis Direcciones</h1>
+               <p class="text-gray-500 mt-2">Administra tus locaciones de envío para futuras compras.</p>
+           </div>
+           <button id="btn-open-modal" class="px-6 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all shadow-lg hover:-translate-y-0.5 whitespace-nowrap hidden flex-row items-center gap-2">
+               <Icon name="tabler:plus" class="w-4 h-4" />
+               Nueva Dirección
+           </button>
+        </div>
+
+        <!-- Skeleton Form Loader -->
+        <div id="loader" class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex items-center justify-center min-h-[300px]">
+           <Icon name="tabler:loader-2" class="w-8 h-8 text-primary animate-spin" />
+        </div>
+
+        <!-- Addresses Grid -->
+        <div id="addresses-grid" class="hidden grid-cols-1 md:grid-cols-2 gap-6 opacity-0 transition-opacity duration-500">
+           <!-- Cards will be injected here via JS -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="hidden bg-white/50 border-2 border-dashed border-gray-200 rounded-3xl p-12 flex-col items-center justify-center text-center">
+            <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                <Icon name="tabler:map-pin-off" class="w-10 h-10 text-gray-400" />
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">No tienes direcciones guardadas</h3>
+            <p class="text-gray-500 mb-6 max-w-sm">Agrega una dirección ahora para que tu proceso de Checkout sea mucho más rápido en tu próxima compra.</p>
+            <button id="btn-empty-add" class="px-6 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all flex items-center gap-2">
+               <Icon name="tabler:plus" class="w-4 h-4" />
+               Agregar mi primera dirección
+            </button>
+        </div>
+
+     </div>
+  </div>
+
+  <!-- Add New Address Modal -->
+  <div id="address-modal" class="fixed inset-0 z-50 bg-gray-900/50 backdrop-blur-sm hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+      <div class="bg-white rounded-3xl shadow-2xl w-full max-w-xl overflow-hidden flex flex-col max-h-[90vh]">
+          
+          <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+             <h3 class="text-xl font-black text-gray-900">Agregar Dirección</h3>
+             <button id="btn-close-modal" class="text-gray-400 hover:text-red-500 transition-colors bg-white w-8 h-8 rounded-full shadow-sm flex items-center justify-center border border-gray-200">
+                <Icon name="tabler:x" class="w-5 h-5" />
+             </button>
+          </div>
+
+          <div class="p-8 overflow-y-auto">
+              <form id="address-form" class="space-y-5">
+                  <div class="grid grid-cols-2 gap-5">
+                     <div>
+                         <label class="block text-xs font-bold text-gray-700 mb-1.5 uppercase tracking-wide">Nombre</label>
+                         <input id="f_name" required type="text" class="block w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors text-sm" placeholder="Ej. Juan" />
+                     </div>
+                     <div>
+                         <label class="block text-xs font-bold text-gray-700 mb-1.5 uppercase tracking-wide">Apellido</label>
+                         <input id="l_name" required type="text" class="block w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors text-sm" placeholder="Ej. Pérez" />
+                     </div>
+                  </div>
+
+                  <div>
+                     <label class="block text-xs font-bold text-gray-700 mb-1.5 uppercase tracking-wide">Dirección Exacta</label>
+                     <input id="address_1" required type="text" class="block w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors text-sm" placeholder="Calle, Número, Piso, Depto..." />
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-5">
+                     <div>
+                         <label class="block text-xs font-bold text-gray-700 mb-1.5 uppercase tracking-wide">Ciudad</label>
+                         <input id="city" required type="text" class="block w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors text-sm" placeholder="Ciudad o Localidad" />
+                     </div>
+                     <div>
+                         <label class="block text-xs font-bold text-gray-700 mb-1.5 uppercase tracking-wide">Provincia</label>
+                         <input id="province" required type="text" class="block w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors text-sm" placeholder="Ej. Buenos Aires" />
+                     </div>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-5">
+                     <div>
+                         <label class="block text-xs font-bold text-gray-700 mb-1.5 uppercase tracking-wide">Código Postal</label>
+                         <input id="postal_code" required type="text" class="block w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors text-sm" placeholder="Ej. 1425" />
+                     </div>
+                     <div>
+                         <label class="block text-xs font-bold text-gray-700 mb-1.5 uppercase tracking-wide">Teléfono de Contacto</label>
+                         <input id="phone" required type="tel" class="block w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors text-sm" placeholder="+54 11 ..." />
+                     </div>
+                  </div>
+
+                  <!-- Error message inside modal -->
+                  <div id="modal-error" style="display: none;" class="bg-red-50 text-red-600 p-3 rounded-lg text-xs font-bold border border-red-100 items-start gap-2">
+                     <Icon name="tabler:alert-circle" class="w-4 h-4 shrink-0" />
+                     <span id="modal-error-text">Verifique los datos.</span>
+                  </div>
+
+                  <div class="pt-4 border-t border-gray-100 flex justify-end gap-3 mt-4">
+                     <button type="button" id="btn-cancel" class="px-6 py-2.5 bg-gray-100 text-gray-700 font-bold text-sm rounded-xl hover:bg-gray-200 transition-colors">Cancelar</button>
+                     <button type="submit" id="btn-submit" class="px-6 py-2.5 bg-primary text-white font-bold text-sm rounded-xl hover:bg-primary/90 transition-all flex items-center justify-center relative min-w-[140px]">
+                        <span id="submit-text">Guardar</span>
+                        <Icon id="submit-spinner" name="tabler:loader-2" style="display: none;" class="w-4 h-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-spin" />
+                     </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</ShopLayout>
+
+<script>
+    import { getMe, addCustomerAddress, deleteCustomerAddress } from '~/lib/auth';
+
+    document.addEventListener('astro:page-load', async () => {
+        const loader = document.getElementById('loader');
+        const grid = document.getElementById('addresses-grid');
+        const emptyState = document.getElementById('empty-state');
+        const btnOpenModal = document.getElementById('btn-open-modal');
+        const btnEmptyAdd = document.getElementById('btn-empty-add');
+        
+        const modal = document.getElementById('address-modal');
+        const btnCloseModal = document.getElementById('btn-close-modal');
+        const btnCancel = document.getElementById('btn-cancel');
+        const addressForm = document.getElementById('address-form') as HTMLFormElement;
+
+        const modalError = document.getElementById('modal-error');
+        const modalErrorText = document.getElementById('modal-error-text');
+        
+        const btnSubmit = document.getElementById('btn-submit') as HTMLButtonElement;
+        const submitText = document.getElementById('submit-text');
+        const submitSpinner = document.getElementById('submit-spinner');
+
+        let customerAddresses: Record<string, unknown>[] = [];
+
+        // DOM Manipulations for Modal
+        const openModal = () => {
+            if(!modal) return;
+            modal.style.display = 'flex';
+            // force reflow
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modal.classList.add('opacity-100');
+        };
+
+        const closeModal = () => {
+            if(!modal) return;
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                if(addressForm) addressForm.reset();
+                if(modalError) modalError.style.display = 'none';
+            }, 300);
+        };
+
+        if(btnOpenModal) btnOpenModal.addEventListener('click', openModal);
+        if(btnEmptyAdd) btnEmptyAdd.addEventListener('click', openModal);
+        if(btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
+        if(btnCancel) btnCancel.addEventListener('click', closeModal);
+
+        // Fetch Addresses
+        const loadAddresses = async () => {
+           try {
+               const customer = await getMe();
+               if (!customer) {
+                   window.location.replace('/hogar/login');
+                   return;
+               }
+
+               customerAddresses = customer.addresses || [];
+               renderAddresses();
+           } catch(err) {
+               console.error("Error validando", err);
+           }
+        };
+
+        const renderAddresses = () => {
+            if(!loader || !grid || !emptyState || !btnOpenModal) return;
+            
+            loader.style.display = 'none';
+
+            if (customerAddresses.length === 0) {
+                grid.style.display = 'none';
+                emptyState.style.display = 'flex';
+                btnOpenModal.style.display = 'none';
+            } else {
+                emptyState.style.display = 'none';
+                grid.style.display = 'grid';
+                btnOpenModal.style.display = 'flex';
+                
+                // Construct cards
+                grid.innerHTML = customerAddresses.map((addr) => `
+                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-200 relative group overflow-hidden transition-all hover:border-gray-300 hover:shadow-md">
+                       <div class="absolute top-0 right-0 w-24 h-24 bg-gray-50 rounded-bl-[100px] pointer-events-none group-hover:bg-red-50 transition-colors"></div>
+                       
+                       <div class="mb-4">
+                           <h4 class="text-sm font-black text-gray-900 mb-1 flex items-center gap-2">
+                               <svg class="w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path><path d="M17.657 16.657L13.414 20.9a2 2 0 0 1 -2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z"></path></svg>
+                               ${addr.first_name} ${addr.last_name}
+                           </h4>
+                           <p class="text-sm text-gray-500 font-medium">${addr.address_1} ${addr.address_2 || ''}</p>
+                           <p class="text-xs text-gray-400 mt-1">${addr.city}, ${addr.province} - CP: ${addr.postal_code}</p>
+                           <p class="text-xs text-gray-400 mt-1 font-mono">Tel: ${addr.phone}</p>
+                       </div>
+                       
+                       <div class="pt-4 border-t border-gray-100 flex justify-end">
+                           <button data-id="${addr.id}" class="delete-address-btn text-xs font-bold text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+                              Eliminar
+                           </button>
+                       </div>
+                    </div>
+                `).join('');
+
+                // Add delete listeners
+                document.querySelectorAll('.delete-address-btn').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const target = e.currentTarget as HTMLButtonElement;
+                        const id = target.getAttribute('data-id');
+                        if(!id) return;
+                        
+                        const originalHtml = target.innerHTML;
+                        target.innerHTML = 'Eliminando...';
+                        target.disabled = true;
+
+                        try {
+                            await deleteCustomerAddress(id);
+                            // Reload
+                            customerAddresses = customerAddresses.filter(a => a.id !== id);
+                            renderAddresses();
+                        } catch(err) {
+                            console.error("No se pudo eliminar", err);
+                            target.innerHTML = originalHtml;
+                            target.disabled = false;
+                        }
+                    });
+                });
+
+                void grid.offsetWidth;
+                grid.classList.remove('opacity-0');
+            }
+        };
+
+        loadAddresses();
+
+        // Form Submit
+        if(addressForm) {
+            addressForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                if(modalError) modalError.style.display = 'none';
+                
+                const data = {
+                    first_name: (document.getElementById('f_name') as HTMLInputElement).value,
+                    last_name: (document.getElementById('l_name') as HTMLInputElement).value,
+                    phone: (document.getElementById('phone') as HTMLInputElement).value,
+                    address_1: (document.getElementById('address_1') as HTMLInputElement).value,
+                    city: (document.getElementById('city') as HTMLInputElement).value,
+                    province: (document.getElementById('province') as HTMLInputElement).value,
+                    postal_code: (document.getElementById('postal_code') as HTMLInputElement).value,
+                    country_code: 'ar' // Harcoded AR for Medusa
+                };
+
+                btnSubmit.disabled = true;
+                btnSubmit.classList.add('opacity-70');
+                if(submitText) submitText.style.opacity = '0';
+                if(submitSpinner) submitSpinner.style.display = 'block';
+
+                try {
+                    await addCustomerAddress(data);
+                    
+                    // Medusa might return updated addresses array inside customer object or a single address.
+                    // We simply reload the data from server to be 100% consistent with remote DB.
+                    const updatedCustomer = await getMe();
+                    if(updatedCustomer) {
+                        customerAddresses = updatedCustomer.addresses || [];
+                        renderAddresses();
+                    }
+
+                    closeModal();
+                } catch(err: unknown) {
+                    console.error("Error guardando", err);
+                    if(modalError && modalErrorText) {
+                        modalErrorText.textContent = "Ocurrió un error guardando tu dirección.";
+                        modalError.style.display = 'flex';
+                    }
+                } finally {
+                    btnSubmit.disabled = false;
+                    btnSubmit.classList.remove('opacity-70');
+                    if(submitText) submitText.style.opacity = '1';
+                    if(submitSpinner) submitSpinner.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>

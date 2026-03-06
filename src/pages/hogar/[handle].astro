@@ -1,0 +1,349 @@
+---
+import ShopLayout from '~/layouts/ShopLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { medusaClient } from '~/lib/medusa';
+import FindUs from '~/components/widgets/FindUs.astro';
+import SupportOverview from '~/components/widgets/SupportOverview.astro';
+
+// Al estar en modo estático en Astro, necesitamos indicarle qué rutas generar precompilando
+export async function getStaticPaths() {
+  try {
+    // Fetcheamos todos los productos (hasta 100 para demo) para generar sus páginas
+    const { products } = await medusaClient.store.product.list({
+      limit: 100,
+      fields: '*variants,*images' // Asegurar que vengan variantes e imágenes
+    });
+
+    return products.map((product: { handle: string; [key: string]: unknown }) => ({
+      params: { handle: product.handle },
+      props: { product },
+    }));
+  } catch (error) {
+    console.error("Error obteniendo productos para rutas estáticas:", error);
+    return [];
+  }
+}
+
+const { product } = Astro.props;
+
+const metadata = {
+  title: `${product.title} | Hogar Deiman`,
+  description: product.description || `Comprar ${product.title} en Deiman.`,
+};
+
+// Obtenemos un precio base referencial
+const baseVariant = product.variants?.[0];
+const basePrice = baseVariant?.calculated_price 
+  ? new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(baseVariant.calculated_price)
+  : null;
+---
+
+<ShopLayout metadata={metadata}>
+  <section class="relative py-6 md:py-10 bg-slate-50 min-h-screen overflow-hidden">
+    <!-- Fondo Textura ("Alfombra") -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <img 
+        src="/images/backgrounds/productos-background-page.png" 
+        alt="Fondo Textura" 
+        class="w-full h-full object-cover" 
+      />
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
+      
+      <!-- Breadcrumbs -->
+      <nav class="flex text-xs text-gray-500 mb-6" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+            <a href="/hogar" class="inline-flex items-center hover:text-primary transition-colors">
+              <Icon name="tabler:home" class="w-4 h-4 mr-2" />
+              Catálogo
+            </a>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <Icon name="tabler:chevron-right" class="w-4 h-4 text-gray-400" />
+              <span class="ml-1 md:ml-2 text-gray-800 font-semibold line-clamp-1">{product.title}</span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Producto Contenedor Principal Glassmorphism -->
+      <div class="rounded-3xl bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 relative">
+          
+          <!-- Columna Galería Imagen (1x1, Ocupa todo el espacio, con Slider) - SOMBRA INTERNA INTENSIFICADA -->
+          <div class="lg:col-span-5 relative bg-white overflow-hidden aspect-square group shadow-[inset_0_10px_50px_rgba(0,0,0,0.15),inset_0_0_20px_rgba(0,0,0,0.08)] border-r border-gray-100/50">
+            
+            <!-- Carrusel Principal (Swipeable) -->
+            <div id="product-carousel" class="flex w-full h-full overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar">
+              {product.images && product.images.length > 0 ? (
+                product.images.map((img: { url: string }, index: number) => (
+                  <div class="min-w-full w-full h-full snap-start relative flex-shrink-0">
+                    <img 
+                      src={img.url} 
+                      alt={`${product.title} view ${index + 1}`} 
+                      class="w-full h-full object-cover" 
+                      loading={index === 0 ? "eager" : "lazy"}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div class="min-w-full w-full h-full snap-start relative flex-shrink-0">
+                  {product.thumbnail ? (
+                    <img src={product.thumbnail} alt={product.title} class="w-full h-full object-cover" loading="eager" />
+                  ) : (
+                    <div class="flex flex-col items-center justify-center w-full h-full text-gray-400">
+                      <Icon name="tabler:photo-x" class="w-16 h-16 mb-4 opacity-50" />
+                      <span class="font-medium tracking-wider uppercase text-sm">Sin imagen</span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            
+            <!-- Contenedor Flotante Estirado de Miniaturas (Glassy) Abajo con Animación Estilo iOS -->
+            {product.images && product.images.length > 1 && (
+              <div class="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:flex flex-row items-center gap-2 p-2 bg-white/50 backdrop-blur-lg rounded-2xl border border-white/70 shadow-[0_10px_30px_rgba(0,0,0,0.15)] z-20 max-w-[90%] overflow-x-auto no-scrollbar transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] transform scale-[0.65] opacity-60 translate-y-4 group-hover:scale-100 group-hover:opacity-100 group-hover:translate-y-0 origin-bottom">
+                {product.images.map((img: { url: string }, i: number) => (
+                  <button 
+                    data-index={i}
+                    aria-label={`Ver imagen ${i + 1}`}
+                    class="thumbnail-btn w-12 h-12 md:w-14 md:h-14 rounded-xl overflow-hidden border-2 transition-all duration-300 bg-white/80 border-transparent opacity-60 hover:opacity-100 hover:border-white hover:scale-[1.05] shadow-sm flex-shrink-0"
+                  >
+                    <img src={img.url} alt="Thumbnail view" class="w-full h-full object-cover" loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <!-- Controles de Flechas Sutiles (Aparecen en Hover) -->
+            {product.images && product.images.length > 1 && (
+              <>
+                <button id="carousel-prev" aria-label="Imagen anterior" class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center text-primary drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] transition-all z-10 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 hover:scale-110">
+                  <Icon name="tabler:chevron-left" class="w-10 h-10" />
+                </button>
+                <button id="carousel-next" aria-label="Imagen siguiente" class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center text-primary drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] transition-all z-10 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 hover:scale-110">
+                  <Icon name="tabler:chevron-right" class="w-10 h-10" />
+                </button>
+              </>
+            )}
+
+            <!-- Badges -->
+            <div class="absolute top-4 right-4 z-20">
+              <span class="inline-flex items-center rounded-full bg-white/90 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-primary shadow-sm ring-1 ring-black/5">
+                En Stock
+              </span>
+            </div>
+          </div>
+
+          <!-- Columna Información (Derecha - Limpia y Clara) -->
+          <div class="lg:col-span-7 p-6 lg:p-10 xl:pr-12 xl:pl-10 flex flex-col bg-white">
+            
+            <!-- Título y Descripción -->
+            <div class="mb-5">
+              <h1 class="text-xl md:text-2xl font-extrabold text-gray-900 tracking-tight mb-2">
+                {product.title}
+              </h1>
+              <p class="text-sm text-gray-600 leading-relaxed">
+                {product.description || 'Este producto no cuenta con una descripción detallada provista por el catálogo en este momento.'}
+              </p>
+            </div>
+
+            <!-- Precios -->
+            <div class="mb-5 p-4 rounded-xl bg-slate-50 border border-gray-100 shadow-sm flex flex-col items-start lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Precio Unitario</p>
+                <div class="flex items-baseline gap-3">
+                  <span class="text-2xl font-black text-gray-900 tracking-tight">
+                    {basePrice ? basePrice : '--'}
+                  </span>
+                  {!basePrice && (
+                    <span class="text-xs font-medium text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">
+                      Consultar Precio
+                    </span>
+                  )}
+                </div>
+              </div>
+              <p class="text-[11px] text-gray-500 mt-2 lg:mt-0 flex items-center gap-1.5 max-w-[150px] text-left lg:text-right">
+                <Icon name="tabler:info-circle" class="w-4 h-4 flex-shrink-0" />
+                Los precios y stock están sujetos a la Región.
+              </p>
+            </div>
+
+            <!-- Variantes (Selector Teórico para UI) -->
+            {product.variants && product.variants.length > 0 && (
+              <div class="mb-6">
+                <h3 class="text-[10px] font-bold text-gray-900 uppercase tracking-widest mb-2">
+                  Opciones Disponibles
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                  {product.variants.map((variant: { title: string }, index: number) => (
+                    <button 
+                      class:list={[
+                        "px-4 py-2 rounded-xl border border-white/60 shadow-[inset_0_1px_5px_rgba(255,255,255,1),_0_2px_5px_rgba(0,0,0,0.02)] backdrop-blur-sm text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5",
+                        index === 0 
+                          ? "ring-2 ring-primary ring-offset-1 ring-offset-slate-50 bg-primary/5 text-primary shadow-primary/10" // Variante activa por defecto
+                          : "bg-white/40 text-gray-600 hover:bg-white/80 hover:shadow-[0_4px_10px_rgba(0,0,0,0.04)]"
+                      ]}
+                    >
+                      {variant.title}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <!-- Boton de Añadir al Carrito -->
+            <div class="mt-auto pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-gray-100">
+              <p class="text-[10px] text-gray-400 flex-1">
+                Añade el producto a tu carrito de compras.
+              </p>
+              <button 
+                id="add-to-cart-btn"
+                data-variant-id={baseVariant?.id || ''}
+                class="w-full sm:w-auto relative group inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white transition-all duration-300 hover:bg-primary/95 focus:outline-none focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-0.5 overflow-hidden disabled:opacity-70 disabled:pointer-events-none"
+              >
+                <!-- Efecto brillo hover -->
+                <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                
+                <Icon name="tabler:shopping-cart-plus" class="w-4 h-4" />
+                <span class="relative">Añadir al Carrito</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <FindUs />
+
+  <SupportOverview />
+
+</ShopLayout>
+
+<style>
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  /* Ocultar scrollbars nativas para el carrusel */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE y Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+</style>
+
+<script>
+  // Setup Carousel Logic para Astro ViewTransitions y carga local
+  const setupCarousel = () => {
+    const carousel = document.getElementById('product-carousel');
+    if (!carousel) return;
+    
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    const thumbnails = document.querySelectorAll('.thumbnail-btn');
+
+    // Función para actualizar estilos visuales de los thumbnails
+    const updateThumbnails = (activeIndex: number) => {
+      thumbnails.forEach((btn, i) => {
+        if (i === activeIndex) {
+          btn.classList.add('border-primary', 'opacity-100');
+          btn.classList.remove('border-transparent', 'opacity-60');
+        } else {
+          btn.classList.remove('border-primary', 'opacity-100');
+          btn.classList.add('border-transparent', 'opacity-60');
+        }
+      });
+    };
+
+    // Listeners flechas físicas (con loop infinito)
+    const slideCount = thumbnails.length;
+    if (prevBtn && nextBtn && slideCount > 0) {
+      prevBtn.addEventListener('click', () => {
+        const currentIndex = Math.round(carousel.scrollLeft / carousel.clientWidth);
+        const prevIndex = currentIndex === 0 ? slideCount - 1 : currentIndex - 1;
+        carousel.scrollTo({ left: carousel.clientWidth * prevIndex, behavior: 'smooth' });
+      });
+      nextBtn.addEventListener('click', () => {
+        const currentIndex = Math.round(carousel.scrollLeft / carousel.clientWidth);
+        const nextIndex = currentIndex === slideCount - 1 ? 0 : currentIndex + 1;
+        carousel.scrollTo({ left: carousel.clientWidth * nextIndex, behavior: 'smooth' });
+      });
+    }
+
+    // Listeners clicks en thumbnails
+    thumbnails.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const index = parseInt(target.dataset.index || '0');
+        carousel.scrollTo({ left: carousel.clientWidth * index, behavior: 'smooth' });
+      });
+    });
+
+    // Detectar swipe o scroll para actualizar miniaturas en tiempo real
+    carousel.addEventListener('scroll', () => {
+      // Calculamos qué imagen está centrada en base al scroll base clientWidth
+      const activeIndex = Math.round(carousel.scrollLeft / carousel.clientWidth);
+      updateThumbnails(activeIndex);
+    }, { passive: true });
+
+    // Inicializar visual general
+    updateThumbnails(0);
+  };
+
+  // Setup interactivo de AddToCart
+  const setupAddToCart = () => {
+    const addToCartBtn = document.getElementById('add-to-cart-btn') as HTMLButtonElement | null;
+    if (!addToCartBtn) return;
+
+    addToCartBtn.addEventListener('click', async () => {
+      const variantId = addToCartBtn.dataset.variantId;
+      if (!variantId) {
+        alert('Este producto no tiene una variante válida para añadir.');
+        return;
+      }
+      
+      const originalHtml = addToCartBtn.innerHTML;
+      try {
+        addToCartBtn.disabled = true;
+        addToCartBtn.innerHTML = `
+          <span class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+          <span class="relative">Agregando...</span>
+        `;
+        
+        // Importación dinámica (solo la primera vez toma tiempo)
+        const { addToCart } = await import('~/lib/cart');
+        const { isCartOpenStore } = await import('~/store/client');
+
+        // 1. Abrimos el UI Drawer del carrito INMEDIATAMENTE
+        isCartOpenStore.set(true);
+
+        // 2. Disparamos la mutación (SideCart reaccionará automáticamente a cartDataStore)
+        await addToCart({ variantId, quantity: 1 });
+        
+      } catch (error) {
+        console.error("Error al añadir al carrito:", error);
+        alert('Hubo un error al añadir este producto.');
+      } finally {
+        addToCartBtn.disabled = false;
+        addToCartBtn.innerHTML = originalHtml;
+      }
+    });
+  };
+
+  // Se ejecuta en la carga inicial y en cada navegación de cliente de Astro
+  document.addEventListener('astro:page-load', () => {
+    setupCarousel();
+    setupAddToCart();
+  });
+</script>

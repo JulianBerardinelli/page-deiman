@@ -1,0 +1,200 @@
+---
+export const prerender = false;
+
+import ShopLayout from '~/layouts/ShopLayout.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<ShopLayout metadata={{title: 'Editar Perfil | Deiman'}}>
+  <div class="min-h-[70vh] bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+     <div class="max-w-2xl mx-auto">
+        
+        <!-- Headers -->
+        <div class="mb-8">
+           <a href="/hogar/cuenta" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-primary transition-colors mb-4">
+             <Icon name="tabler:arrow-left" class="w-4 h-4 mr-1" />
+             Volver al Panel
+           </a>
+           <h1 class="text-3xl font-black text-gray-900 tracking-tight">Mis Datos</h1>
+           <p class="text-gray-500 mt-2">Mantén tu información personal actualizada para agilizar tus compras.</p>
+        </div>
+
+        <!-- Skeleton Form Loader -->
+        <div id="form-loader" class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex items-center justify-center min-h-[300px]">
+           <Icon name="tabler:loader-2" class="w-8 h-8 text-primary animate-spin" />
+        </div>
+
+        <!-- Update Form Element -->
+        <form id="profile-form" class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hidden opacity-0 transition-opacity duration-500">
+           
+           <!-- Error Messages Container -->
+           <div id="error-container" style="display: none;" class="bg-red-50 text-red-600 p-4 rounded-xl mb-6 text-sm font-medium flex items-start gap-2 border border-red-100">
+             <Icon name="tabler:alert-circle" class="w-5 h-5 shrink-0" />
+             <span id="error-text">Ocurrió un error. Inténtalo de nuevo.</span>
+           </div>
+
+           <!-- Success Messages Container -->
+           <div id="success-container" style="display: none;" class="bg-green-50 text-green-600 p-4 rounded-xl mb-6 text-sm font-medium flex items-start gap-2 border border-green-100">
+             <Icon name="tabler:check" class="w-5 h-5 shrink-0" />
+             <span>Perfil actualizado con éxito. Redirigiendo...</span>
+           </div>
+
+           <div class="space-y-6">
+              
+              <!-- E-mail (Read Only, typically auth emails cannot be changed so easily without confirmation) -->
+              <div>
+                  <label class="block text-sm font-bold text-gray-700 mb-2">Correo Electrónico</label>
+                  <div class="relative">
+                      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Icon name="tabler:mail" class="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input id="email" type="email" disabled class="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" value="Cargando..." />
+                  </div>
+                  <p class="text-xs text-gray-400 mt-1.5 ml-1">Para cambiar tu correo, contacta a soporte.</p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <!-- First Name -->
+                 <div>
+                     <label for="first_name" class="block text-sm font-bold text-gray-700 mb-2">Nombre</label>
+                     <input id="first_name" name="first_name" type="text" class="block w-full px-4 py-3 border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" placeholder="Tu nombre" />
+                 </div>
+
+                 <!-- Last Name -->
+                 <div>
+                     <label for="last_name" class="block text-sm font-bold text-gray-700 mb-2">Apellido</label>
+                     <input id="last_name" name="last_name" type="text" class="block w-full px-4 py-3 border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" placeholder="Tu apellido" />
+                 </div>
+              </div>
+
+              <!-- Phone -->
+              <div>
+                  <label for="phone" class="block text-sm font-bold text-gray-700 mb-2">Teléfono / Celular</label>
+                  <div class="relative">
+                      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Icon name="tabler:phone" class="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input id="phone" name="phone" type="tel" class="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" placeholder="+54 11 1234 5678" />
+                  </div>
+              </div>
+
+           </div>
+
+           <!-- Submit Action -->
+           <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end">
+              <button id="submit-btn" type="submit" class="w-full md:w-auto px-8 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all focus:ring-4 focus:ring-primary/20 shadow-lg hover:-translate-y-0.5 whitespace-nowrap overflow-hidden relative">
+                 <span id="submit-text">Guardar Cambios</span>
+                 <Icon id="submit-spinner" name="tabler:loader-2" class="w-5 h-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-spin hidden" />
+              </button>
+           </div>
+        </form>
+
+     </div>
+  </div>
+</ShopLayout>
+
+<script>
+    import { getMe, updateCustomerProfile } from '~/lib/auth';
+
+    document.addEventListener('astro:page-load', async () => {
+        const formLoader = document.getElementById('form-loader');
+        const profileForm = document.getElementById('profile-form') as HTMLFormElement;
+        
+        const inputFirstName = document.getElementById('first_name') as HTMLInputElement;
+        const inputLastName = document.getElementById('last_name') as HTMLInputElement;
+        const inputPhone = document.getElementById('phone') as HTMLInputElement;
+        const disabledEmail = document.getElementById('email') as HTMLInputElement;
+
+        const errorContainer = document.getElementById('error-container');
+        const errorText = document.getElementById('error-text');
+        const successContainer = document.getElementById('success-container');
+        
+        const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+        const submitText = document.getElementById('submit-text');
+        const submitSpinner = document.getElementById('submit-spinner');
+
+        if (!profileForm) return;
+
+        try {
+            // Validate and Fetch original data
+            const customer = await getMe();
+            
+            if (!customer) {
+                window.location.replace('/hogar/login');
+                return;
+            }
+
+            // Populate Form Fields
+            if(disabledEmail) disabledEmail.value = customer.email;
+            if(inputFirstName) inputFirstName.value = customer.first_name || '';
+            if(inputLastName) inputLastName.value = customer.last_name || '';
+            if(inputPhone) inputPhone.value = customer.phone || '';
+
+            // Transition: Hide Loader, Show Form
+            if(formLoader) formLoader.classList.add('hidden');
+            profileForm.classList.remove('hidden');
+            void profileForm.offsetWidth; // trigger reflow
+            profileForm.classList.remove('opacity-0');
+
+        } catch (error) {
+            console.error("Auth routing err", error);
+            window.location.replace('/hogar/login');
+        }
+
+        // Form Submission
+        profileForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Clean prev statuses
+            if(errorContainer) errorContainer.classList.add('hidden');
+            if(successContainer) successContainer.classList.add('hidden');
+
+            const first_name = inputFirstName.value.trim();
+            const last_name = inputLastName.value.trim();
+            const phone = inputPhone.value.trim();
+
+            if (!first_name) {
+                if(errorContainer && errorText) {
+                    errorText.textContent = "El nombre es obligatorio.";
+                    errorContainer.classList.remove('hidden');
+                }
+                return;
+            }
+
+            // Button Loading State
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+            if(submitText) submitText.classList.add('opacity-0');
+            if(submitSpinner) submitSpinner.classList.remove('hidden');
+
+            try {
+                // Execute Update Wrapper
+                await updateCustomerProfile({
+                    first_name,
+                    last_name,
+                    phone
+                });
+
+                // Success
+                if(successContainer) successContainer.classList.remove('hidden');
+
+                // Redirect effectively
+                setTimeout(() => {
+                    window.location.href = '/hogar/cuenta';
+                }, 1500);
+
+            } catch (err: unknown) {
+                console.error("Error salvando perfil", err);
+                if(errorContainer && errorText) {
+                    errorText.textContent = "Ocurrió un error guardando el perfil. Chequeá tu conexión.";
+                    errorContainer.classList.remove('hidden');
+                }
+                // Reset Button
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                if(submitText) submitText.classList.remove('opacity-0');
+                if(submitSpinner) submitSpinner.classList.add('hidden');
+            }
+        });
+    });
+</script>
