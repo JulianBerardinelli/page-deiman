@@ -244,28 +244,17 @@ const metadata = {
             <h2 class="text-lg font-bold text-gray-900">Método de Pago</h2>
           </div>
           
-          <form id="form-payment-method" class="hidden flex-col gap-4">
-             <div class="p-4 border border-primary bg-primary/5 rounded-xl">
-               <div class="flex items-center gap-3 mb-2">
-                 <input type="radio" name="payment_method" value="system" class="w-4 h-4 text-primary focus:ring-primary border-gray-300" checked readonly />
-                 <span class="block text-sm font-bold text-gray-900">Pago Manual / Transferencia (Prueba)</span>
-               </div>
-               <p class="text-xs text-gray-600 ml-7">Completa la orden para asegurar tus productos. Te contactaremos con los datos bancarios de Deiman para realizar el depósito o transferencia.</p>
-             </div>
-             
-             <button 
-               type="submit" 
-               class="w-full mt-4 relative inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-base font-bold text-white transition-all duration-300 hover:bg-primary/90 focus:outline-none focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/20 hover:shadow-primary/40"
-             >
-               Completar Orden Segura
-               <Icon name="tabler:shopping-cart-check" class="w-5 h-5" />
+          <div id="manual-payment-container" class="hidden mt-4 gap-4 flex-col">
+             <p class="text-sm text-gray-600">Estás a punto de confirmar tu orden. Nos pondremos en contacto contigo para coordinar el pago correspondiente y proceder con la entrega.</p>
+             <button id="btn-confirm-order" type="button" class="w-full sm:w-auto relative group inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-2.5 text-sm font-bold text-white transition-all duration-300 hover:bg-primary/95 focus:outline-none focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/20 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed">
+                Confirmar Orden
              </button>
-          </form>
+          </div>
 
           <!-- Capa de bloqueo durante la carga -->
           <div id="step-4-loading-overlay" class="absolute inset-0 bg-white/60 backdrop-blur-sm z-20 hidden flex-col items-center justify-center rounded-2xl gap-3 text-center">
             <span class="w-8 h-8 border-4 border-gray-900 border-t-transparent rounded-full animate-spin"></span>
-            <p class="text-sm font-bold text-gray-900 animate-pulse">Procesando orden segura...</p>
+            <p class="text-sm font-bold text-gray-900 animate-pulse">Procesando orden...</p>
           </div>
         </article>
 
@@ -820,6 +809,13 @@ const metadata = {
                  console.error("Error iniciando pago:", err);
              }
 
+             // Mostrar el botón manual
+             const manualPaymentContainer = document.getElementById('manual-payment-container');
+             if (manualPaymentContainer) {
+                 manualPaymentContainer.classList.remove('hidden');
+                 manualPaymentContainer.classList.add('flex');
+             }
+
              playSuccessSound();
              window.setActiveStep(4);
           } catch (err) {
@@ -833,46 +829,44 @@ const metadata = {
        });
     }
 
-    // Paso 4: Pago (Initiate Session on display & submit)
-    const paymentForm = document.getElementById('form-payment-method') as HTMLFormElement;
-    
-    if (paymentForm) {
-       // Setup payment sessions on load if shipping exists
+    // Paso 4: Pago (Manual Confirmation)
+    const confirmBtn = document.getElementById('btn-confirm-order');
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', async () => {
+            const loadingOverlay = document.getElementById('step-4-loading-overlay');
+            if (confirmBtn) (confirmBtn as HTMLButtonElement).disabled = true;
+            loadingOverlay?.classList.remove('hidden');
+            loadingOverlay?.classList.add('flex');
+
+            try {
+                // Instanciar la sesión de pago manual por defecto
+                await initiatePaymentSessions();
+                
+                const order = await completeCart();
+                if (order && order.id) {
+                    window.location.href = `/hogar/order/${order.id}`;
+                } else {
+                    throw new Error("No se pudo completar la orden.");
+                }
+            } catch (err: unknown) {
+                console.error("Error confirmando la orden:", err);
+                const errorMessage = err instanceof Error ? err.message : "Hubo un error procesando tu orden.";
+                alert(errorMessage);
+            } finally {
+                if (confirmBtn) (confirmBtn as HTMLButtonElement).disabled = false;
+                loadingOverlay?.classList.add('hidden');
+                loadingOverlay?.classList.remove('flex');
+            }
+        });
+    }
+
+    const manualPaymentContainer = document.getElementById('manual-payment-container');
+    if (manualPaymentContainer) {
+       // Si ya teníamos método de envíos cargados, mostrar botón de confirmar
        if (cart.shipping_methods && cart.shipping_methods.length > 0) {
-           try {
-               await initiatePaymentSessions();
-               console.log("Sesiones de pago instanciadas en carga.");
-           } catch (err) {
-               console.error("No se pudo iniciar sesiones de pago en background", err);
-           }
+           manualPaymentContainer.classList.remove('hidden');
+           manualPaymentContainer.classList.add('flex');
        }
-
-       paymentForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const p = paymentForm.querySelector('button');
-          if (p) p.disabled = true;
-
-          const loadingOverlay = document.getElementById('step-4-loading-overlay');
-          loadingOverlay?.classList.remove('hidden');
-          loadingOverlay?.classList.add('flex');
-
-          try {
-             // Fallback salvavidas por las dudas aseguramos sesion activa
-             await initiatePaymentSessions();
-             
-             const order = await completeCart();
-             if (order && order.id) {
-                // Redirigimos a la Order Success Page
-                window.location.href = `/hogar/order/${order.id}`;
-             }
-          } catch (err) {
-             console.error("Error completando la orden", err);
-             alert("Hubo un error procesando tu pago u orden.");
-             if (p) p.disabled = false;
-             loadingOverlay?.classList.add('hidden');
-             loadingOverlay?.classList.remove('flex');
-          }
-       });
     }
 
   };

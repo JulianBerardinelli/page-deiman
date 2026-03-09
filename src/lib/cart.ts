@@ -183,7 +183,7 @@ export const initiatePaymentSessions = async () => {
     if (!cart) throw new Error('No cart found');
 
     const { payment_collection } = await medusaClient.store.payment.initiatePaymentSession(cart, {
-      provider_id: "pp_system_default"
+      provider_id: "pp_system_default" // default manual payment
     });
     return payment_collection;
   } catch (error) {
