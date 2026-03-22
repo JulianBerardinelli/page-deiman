@@ -1,9 +1,10 @@
 ---
 import Layout from '~/layouts/Layout.astro';
 import ShopHeader from '~/components/widgets/ShopHeader.astro';
-import Footer from '~/components/widgets/Footer.astro';
+import ShopFooter from '~/components/widgets/ShopFooter.astro';
 import SideCart from '~/components/hogar/SideCart.astro';
-import { shopHeaderData, footerData } from '~/navigation';
+import SearchModal from '~/components/hogar/SearchModal.astro';
+import { shopHeaderData, shopFooterData } from '~/navigation';
 
 import type { MetaData } from '~/types';
 
@@ -12,7 +13,9 @@ export interface Props {
 }
 
 const { metadata } = Astro.props;
-const isCheckout = Astro.url.pathname.includes('/checkout');
+const pathname = Astro.url.pathname;
+const isCheckout = pathname.includes('/checkout');
+const isTienda = pathname.startsWith('/hogar/tienda');
 ---
 
 <Layout metadata={metadata}>
@@ -20,17 +23,28 @@ const isCheckout = Astro.url.pathname.includes('/checkout');
     <ShopHeader {...shopHeaderData} isSticky />
   </slot>
 
-  <main class="min-h-screen bg-slate-50">
+  <main class="min-h-screen bg-slate-50 relative">    
+    {isTienda && 
+      <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-100">
+        <div class="absolute inset-0 w-full h-full bg-[url('/images/backgrounds/background-mappet.svg')] bg-[length:1920px_3115px] bg-repeat animate-slide-bg"></div>
+      </div>
+    }
+
     <!-- Aquí dentro vivirá toda la aplicación de E-Commerce -->
-    <slot />
+    <div class="relative z-10">
+      <slot />
+    </div>
   </main>
   
   <slot name="footer">
-    <Footer {...footerData} />
+    <ShopFooter {...shopFooterData} />
   </slot>
 
   <!-- SideCart Component Global -->
   {!isCheckout && <SideCart />}
+
+  <!-- Search Modal Component Global -->
+  {!isCheckout && <SearchModal />}
 
   <!-- Script que inicializa y re-evalúa silenciosamente la región del usuario -->
   <script>

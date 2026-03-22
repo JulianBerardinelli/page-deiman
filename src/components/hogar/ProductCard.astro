@@ -8,6 +8,7 @@ export interface Props {
     handle: string;
     description?: string;
     thumbnail?: string | null;
+    collection_id?: string | null;
     variants?: Array<{
       title: string;
       calculated_price?: number; // Precio calculado desde la API de Medusa basado en la Región
@@ -23,6 +24,21 @@ const baseVariant = product.variants?.[0];
 const basePrice = baseVariant?.calculated_price 
   ? new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(baseVariant.calculated_price)
   : null;
+
+// Heurística simple para determinar si es Polvo o Líquido basándonos en el título o texto
+const textToAnalyze = `${product.title} ${product.description || ''}`.toLowerCase();
+let productType = "otro";
+if (textToAnalyze.includes("polvo")) {
+  productType = "polvo";
+} else if (textToAnalyze.includes("líquido") || textToAnalyze.includes("liquido") || textToAnalyze.includes("esencia")) {
+  productType = "liquido";
+}
+
+// Extracción de la primera categoría para facilitar el filtro (Medusa retorna esto normalmente en categories[])
+interface BasicCategory { id: string; }
+const firstCategoryId = Array.isArray((product as Record<string, unknown>).categories) 
+  ? ((product as Record<string, unknown>).categories as BasicCategory[])[0]?.id 
+  : "none";
 ---
 
 <!-- 
@@ -31,7 +47,12 @@ const basePrice = baseVariant?.calculated_price
 -->
 <a 
   href={`/hogar/${product.handle}`} 
-  class="group relative flex flex-col overflow-hidden rounded-2xl bg-white/70 backdrop-blur-md border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,129,188,0.12)] transition-all duration-300 hover:-translate-y-1"
+  class="product-card group relative flex flex-col overflow-hidden rounded-2xl bg-white/70 backdrop-blur-md border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,129,188,0.12)] transition-all duration-300 hover:-translate-y-1"
+  data-price={baseVariant?.calculated_price || 0}
+  data-title={product.title}
+  data-type={productType}
+  data-category={firstCategoryId}
+  data-collection={product.collection_id || 'none'}
 >
   <!-- Contenedor de Imagen (Aspect Ratio Cuadrado) con superposiciones -->
   <div class="relative aspect-square w-full overflow-hidden bg-slate-100/50 p-4 flex items-center justify-center">

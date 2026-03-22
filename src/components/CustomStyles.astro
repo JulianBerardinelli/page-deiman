@@ -70,7 +70,23 @@
     animation-delay: 0.5s; /* Espera 500ms antes de comenzar */
   }
 
+  /* Animated Background Mappet SVG */
+  @keyframes slideBg {
+    from {
+      background-position: 0px 0px;
+    }
+    to {
+      /* Mueve exactamente 1 ciclo del SVG original para un loop 100% perfecto */
+      background-position: -1920px -3115px; 
+    }
+  }
 
+  .animate-slide-bg {
+    animation: slideBg 180s linear infinite;
+    will-change: background-position;
+  }
 
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Oi&family=Pacifico&display=swap" rel="stylesheet">

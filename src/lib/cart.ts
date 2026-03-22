@@ -2,7 +2,17 @@ import { medusaClient } from './medusa';
 import { cartIdStore, regionIdStore, cartDataStore } from '../store/client';
 
 export const getCart = async (forceFetch = false) => {
-  const cartId = cartIdStore.get();
+  const getCartId = () => {
+    let id = cartIdStore.get();
+    if (!id && typeof window !== 'undefined') {
+      id = localStorage.getItem('deiman_cart_id') || undefined;
+      // Nanostores persistent sometimes incorrectly saves literal "undefined" string
+      if (id === 'undefined') id = undefined;
+    }
+    return id;
+  }
+
+  const cartId = getCartId();
   if (!cartId) {
     cartDataStore.set(null);
     return null;
@@ -41,6 +51,9 @@ export const createCart = async () => {
     
     // Persistimos el ID en localstorage
     cartIdStore.set(cart.id);
+    if (typeof window !== 'undefined') {
+       localStorage.setItem('deiman_cart_id', cart.id);
+    }
     return cart;
   } catch (error) {
     console.error('Error creating cart:', error);
@@ -76,8 +89,8 @@ export const addToCart = async ({ variantId, quantity }: { variantId: string; qu
 };
 
 export const updateCartItem = async ({ lineId, quantity }: { lineId: string; quantity: number }) => {
-  const cartId = cartIdStore.get();
-  if (!cartId) throw new Error('No cart found');
+  const cartId = cartDataStore.get()?.id || cartIdStore.get() || (typeof window !== 'undefined' ? localStorage.getItem('deiman_cart_id') : undefined);
+  if (!cartId || cartId === 'undefined') throw new Error('No cart found');
 
   try {
     const { cart: updatedCart } = await medusaClient.store.cart.updateLineItem(cartId, lineId, {
@@ -95,8 +108,8 @@ export const updateCartItem = async ({ lineId, quantity }: { lineId: string; qua
 };
 
 export const removeCartItem = async (lineId: string) => {
-  const cartId = cartIdStore.get();
-  if (!cartId) throw new Error('No cart found');
+  const cartId = cartDataStore.get()?.id || cartIdStore.get() || (typeof window !== 'undefined' ? localStorage.getItem('deiman_cart_id') : undefined);
+  if (!cartId || cartId === 'undefined') throw new Error('No cart found');
 
   try {
     const { cart: updatedCart } = await medusaClient.store.cart.deleteLineItem(cartId, lineId, {
@@ -114,8 +127,8 @@ export const removeCartItem = async (lineId: string) => {
 // --- CHECKOUT API WRAPPERS ---
 
 export const updateCartEmail = async (email: string) => {
-  const cartId = cartIdStore.get();
-  if (!cartId) throw new Error('No cart found');
+  const cartId = cartDataStore.get()?.id || cartIdStore.get() || (typeof window !== 'undefined' ? localStorage.getItem('deiman_cart_id') : undefined);
+  if (!cartId || cartId === 'undefined') throw new Error('No cart found');
 
   try {
     const { cart: updatedCart } = await medusaClient.store.cart.update(cartId, {
@@ -132,8 +145,8 @@ export const updateCartEmail = async (email: string) => {
 };
 
 export const updateShippingAddress = async (address: Record<string, unknown>) => {
-  const cartId = cartIdStore.get();
-  if (!cartId) throw new Error('No cart found');
+  const cartId = cartDataStore.get()?.id || cartIdStore.get() || (typeof window !== 'undefined' ? localStorage.getItem('deiman_cart_id') : undefined);
+  if (!cartId || cartId === 'undefined') throw new Error('No cart found');
 
   try {
     const { cart: updatedCart } = await medusaClient.store.cart.update(cartId, {
@@ -150,8 +163,8 @@ export const updateShippingAddress = async (address: Record<string, unknown>) =>
 };
 
 export const getShippingOptions = async () => {
-  const cartId = cartIdStore.get();
-  if (!cartId) throw new Error('No cart found');
+  const cartId = cartDataStore.get()?.id || cartIdStore.get() || (typeof window !== 'undefined' ? localStorage.getItem('deiman_cart_id') : undefined);
+  if (!cartId || cartId === 'undefined') throw new Error('No cart found');
 
   try {
     const { shipping_options } = await medusaClient.store.fulfillment.listCartOptions({ cart_id: cartId });
@@ -163,8 +176,8 @@ export const getShippingOptions = async () => {
 };
 
 export const addShippingMethod = async (optionId: string) => {
-  const cartId = cartIdStore.get();
-  if (!cartId) throw new Error('No cart found');
+  const cartId = cartDataStore.get()?.id || cartIdStore.get() || (typeof window !== 'undefined' ? localStorage.getItem('deiman_cart_id') : undefined);
+  if (!cartId || cartId === 'undefined') throw new Error('No cart found');
 
   try {
     const { cart: updatedCart } = await medusaClient.store.cart.addShippingMethod(cartId, {
@@ -193,8 +206,8 @@ export const initiatePaymentSessions = async () => {
 };
 
 export const completeCart = async () => {
-  const cartId = cartIdStore.get();
-  if (!cartId) throw new Error('No cart found');
+  const cartId = cartDataStore.get()?.id || cartIdStore.get() || (typeof window !== 'undefined' ? localStorage.getItem('deiman_cart_id') : undefined);
+  if (!cartId || cartId === 'undefined') throw new Error('No cart found');
 
   try {
     const { type, order, cart, error } = await medusaClient.store.cart.complete(cartId);

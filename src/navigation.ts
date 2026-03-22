@@ -106,20 +106,24 @@ export const footerData = {
 export const shopHeaderData = {
   links: [
     {
-      text: 'Catálogo',
-      href: '/hogar',
+      text: 'Shop',
+      href: '/hogar/tienda',
+      icon: 'tabler:building-store',
     },
     {
-      text: 'Sabores',
-      href: '/hogar/sabores',
+      text: 'Esencias',
+      href: '/hogar/categorias/esencias',
+      icon: 'tabler:droplet',
     },
     {
       text: 'Colores',
-      href: '/hogar/colores',
+      href: '/hogar/categorias/colores',
+      icon: 'tabler:palette',
     },
     {
       text: 'Sazonadores',
-      href: '/hogar/sazonadores',
+      href: '/hogar/categorias/sazonadores',
+      icon: 'tabler:salt',
     },
   ],
   subLinks: [
@@ -128,4 +132,56 @@ export const shopHeaderData = {
     { text: 'Ofertas Especiales', href: '/hogar/ofertas' },
     { text: 'Guía de Recetas', href: '/hogar/recetas' },
   ],
+};
+
+export const shopFooterData = {
+  links: [
+    {
+      title: 'Categorías',
+      links: [
+        { text: 'Esencias', href: '/hogar/categorias/esencias' },
+        { text: 'Colores', href: '/hogar/categorias/colores' },
+        { text: 'Sazonadores', href: '/hogar/categorias/sazonadores' },
+      ],
+    },
+    {
+      title: 'Atención al Cliente',
+      links: [
+        { text: 'Contacto', href: '/contact' },
+        { text: 'Preguntas Frecuentes', href: '/hogar/faq' },
+        { text: 'Envíos y Entregas', href: '/hogar/envios' },
+        { text: 'Políticas de Devolución', href: '/hogar/devoluciones' },
+      ],
+    },
+    {
+      title: 'Nosotros',
+      links: [
+        { text: 'Nuestra Historia', href: '/about' },
+        { text: 'Trabaja con nosotros', href: '/careers' },
+        { text: 'Blog Institucional', href: '/blog' },
+      ],
+    },
+  ],
+  secondaryLinks: [
+    { text: 'Términos y condiciones', href: '/terms' },
+    { text: 'Políticas de privacidad', href: '/privacy' },
+  ],
+  socialLinks: [
+    {
+      ariaLabel: 'Instagram',
+      icon: 'tabler:brand-instagram',
+      href: 'https://www.instagram.com/deiman.arg',
+      target: '_blank',
+    },
+    {
+      ariaLabel: 'Facebook',
+      icon: 'tabler:brand-facebook',
+      href: '#',
+      target: '_blank',
+    },
+  ],
+  footNote: `
+    <img class="w-5 md:w-6  md:-mt-0.5 bg-cover mr-1.5 rtl:mr-0 rtl:ml-1.5 float-left rtl:float-right rounded-sm" src="https://www.julianberardinelli.com/logos/logo.png" alt="onWidget logo" loading="lazy"></img>
+    Desarrollado por <a class="text-blue-600 font-bold underline dark:text-muted" href="https://julianberardinelli.com/"> Julián Berardinelli</a> · Todos los derechos reservados.
+  `,
 };

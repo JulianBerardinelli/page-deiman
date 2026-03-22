@@ -1,0 +1,219 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div id="search-modal" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+  <!-- Overlay -->
+  <div id="search-overlay" class="absolute inset-0 bg-gray-900/40 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+
+  <!-- Modal content -->
+  <div id="search-content" class="absolute inset-x-0 top-0 mx-auto max-w-3xl transform bg-white p-4 sm:p-6 shadow-2xl transition-all duration-300 -translate-y-full opacity-0 sm:rounded-b-2xl">
+    
+    <!-- Header: Input and Close Button -->
+    <div class="flex items-center gap-4 border-b border-gray-100 pb-4">
+      <div class="relative flex-1">
+        <Icon name="tabler:search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+        <input 
+          type="text" 
+          id="search-input" 
+          placeholder="Buscar esencias, colores, sazonadores..." 
+          class="w-full bg-gray-50 border-none rounded-xl pl-12 pr-4 py-3 text-sm md:text-base font-medium text-gray-900 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-colors"
+          autocomplete="off"
+        />
+        <!-- Loading Spinner inside input -->
+        <div id="search-spinner" class="absolute right-4 top-1/2 -translate-y-1/2 hidden">
+          <div class="h-4 w-4 rounded-full border-2 border-gray-200 border-t-primary animate-spin"></div>
+        </div>
+      </div>
+      <button id="close-search" class="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors flex-shrink-0">
+        <Icon name="tabler:x" class="w-6 h-6" />
+      </button>
+    </div>
+
+    <!-- Results Area -->
+    <div class="mt-4 max-h-[60vh] overflow-y-auto">
+      <!-- Default State (no query) -->
+      <div id="search-default" class="py-12 text-center text-gray-500">
+        <Icon name="tabler:search" class="w-12 h-12 mx-auto text-gray-300 mb-3" />
+        <p class="text-sm">Escribe algo para empezar a buscar</p>
+        <div class="mt-6 flex flex-wrap justify-center gap-2 max-w-md mx-auto">
+          <span class="text-xs font-semibold px-3 py-1 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition-colors quick-search">Vainilla</span>
+          <span class="text-xs font-semibold px-3 py-1 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition-colors quick-search">Cacao</span>
+          <span class="text-xs font-semibold px-3 py-1 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition-colors quick-search">Colorante</span>
+        </div>
+      </div>
+
+      <!-- No Results State -->
+      <div id="search-empty" class="hidden py-12 text-center text-gray-500">
+        <Icon name="tabler:file-x" class="w-12 h-12 mx-auto text-gray-300 mb-3" />
+        <p class="text-sm">No encontramos resultados para "<span id="search-query-display" class="font-bold text-gray-900"></span>"</p>
+      </div>
+
+      <!-- Results Grid -->
+      <ul id="search-results-list" class="hidden grid-cols-1 md:grid-cols-2 gap-2 pb-4">
+        <!-- Generado dinámicamente -->
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  import { medusaClient } from '~/lib/medusa';
+
+  document.addEventListener('astro:page-load', () => {
+    const modal = document.getElementById('search-modal');
+    const overlay = document.getElementById('search-overlay');
+    const content = document.getElementById('search-content');
+    const input = document.getElementById('search-input') as HTMLInputElement;
+    const closeBtn = document.getElementById('close-search');
+    const openBtns = document.querySelectorAll('.open-search-btn'); // Debe haber botones con esta clase
+    
+    const defaultState = document.getElementById('search-default');
+    const emptyState = document.getElementById('search-empty');
+    const resultsList = document.getElementById('search-results-list');
+    const spinner = document.getElementById('search-spinner');
+    const queryDisplay = document.getElementById('search-query-display');
+
+    if (!modal || !input) return;
+
+    let debounceTimer: NodeJS.Timeout;
+
+    // Open Search
+    const openSearch = () => {
+      modal.classList.remove('hidden');
+      // Trigger animations
+      requestAnimationFrame(() => {
+        overlay?.classList.replace('opacity-0', 'opacity-100');
+        content?.classList.replace('-translate-y-full', 'translate-y-0');
+        content?.classList.replace('opacity-0', 'opacity-100');
+      });
+      input.focus();
+      document.body.style.overflow = 'hidden'; // Evitar scroll de fondo
+    };
+
+    // Close Search
+    const closeSearch = () => {
+      overlay?.classList.replace('opacity-100', 'opacity-0');
+      content?.classList.replace('translate-y-0', '-translate-y-full');
+      content?.classList.replace('opacity-100', 'opacity-0');
+      
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }, 300); // Wait for transition
+    };
+
+    openBtns.forEach(btn => btn.addEventListener('click', openSearch));
+    closeBtn?.addEventListener('click', closeSearch);
+    overlay?.addEventListener('click', closeSearch);
+
+    // Escape para cerrar
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeSearch();
+      }
+    });
+
+    // Render Results helper
+    const renderResults = (products: Record<string, unknown>[]) => {
+      if (!resultsList || !defaultState || !emptyState || !queryDisplay) return;
+
+      if (products.length === 0) {
+        resultsList.classList.add('hidden');
+        resultsList.classList.remove('grid');
+        defaultState.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        if(queryDisplay) queryDisplay.textContent = input.value;
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      defaultState.classList.add('hidden');
+      resultsList.classList.add('grid');
+      resultsList.classList.remove('hidden');
+
+      resultsList.innerHTML = products.map(product => {
+        const price = product.variants?.[0]?.calculated_price;
+        const formattedPrice = price 
+          ? new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(price)
+          : 'Consultar';
+
+        const image = product.thumbnail || 'https://via.placeholder.com/80?text=No+Image';
+
+        return `
+          <li>
+            <a href="/hogar/${product.handle}" class="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 transition-colors group">
+              <div class="h-16 w-16 flex-shrink-0 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center p-1 border border-gray-100 group-hover:border-primary/20 transition-colors">
+                <img src="${image}" alt="${product.title}" class="h-full w-full object-contain mix-blend-multiply" />
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-sm font-bold text-gray-900 truncate group-hover:text-primary transition-colors">${product.title}</h4>
+                <p class="text-xs text-gray-500 truncate mt-0.5">${product.description || ''}</p>
+                <div class="text-sm font-black text-gray-900 mt-1">${formattedPrice}</div>
+              </div>
+              <div class="text-gray-300 group-hover:text-primary transition-colors px-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0"></path><path d="M13 18l6 -6"></path><path d="M13 6l6 6"></path></svg>
+              </div>
+            </a>
+          </li>
+        `;
+      }).join('');
+    };
+
+    // Perform Search
+    const searchProducts = async (query: string) => {
+      if (!query.trim()) {
+        if(resultsList) resultsList.classList.add('hidden');
+        if(emptyState) emptyState.classList.add('hidden');
+        if(defaultState) defaultState.classList.remove('hidden');
+        return;
+      }
+
+      try {
+        if(spinner) spinner.classList.remove('hidden');
+        const { products } = await medusaClient.store.product.list({
+          q: query,
+          limit: 10,
+          fields: '*variants'
+        });
+        
+        renderResults(products);
+      } catch (error) {
+        console.error("Error buscando productos:", error);
+      } finally {
+        if(spinner) spinner.classList.add('hidden');
+      }
+    };
+
+    // Input listener (Debounced)
+    input.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement;
+      const query = target.value;
+
+      clearTimeout(debounceTimer);
+      
+      if (!query.trim()) {
+        // Reset immediately if empty
+        if(resultsList) resultsList.classList.add('hidden');
+        if(emptyState) emptyState.classList.add('hidden');
+        if(defaultState) defaultState.classList.remove('hidden');
+        return;
+      }
+
+      debounceTimer = setTimeout(() => {
+        searchProducts(query);
+      }, 400); // 400ms debounce
+    });
+
+    // Quick search pills
+    const quickSearchPills = document.querySelectorAll('.quick-search');
+    quickSearchPills.forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        const text = (e.target as HTMLElement).textContent || '';
+        input.value = text;
+        input.dispatchEvent(new Event('input')); // Trigger search
+      });
+    });
+  });
+</script>

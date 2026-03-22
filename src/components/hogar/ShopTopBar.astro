@@ -1,0 +1,40 @@
+---
+export interface Props {
+  resultsCount: number;
+}
+
+const { resultsCount } = Astro.props;
+---
+
+<!-- Top Action Bar -->
+<div class="mb-8 flex flex-col sm:flex-row items-center justify-between bg-white p-4 rounded-2xl border border-gray-100 shadow-sm gap-4">
+  <div class="w-full sm:w-auto">
+    <p class="text-sm text-gray-500 font-medium">
+      Mostrando <span id="results-count" class="font-bold text-gray-900 bg-gray-100 px-2 py-0.5 rounded">{resultsCount}</span> <span id="results-text">{resultsCount === 1 ? 'resultado' : 'resultados'}</span>
+    </p>
+  </div>
+  <div class="flex items-center gap-3 w-full sm:w-auto">
+    <span class="text-sm text-gray-500 font-medium hidden sm:inline whitespace-nowrap">Ordenar por:</span>
+    <select id="sort-select" class="w-full sm:w-auto text-sm border-gray-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 py-2.5 pl-4 pr-10 outline-none bg-slate-50 cursor-pointer font-semibold text-gray-800 transition-colors hover:bg-slate-100 border border-transparent hover:border-gray-200">
+      <option value="Recomendados">Recomendados</option>
+      <option value="A - Z">Alfabético: A - Z</option>
+      <option value="Z - A">Alfabético: Z - A</option>
+      <option value="Precio: Menor a Mayor">Precio: Menor a Mayor</option>
+      <option value="Precio: Mayor a Menor">Precio: Mayor a Menor</option>
+    </select>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.addEventListener("update-results-count", ((e: CustomEvent) => {
+      const countEl = document.getElementById("results-count");
+      const textEl = document.getElementById("results-text");
+      
+      if (countEl && textEl) {
+        countEl.textContent = String(e.detail);
+        textEl.textContent = e.detail === 1 ? 'resultado' : 'resultados';
+      }
+    }) as EventListener);
+  });
+</script>

@@ -1,0 +1,166 @@
+---
+import ShopLayout from '~/layouts/ShopLayout.astro';
+import ProductGrid from '~/components/hogar/ProductGrid.astro';
+import ShopSidebar from '~/components/hogar/ShopSidebar.astro';
+import ShopTopBar from '~/components/hogar/ShopTopBar.astro';
+import { Icon } from 'astro-icon/components';
+import { medusaClient } from '~/lib/medusa';
+
+interface MedusaCategory {
+  id: string;
+  name: string;
+  handle: string;
+  description?: string;
+  [key: string]: unknown;
+}
+
+interface MedusaProduct {
+  id: string;
+  title: string;
+  handle: string;
+  description?: string;
+  thumbnail?: string | null;
+  collection_id?: string | null;
+  images?: { url: string }[];
+  variants?: { title: string; calculated_price?: number; id: string }[];
+  [key: string]: unknown;
+}
+
+interface MedusaCollection {
+  id: string;
+  title: string;
+  handle: string;
+  [key: string]: unknown;
+}
+
+export async function getStaticPaths() {
+  try {
+    const { product_categories } = await medusaClient.store.category.list({ limit: 100 });
+    return product_categories.map((cat: MedusaCategory) => ({
+      params: { handle: cat.handle },
+      props: { category: cat },
+    }));
+  } catch (error) {
+    console.error("Error obteniendo categorias:", error);
+    return [];
+  }
+}
+
+const { category } = Astro.props;
+
+// Fetch ALL categories for the Sidebar
+let categories: MedusaCategory[] = [];
+let collections: MedusaCollection[] = [];
+try {
+  const { product_categories } = await medusaClient.store.category.list({ limit: 50 });
+  categories = product_categories;
+
+  const { collections: fetchedCollections } = await medusaClient.store.collection.list({ limit: 50 });
+  collections = fetchedCollections as MedusaCollection[];
+} catch (error) {
+  console.error("Error fetching categories or collections for sidebar:", error);
+}
+
+// Fetch products from MedusaJS API for this specific category
+let products: MedusaProduct[] = [];
+let fetchError: string | null = null;
+try {
+  const { products: fetchedProducts } = await medusaClient.store.product.list({
+    category_id: [category.id],
+    limit: 50,
+    fields: '*variants,*images'
+  });
+  products = fetchedProducts;
+} catch (error) {
+  console.error("Error fetching products for category:", error);
+  fetchError = "No se pudieron cargar los productos de esta categoría.";
+}
+
+const metadata = {
+  title: `${category.name} | Categoría Hogar Deiman`,
+  description: `Explora la categoría ${category.name} en Deiman. Sabores y colores para tus recetas.`,
+};
+---
+
+<ShopLayout metadata={metadata}>
+  <div class="relative z-10 w-full min-h-screen pb-24 overflow-hidden">
+    <!-- Animated SVG Background Pattern -->
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-100">
+      <div class="absolute inset-0 w-full h-full bg-[url('/images/backgrounds/background-mappet.svg')] bg-[length:1920px_3115px] bg-repeat animate-slide-bg"></div>
+    </div>
+
+    <!-- Header de Categoría -->
+    <section class="relative z-10 pt-12 pb-8 md:pt-20 md:pb-12 bg-white/90 backdrop-blur-md border-b border-gray-100 mb-8 md:mb-12 shadow-sm">
+      <!-- Background sutil -->
+      <div class="absolute inset-0 bg-slate-50 opacity-50 pointer-events-none"></div>
+      
+      <div class="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8 text-center md:text-left">
+        <!-- Breadcrumbs -->
+        <nav class="flex text-xs text-gray-500 mb-6 justify-center md:justify-start" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-2">
+            <li class="inline-flex items-center">
+              <a href="/hogar/tienda" class="inline-flex items-center hover:text-primary transition-colors font-medium">
+                Shop
+              </a>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <Icon name="tabler:chevron-right" class="w-3.5 h-3.5 text-gray-400 mx-1" />
+                <span>Categorías</span>
+              </div>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <Icon name="tabler:chevron-right" class="w-3.5 h-3.5 text-gray-400 mx-1" />
+                <span class="text-gray-900 font-bold">{category.name}</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 mb-4 drop-shadow-sm">
+              {category.name}
+            </h1>
+            <p class="text-gray-600 max-w-2xl text-base md:text-lg leading-relaxed font-medium">
+              Descubre todos los productos exclusivos de la línea {category.name}. Calidad y rendimiento superior garantizado en cada preparación.
+            </p>
+          </div>
+          <div class="hidden md:block">
+            <span class="inline-flex items-center justify-center px-4 py-2 bg-primary/10 text-primary font-bold rounded-xl text-sm border border-primary/20">
+              {products.length} {products.length === 1 ? 'Producto' : 'Productos'}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shop Main 2-Col Layout -->
+    <div class="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+        
+        <!-- Sidebar / Filters -->
+        <ShopSidebar categories={categories} collections={collections} currentCategoryHandle={category.handle} />
+
+        <!-- Products Grid Area -->
+        <div class="w-full lg:w-3/4">
+
+          <!-- Top Actions (Filtros Simples / Sort) Modular -->
+          <ShopTopBar resultsCount={products.length} />
+
+          <!-- Grid Modular -->
+          <ProductGrid 
+            products={products} 
+            fetchError={fetchError} 
+            emptyTitle="No hay productos aquí"
+            emptyDescription={`Actualmente no tenemos productos disponibles en la categoría "${category.name}". Vuelve más tarde o explora otras opciones.`}
+          />
+
+        </div>
+      </div>
+    </div>
+  </div>
+</ShopLayout>
+
+

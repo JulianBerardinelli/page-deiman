@@ -40,13 +40,9 @@ const basePrice = baseVariant?.calculated_price
 
 <ShopLayout metadata={metadata}>
   <section class="relative py-6 md:py-10 bg-slate-50 min-h-screen overflow-hidden">
-    <!-- Fondo Textura ("Alfombra") -->
-    <div class="absolute inset-0 z-0 pointer-events-none">
-      <img 
-        src="/images/backgrounds/productos-background-page.png" 
-        alt="Fondo Textura" 
-        class="w-full h-full object-cover" 
-      />
+    <!-- Animated SVG Background Pattern (Exact matching algorithm from Tienda) -->
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-100">
+      <div class="absolute inset-0 w-full h-full bg-[url('/images/backgrounds/background-mappet.svg')] bg-[length:1920px_3115px] bg-repeat animate-slide-bg"></div>
     </div>
 
     <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
@@ -55,9 +51,9 @@ const basePrice = baseVariant?.calculated_price
       <nav class="flex text-xs text-gray-500 mb-6" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
           <li class="inline-flex items-center">
-            <a href="/hogar" class="inline-flex items-center hover:text-primary transition-colors">
+            <a href="/hogar/tienda" class="inline-flex items-center hover:text-primary transition-colors">
               <Icon name="tabler:home" class="w-4 h-4 mr-2" />
-              Catálogo
+              Shop
             </a>
           </li>
           <li>
